@@ -47,7 +47,7 @@
         });
 
         // File upload
-        function handleFileSelect(event) {
+        var handleFileSelect = function (event) {
             if (window.File && window.FileList && window.FileReader) {
 
                 var files = event.target.files;

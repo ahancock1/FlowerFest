@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Scripts\admin.js" />
+    <None Remove="Scripts\hamburger.js" />
+    <None Remove="Scripts\site.js" />
     <None Remove="Styles\about.scss" />
     <None Remove="Styles\admin.scss" />
     <None Remove="Styles\belowthefold.scss" />
@@ -35,6 +38,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Scripts\admin.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Scripts\hamburger.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Scripts\site.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="Styles\about.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
