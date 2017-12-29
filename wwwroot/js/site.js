@@ -16,7 +16,9 @@
             // Removes the hidden website form field to fight spam
             setTimeout(function () {
                 var honeypot = document.querySelector("input[name=website]");
-                honeypot.parentNode.removeChild(honeypot);
+                if (honeypot) {
+                    honeypot.parentNode.removeChild(honeypot);
+                }
             }, 2000);
         }, false);
     }

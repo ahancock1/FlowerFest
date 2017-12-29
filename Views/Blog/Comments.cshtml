@@ -1,5 +1,10 @@
 ﻿@model Post
 @inject IOptionsSnapshot<BlogSettings> settings
+
+@section Head {
+    <link rel="stylesheet" href="/css/controls.scss" />
+}
+
 <section id="comments">
     <div class="col-sm-12">
 
@@ -48,35 +53,33 @@
             <form method="post" asp-controller="Blog" asp-action="AddComment" asp-route-postid="@Model.ID" asp-antiforgery="false">
                 <h3>Post a comment</h3>
                 <br />
-                <div>
+                <div class="details">
 
-                    <div class="row details">
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="control">
-                                <input class="form-control" id="author" name="author" autofocus placeholder="Name" required/>
+                                <input class="form-control" id="author" name="author" autofocus placeholder="Name" required />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="control">
-                                <input class="form-control" id="email" name="email" autofocus placeholder="Email" required/>
+                                <input class="form-control" id="email" name="email" autofocus placeholder="Email" required />
                             </div>
                         </div>
                     </div>
-                    
 
-                    @*<label for="author">Name</label>
-                    <input id="author" name="author" placeholder="Your name" required />
-                    <label for="email">E-mail</label>
-                    <input id="email" name="email" placeholder="Example: mary@outlook.com" required />*@
                     <br />
                     <!-- This element is being removed by site.js. It is to prevent comment spam-->
                     <input type="hidden" name="website" />
                 </div>
-
-                <label for="content">Comment</label>
-                <textarea id="content" name="content" rows="5" cols="100" onfocus="" required placeholder="Enter your comment here..."></textarea>
-                
-                <input type="submit" value="Post comment" />
+                <div class="row col-sm-12">
+                    <textarea id="content" name="content" rows="5" cols="100" onfocus="" required placeholder="Enter your comment here..."></textarea>
+                </div>
+                <div class="row justify-content-md-center">
+                    <div class="col-sm-2">
+                        <input type="submit" value="Post comment" />
+                    </div>
+                </div>
             </form>
 
             <noscript>
