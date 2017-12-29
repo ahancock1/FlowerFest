@@ -9,13 +9,21 @@ var concat = require('gulp-concat');
 var webroot = './wwwroot/';
 
 var inputs = {
+    hamburgers: './node_modules/hamburgers/dist/hamburgers.css',
     styles: './Styles/**/*.scss',
-    scripts: './Scripts/**/*.js'
+    scripts: './Scripts/**/*.js',
+    libs: [
+        './node_modules/jquery/dist/jquery.js',
+        './node_modules/bootstrap/dist/js/bootstrap.js'
+    ]
 };
 
 var outputs = {
     styles: webroot + 'css/**/*.css',
-    scripts: webroot + 'js/**/*.js'
+    scripts: webroot + 'js/**/*.js',
+    css: webroot + 'css',
+    js: webroot + 'js',
+    lib: webroot + 'lib'
 }
 
 var clean = function (path) {
@@ -25,19 +33,29 @@ var clean = function (path) {
 };
 
 var styles = function () {
+
+    gulp.src(inputs.hamburgers)
+        .pipe(gulp.dest(outputs.css));
+
     return gulp.src(inputs.styles)
         .pipe(sass())
-        .pipe(gulp.dest(webroot + 'css'));
+        .pipe(gulp.dest(outputs.css));
 }
 
 var scripts = function () {
     return gulp.src(inputs.scripts)
-        .pipe(gulp.dest(webroot + 'js'));
+        .pipe(gulp.dest(outputs.js));
+}
+
+var libs = function () {
+    return gulp.src(inputs.libs)
+        .pipe(gulp.dest(outputs.lib));
 }
 
 gulp.task('clean', function () {
     clean(outputs.scripts);
     clean(outputs.styles);
+    clean(outputs.lib);
 });
 
 gulp.task('styles', function () {
@@ -51,7 +69,13 @@ gulp.task('scripts', function () {
 gulp.task('build', function () {
     clean(outputs.scripts);
     clean(outputs.styles);
+    clean(outputs.lib);
 
     styles();
     scripts();
+    libs();
 })
+
+gulp.task("libs", function () {
+        libs();
+});
