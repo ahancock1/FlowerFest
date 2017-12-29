@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<post>
+  <title>The second post</title>
+  <slug>update-one</slug>
+  <pubDate>2017-12-19 14:10:43</pubDate>
+  <lastModified>2017-12-19 19:05:43</lastModified>
+  <excerpt>f</excerpt>
+  <content>&lt;p&gt;fffff&lt;/p&gt;</content>
+  <ispublished>true</ispublished>
+  <categories>
+    <category>f</category>
+  </categories>
+  <comments></comments>
+</post>

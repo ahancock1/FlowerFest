@@ -1,0 +1,112 @@
+﻿@inject IOptionsSnapshot<BlogSettings> settings
+@{
+    var host = Context.Request.Scheme + "://" + Context.Request.Host;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1" />
+    <meta name="description" content="@ViewData["Description"]" />
+
+    <link rel="stylesheet" href="~/lib/css-hamburgers/_sass/hamburgers/hamburgers.scss" inline />
+    @*<link rel="stylesheet" href="~/lib/components-font-awesome/css/font-awesome.css" inline />*@
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    </environment>
+
+    <link rel="stylesheet" href="~/css/site.scss" inline />
+    <link rel="stylesheet" href="~/css/header.scss" inline />
+
+    @RenderSection("Head", false)
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="@ViewData["Title"]" />
+    <meta property="og:description" content="@ViewData["Description"]" />
+    <meta property="og:url" content="@(host + Context.Request.Path)" />
+    <meta property="og:image" content="@host/img/icon180x180.png" />
+    <meta property="og:image:width" content="180" />
+    <meta property="og:image:height" content="180" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/icon16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="~/img/icon180x180.png" />
+    <link rel="shortcut icon" href="/img/icon16x16.png" />
+
+    <meta name="msapplication-square150x150logo" content="/img/icon180x180.png" />
+    <link rel="edituri" type="application/rsd+xml" title="RSD" href="~/rsd.xml" />
+    <link rel="alternate" type="application/rss+xml" href="~/feed/rss/" />
+    <link rel="alternate" type="application/atom+xml" href="~/feed/atom/" />
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+
+    @{
+        await Html.RenderPartialAsync("_Header");
+    }
+
+    <div class="container body-content" itemprop="mainEntity" itemscope itemtype="http://schema.org/Blog">
+        <noscript>
+            <p class="container">Some features of this website do not work as expected when JavaScript is disabled</p>
+        </noscript>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container">
+            <nav>
+                <ul>
+                    @{
+                        string path = Context.Request.Path;
+
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-controller="Blog" asp-action="Edit" asp-route-id="@null">New post</a></li>
+                            <li>
+                                <a href="~/logout/" title="Sign out as administrator">Sign out</a>
+                            </li>
+                        }
+                        @*else
+                        {
+                            <li>
+                                <a href="~/login/?returnUrl=@path" rel="nofollow" title="Sign in as administrator">Sign in</a>
+                            </li>
+                        }*@
+                    }
+                </ul>
+            </nav>
+
+            @*@{await Html.RenderPartialAsync("_SocialSharing", ViewData["Title"]);}*@
+
+            <!-- Copyright -->
+            @{
+                var year = DateTime.Now.Year.ToString();
+
+                <p>&copy; FlowerFest @year</p>
+            }
+
+        </div>
+    </footer>
+
+
+    <link rel="stylesheet" href="~/css/belowthefold.scss" inline />
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+    <script src="~/js/site.js" async defer></script>
+    <script src="~/js/hamburger.js" async defer></script>
+
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

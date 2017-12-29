@@ -1,0 +1,109 @@
+﻿@model Post
+@{
+    var isNew = string.IsNullOrEmpty(Model.Title);
+    ViewData["Title"] = "Edit " + (Model.Title ?? "new post");
+}
+
+@section Head{
+    <link rel="stylesheet" href="~/css/admin.scss"/>
+}
+
+<div id="edit">
+
+    <form method="post" asp-controller="Blog" asp-action="UpdatePost">
+
+        <input type="hidden" asp-for="@Model.ID"/>
+        
+        <!-- Title -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Title">Title</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Title" autofocus placeholder="The title as it appears on the website"/>
+                    <span class="text-danger" asp-validation-for="@Model.Title"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slug -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Slug">Slug</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Slug" autofocus placeholder="The part of the URL that identifies this blog post" />
+                    <span class="text-danger" asp-validation-for="@Model.Slug"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tags -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Categories">Tags</label>
+                <div class="control">
+                    <input class="form-control" type="text" name="categories" id="categories" value="@string.Join(", ", Model.Categories)" autofocus placeholder="A comma separated list of keywords" />
+                    <span class="text-danger" asp-validation-for="@Model.Categories"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Excerpt -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Excerpt">Excerpt</label>
+                <div class="control">
+                    <textarea class="form-control" asp-for="@Model.Excerpt" rows="3" autofocus placeholder="A brief description of the content of the post"></textarea>
+                    <span class="text-danger" asp-validation-for="@Model.Excerpt"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Content">Content</label>
+                <div class="control">
+                    <textarea class="form-control" asp-for="@Model.Content" rows="20" autofocus placeholder="A brief description of the content of the post"></textarea>
+                    <span class="text-danger" asp-validation-for="@Model.Content"></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Published -->
+        <div class="row">
+            <div class="col-md-12 actions">
+                <input asp-for="@Model.IsPublished" />
+                <label asp-for="@Model.IsPublished">Is published</label>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+
+            @if (isNew)
+            {
+                <div class="col-md-offset-4 col-md-4">
+                    <input class="actions submit" type="submit" value="Save"/>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-offset-2 col-md-4 ">
+                    <input class="actions submit delete" type="submit" value="Delete" asp-action="DeletePost" asp-route-id="@Model.ID"/>
+                </div>
+
+                <div class="col-md-4">
+                    <input class="actions submit" type="submit" value="Save"/>
+                </div>
+            }
+
+
+        </div>
+
+    </form>
+
+</div>
+@section Scripts {
+    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/js/admin.js" async></script>
+}

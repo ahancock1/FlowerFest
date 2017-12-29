@@ -1,0 +1,93 @@
+﻿@model Post
+@inject IOptionsSnapshot<BlogSettings> settings
+<section id="comments">
+    <div class="col-sm-12">
+
+        <h2>Comments</h2>
+
+        @foreach (var comment in Model.Comments)
+        {
+            <article id="@comment.ID" class="@(comment.IsAdmin ? "admin" : null)" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
+
+                <!-- Gravatar -->
+                <figure class="gravatar">
+                    <img alt="@comment.Author" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="@PostHelper.GetGravatar(comment)" />
+                </figure>
+
+                <!-- Content -->
+                <div class="row content">
+                    <div class="col-sm-6">
+                        <p class="name" itemprop="name">@comment.Author</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="pull-right">
+                            <time datetime="@comment.PublishedDate.ToString("s")" itemprop="datePublished">
+                                @comment.PublishedDate.ToString("MMMM d, yyyy")
+                            </time>
+                        </span>
+                    </div>
+                    <div class="col-sm-12">
+                        <p itemprop="text">@PostHelper.CompileContent(comment)</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="noline" href="mailto:@comment.Email" title="Send email to @comment.Email">&#x2709;</a>
+                            <a class="delete noline" asp-controller="Blog" asp-Action="DeleteComment" asp-route-postid="@Model.ID" asp-route-commentid="@comment.ID" asp-route-afrt="@ViewData["afrt"]" title="Delete the comment...">Delete...</a>
+                        }
+                    </div>
+                </div>
+
+            </article>
+        }
+        @if (PostHelper.AreCommentsOpen(Model, settings.Value.CommentsCloseAfterDays))
+        {
+            if (Model.Comments.Count == 0)
+            {
+                <p>Be the first to post a comment</p>
+            }
+
+            <form method="post" asp-controller="Blog" asp-action="AddComment" asp-route-postid="@Model.ID" asp-antiforgery="false">
+                <h3>Post a comment</h3>
+                <br />
+                <div>
+
+                    <div class="row details">
+                        <div class="col-md-6">
+                            <div class="control">
+                                <input class="form-control" id="author" name="author" autofocus placeholder="Name" required/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="control">
+                                <input class="form-control" id="email" name="email" autofocus placeholder="Email" required/>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    @*<label for="author">Name</label>
+                    <input id="author" name="author" placeholder="Your name" required />
+                    <label for="email">E-mail</label>
+                    <input id="email" name="email" placeholder="Example: mary@outlook.com" required />*@
+                    <br />
+                    <!-- This element is being removed by site.js. It is to prevent comment spam-->
+                    <input type="hidden" name="website" />
+                </div>
+
+                <label for="content">Comment</label>
+                <textarea id="content" name="content" rows="5" cols="100" onfocus="" required placeholder="Enter your comment here..."></textarea>
+                
+                <input type="submit" value="Post comment" />
+            </form>
+
+            <noscript>
+                <br />
+                <p>Enable JavaScript to post comments on this blog.</p>
+            </noscript>
+        }
+        else
+        {
+            <br />
+            <p>Comments are closed</p>
+        }
+    </div>
+</section>

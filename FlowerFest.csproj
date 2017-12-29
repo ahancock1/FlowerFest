@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Client\**" />
+    <Content Remove="Client\**" />
+    <EmbeddedResource Remove="Client\**" />
+    <None Remove="Client\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\RobotsController.cs" />
+    <Compile Remove="Services\MetaWeblogService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="webpack.config.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.ImageOptimizer" Version="1.0.0.38" />
+    <PackageReference Include="LigerShark.WebOptimizer.Core" Version="1.0.175-beta" />
+    <PackageReference Include="LigerShark.WebOptimizer.Sass" Version="1.0.33-beta" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
+    <PackageReference Include="WebEssentials.AspNetCore.CdnTagHelpers">
+      <Version>1.0.14</Version>
+    </PackageReference>
+    <PackageReference Include="WebEssentials.AspNetCore.OutputCaching">
+      <Version>1.0.15</Version>
+    </PackageReference>
+    <PackageReference Include="WebMarkupMin.AspNetCore2">
+      <Version>2.4.2</Version>
+    </PackageReference>
+    <PackageReference Include="WilderMinds.MetaWeblog" Version="1.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\admin.scss" />
+    <None Include="wwwroot\css\belowthefold.scss" />
+    <None Include="wwwroot\css\comments.scss" />
+    <None Include="wwwroot\css\login.scss" />
+    <None Include="wwwroot\css\_variables.scss" />
+    <None Include="wwwroot\img\avatar.svg" />
+    <None Include="wwwroot\img\logo.png" />
+    <None Include="wwwroot\js\admin.js" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <None Include="wwwroot\lib\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <None Include="wwwroot\lib\tinymce\tinymce.min.js" />
+  </ItemGroup>
+
+</Project>

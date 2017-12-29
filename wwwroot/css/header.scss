@@ -1,0 +1,46 @@
+﻿@import "variables";
+
+.navbar {
+    background-color: $navbar_color;
+}
+
+.navbar-toggle {
+    margin: auto;
+    height: $header_height;
+}
+
+.nav {
+    background-color: $navbar_color;
+    text-align: center;
+
+    a {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .navbar-brand {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        text-align: center;
+        margin: auto;
+        height: 100%;
+        float: none;
+    }
+}
+
+#header {
+
+    .navbar-header{
+        height: $header_height;
+    }
+
+    a {
+        font-size: 1.1em;
+        font-weight: 500;
+        color: $brand_color;
+        text-decoration: none;
+    }
+}

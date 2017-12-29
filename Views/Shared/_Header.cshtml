@@ -1,0 +1,48 @@
+﻿@section head {
+    <link rel="stylesheet" href="/css/header.scss" inline/>
+    <link rel="stylesheet" href="/css/hamburger.scss" inline/>
+    <link href="~/lib/css-hamburgers/dist/hamburgers.css" rel="stylesheet" inline/>
+}
+
+<nav class="navbar navbar navbar-fixed-top">
+    <div id="header" class="container">
+        <div class="navbar-header">
+
+            <!-- Brand -->
+            <div class="navbar-brand" href="#">
+                <a asp-controller="Home" asp-action="Index">FlowerFest</a>
+
+                @*<a href="~/" class="navbar-brand" itemprop="name">
+                        <img class="navbar-brand" src="~/img/logo.png" alt="Flower Fest Logo" />
+                    </a>*@
+            </div>
+
+            <!-- Navbar Toggle -->
+            <button id="hamburger" class="hamburger hamburger--collapse navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
+
+        </div>
+
+        <!-- Navigation -->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a asp-controller="Blog" asp-action="Index">News</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="About">About</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@section Scripts {
+    <script src="~/js/hamburger.js" async defer></script>
+}

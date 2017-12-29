@@ -1,0 +1,24 @@
+﻿@model AboutViewModel
+
+@section head {
+    <link rel="stylesheet" href="/css/about.scss" />
+}
+
+
+
+    <div id="about" class="container">
+
+        @{
+        foreach (var s in Model.Contents)
+        {
+            <div>
+                <p>@s.Content</p>
+            </div>
+    }
+        }
+
+            <div class=" row actions">
+                <input class=" submit col-md-4 col-md-offset-4" type="submit" value="Download Brochure" />
+            </div>
+
+    </div>

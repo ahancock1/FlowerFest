@@ -1,0 +1,178 @@
+﻿@import "variables";
+
+#contact {
+
+    .strong {
+        font-weight: 500;
+    }
+
+    .form-control {
+        border-radius: 0;
+    }
+
+    fieldset {
+        border: 0;
+    }
+
+    h2 {
+        font-weight: 300;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    input[type=text],
+    input[type=password] {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 3px 7px;
+        border: 1px solid gray;
+        font: inherit;
+    }
+
+    input[type=submit] {
+        margin-top: 10px;
+        padding: 3px 7px;
+        display: block;
+        font: inherit;
+        width: 100%;
+    }
+
+    .standard-control textarea {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 3px 7px;
+        border: 1px solid gray;
+        font: inherit;
+    }
+
+    .validation-summary-errors {
+        color: crimson;
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+    }
+
+    .actions {
+        margin: 15px 0;
+    }
+
+    .submit, .submit.text {
+        height: 42px;
+        font-size: 1.6em;
+        text-align: center;
+        text-decoration: none;
+        background-color: $brand_color;
+        border-radius: 4px;
+        border: none;
+        font-family: Arial;
+        font-weight: bold;
+        cursor: pointer;
+        color: #fff !important;
+        transition: all .3s;
+        display: block;
+    }
+
+    form .field-validation-error {
+        display: block;
+    }
+
+    form .field-validation-error span {
+        display: block;
+        margin-bottom: 10px;
+        color: #999;
+        font-size: 12px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+
+    .standard-control.medium input, .standard-control.medium select {
+        width: 210px;
+    }
+
+    .standard-control.small input, .standard-control.small select {
+        width: 140px;
+    }
+
+    .standard-control input,
+    .standard-control select,
+    .standard-control textarea,
+    .actions .submit {
+        margin: 0 0 10px;
+        box-sizing: border-box;
+        padding: 3px 7px;
+        color: #333;
+    }
+
+    .standard-control input:hover,
+    .standard-control input:focus,
+    .standard-control textarea:hover,
+    .standard-control textarea:focus,
+    .standard-control select:focus {
+        border-color: $brand_color;
+        box-shadow: none;
+    }
+
+    .standard-control {
+        margin-bottom: 0;
+        padding-top: 10px;
+    }
+
+    .standard-control input {
+        border: 2px solid #d4d4d4;
+        height: 42px;
+        box-shadow: none;
+    }
+
+    .standard-control textarea {
+        border: 2px solid #d4d4d4;
+        box-shadow: none;
+    }
+
+    .standard-control input.valid {
+        padding-right: 36px;
+        background-image: url("//dy3erx8o0a6nh.cloudfront.net/images/input-valid.18x14.png");
+        background-repeat: no-repeat;
+        background-size: 18px 14px;
+        background-position: 96% center;
+    }
+
+    .standard-control input.input-validation-error, .standard-control input:focus.input-validation-error {
+        border-color: #fd6b66;
+        padding-right: 36px;
+        background-image: url("//dy3erx8o0a6nh.cloudfront.net/images/input-error.18x15.png");
+        background-repeat: no-repeat;
+        background-size: 18px 15px;
+        background-position: 96% center;
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio:2) {
+        .validation-control input.input-validation-error {
+            background-image: url("//dy3erx8o0a6nh.cloudfront.net/images/input-error.32x30.png");
+            background-size: 18px 15px;
+        }
+    }
+
+    @media screen and (-webkit-min-device-pixel-ratio:2) {
+        .validation-control input.input-validation-error, .validation-control select.input-validation-error {
+            background-image: url("//dy3erx8o0a6nh.cloudfront.net/images/input-valid.32x28.png");
+            background-size: 18px 14px;
+        }
+    }
+
+    form .field-validation-error {
+        display: block;
+    }
+
+    form .field-validation-error span {
+        display: block;
+        margin-bottom: 10px;
+        color: #999;
+        font-size: 12px;
+        font-size: 1.2em;
+        text-align: center;
+    }
+}
