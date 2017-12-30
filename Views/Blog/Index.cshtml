@@ -4,82 +4,86 @@
     int currentPage = int.Parse(ViewContext.RouteData.Values["page"] as string ?? "0");
 }
 
-<div class="row">
-    <!-- Posts -->
-    <div class="col-md-9">
-        @foreach (var post in Model.Posts)
-        {
-            await Html.RenderPartialAsync("Post.cshtml", post);
-            <br />
-        }
-    </div>
+<div class="container">
 
-    <div class="col-md-3 sidebar">
-
-        <!-- Search -->
-        <div>
-
+    <div class="row">
+        <!-- Posts -->
+        <div class="col-md-9">
+            @foreach (var post in Model.Posts)
+            {
+                await Html.RenderPartialAsync("Post.cshtml", post);
+                <br />
+            }
         </div>
 
-        <!-- Recent Posts -->
-        @if (Model.RecentPosts.Any())
-        {
+        <div class="col-md-3 sidebar">
+
+            <!-- Search -->
             <div>
-                <h4>Recent Posts</h4>
-                <ul>
-                    @foreach (var recent in Model.RecentPosts)
-                    {
-                        <li>
-                            <a href="@recent.Link">@recent.Title</a>
-                        </li>
-                    }
-                </ul>
+
             </div>
-            <br />
-        }
 
-        <!-- Categories -->
-        @if (Model.Categories.Any())
-        {
-            <div>
-                <h4>Categories</h4>
-                <ul>
-                    @foreach (var category in Model.Categories)
-                    {
-                        <li>
-                            <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">@category</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        }
+            <!-- Recent Posts -->
+            @if (Model.RecentPosts.Any())
+            {
+                <div>
+                    <h4>Recent Posts</h4>
+                    <ul>
+                        @foreach (var recent in Model.RecentPosts)
+                        {
+                            <li>
+                                <a href="@recent.Link">@recent.Title</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <br />
+            }
 
+            <!-- Categories -->
+            @if (Model.Categories.Any())
+            {
+                <div>
+                    <h4>Categories</h4>
+                    <ul>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <li>
+                                <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">@category</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+
+        </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-md-9">
+    <div class="row">
+        <div class="col-md-9">
 
-        <!-- TODO - rework the style of this -->
-        <!-- Navigation -->
-        <nav class="pagination" aria-label="Pagination">
-            @if (Model.Posts.Any())
-            {
-                <a rel="prev" href="@ViewData["prev"]" title="Older posts">PREV</a>
-            }
-            @if (currentPage > 0)
-            {
-                <a rel="next" href="@ViewData["next"]" title="Newer posts">NEXT</a>
-            }
-            @if (Model.Posts.Any())
-            {
-                <link rel="prev" href="@ViewData["prev"]" />
-            }
-            @if (currentPage > 0)
-            {
-                <link rel="next" href="@ViewData["next"]" />
-            }
-        </nav>
+            <!-- TODO - rework the style of this -->
+            <!-- Navigation -->
+            <nav class="pagination" aria-label="Pagination">
+                @if (Model.Posts.Any())
+                {
+                    <a rel="prev" href="@ViewData["prev"]" title="Older posts">PREV</a>
+                }
+                @if (currentPage > 0)
+                {
+                    <a rel="next" href="@ViewData["next"]" title="Newer posts">NEXT</a>
+                }
+                @if (Model.Posts.Any())
+                {
+                    <link rel="prev" href="@ViewData["prev"]" />
+                }
+                @if (currentPage > 0)
+                {
+                    <link rel="next" href="@ViewData["next"]" />
+                }
+            </nav>
+        </div>
     </div>
+    @*@{await Html.RenderPartialAsync("_SocialSharing", ViewData["Title"]);}*@
+
 </div>
-@*@{await Html.RenderPartialAsync("_SocialSharing", ViewData["Title"]);}*@

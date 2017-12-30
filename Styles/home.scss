@@ -1,8 +1,22 @@
 ﻿@import "variables";
 
 #home {
-    width: 100%;
+    left: 0;
+    top: $header_height;
+    right: 0;
+    bottom: $footer_height;
     text-align: center;
+    position: fixed;
+    background: linear-gradient( 
+            rgba(255, 255, 255, 0.45), 
+            rgba(255, 255, 255, 0.45)
+        ),
+        url("../img/hero.jpg"),
+        no-repeat,
+        center,
+        center,
+        fixed;
+    background-size: cover;
 
     .body-content {
         position: relative;
