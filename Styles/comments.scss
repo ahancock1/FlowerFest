@@ -1,7 +1,7 @@
 ﻿@import "variables";
 
 #comments {
-    background: white;
+    background: $comments_bg_color;
     padding: 1.3em 0;
     word-wrap: break-word;
     -webkit-hyphens: auto;
@@ -48,7 +48,7 @@
     .gravatar {
         float: left;
         /*box-shadow: 5px 5px 5px $comments_border-color;*/
-        background: url("../img/avatar.svg?inline") no-repeat $comments_border-color;
+        background: url("../img/avatar.svg?inline") no-repeat $comments_border_color;
         background-size: cover;
         height: 60px;
         width: 60px;
@@ -63,7 +63,7 @@
     .content {
         margin-left: calc(60px);
         padding: 0 .4em;
-        background: white;
+        background: $comments_bg_color;
         /*border: 1px solid $comments_border-color;*/
         /*box-shadow: 5px 5px 5px $comments_border-color;*/
         p {

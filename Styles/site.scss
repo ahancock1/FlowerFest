@@ -22,17 +22,6 @@
     margin: auto;
 }
 
-/*.bottom {
-    top: $header_height;
-    bottom: $footer_height;
-    left: 0;
-    right: 0;
-    position: absolute;
-    width: 50%;
-    height: 0%;
-    margin: auto;
-}*/
-
 html {
     min-height: 100%;
     position: relative;
@@ -49,7 +38,6 @@ body {
     margin-bottom: $footer_height;
     color: $text_color;
     padding-top: $header_height;
-    padding-bottom: 20px;
 }
 
 @keyframes fade-in {
@@ -119,7 +107,7 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: $text_color;
+    background-color: $footer_bg_color;
     color: white;
     height: $footer_height;
     font-size: .9em;

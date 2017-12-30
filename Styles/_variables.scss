@@ -4,18 +4,20 @@ $header_height: 56px;
 $burger_width: 24px;
 $burger_height: 24px;
 
-$header_color: #eee;
+// background colors
+$header_bg_color: #eee;
+$comments_bg_color: #f1f1f1;
+$footer_bg_color: #000;
 
 $link_color: #0070be;
 $text_color: #222;
-$light-bg-color: #f7f7f7;
+$light_bg_color: #f7f7f7;
 
 $brand_color: #693F71;
 
-// Comments
-$comments_bg_color: #f1f1f1;
-$comments_border-color: #dfdfdf;
-$comments_input_border-color: #bbb;
+// comments
+$comments_border_color: #dfdfdf;
+$comments_input_border_color: #bbb;
 $comments_highlight_color: #ffec82;
 
 $hamburger_width: 30px;
