@@ -46,34 +46,45 @@
                 <p>Be the first to post a comment</p>
             }
 
-            <form method="post" asp-controller="Blog" asp-action="AddComment" asp-route-postid="@Model.ID" asp-antiforgery="false">
+            <form method="post" asp-controller="Blog" asp-action="AddComment" 
+                  asp-route-postid="@Model.ID" asp-antiforgery="false">
                 <h3>Post a comment</h3>
                 <br />
                 <div class="details">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="control">
-                                <input class="form-control" id="author" name="author" autofocus placeholder="Name" required />
+                    <fieldset>
+                        <div class="row">
+                            <div class="standard-control col-md-6">
+                                <div class="control">
+                                    <input class="form-control" id="author" name="author" required autofocus placeholder="Name" />
+                                    <span class="text-danger" for="author"></span>
+                                </div>
+                            </div>
+                            <div class="standard-control col-md-6">
+                                <div class="control">
+                                    <input class="form-control" id="email" name="email" required autofocus placeholder="Email" />
+                                    <span class="text-danger" for="email"></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="control">
-                                <input class="form-control" id="email" name="email" autofocus placeholder="Email" required />
-                            </div>
+
+                        <br />
+                        <!-- This element is being removed by site.js. It is to prevent comment spam-->
+                        <input type="hidden" name="website" />
+
+                    </fieldset>
+                </div>
+                <div class="row">
+                    <div class="standard-control col-sm-12">
+                        <div class="control">
+                            <textarea id="content" class="form-control" name="content" rows="5" cols="100" onfocus="" required placeholder="Enter your comment here..."></textarea>
+                            <span class="text-danger" for="content"></span>
                         </div>
                     </div>
-
-                    <br />
-                    <!-- This element is being removed by site.js. It is to prevent comment spam-->
-                    <input type="hidden" name="website" />
-                </div>
-                <div class="row col-sm-12">
-                    <textarea id="content" name="content" rows="5" cols="100" onfocus="" required placeholder="Enter your comment here..."></textarea>
                 </div>
                 <div class="row justify-content-md-center">
-                    <div class="col-sm-2">
-                        <input type="submit" value="Post comment" />
+                    <div class="col-md-4 col-sm-12">
+                        <input type="submit" class="actions submit" value="Post Comment" />
                     </div>
                 </div>
             </form>

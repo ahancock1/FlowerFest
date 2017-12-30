@@ -1,41 +1,5 @@
 ﻿@import "variables";
 
-input[type=submit] {
-    padding: 3px 7px;
-    display: block;
-    font: inherit;
-    width: 100%;
-    margin: auto;
-}
-
-.actions {
-    margin: 20px 0;
-}
-
-.submit, .submit.text {
-    height: 42px;
-    font-size: 1.6em;
-    text-align: center;
-    text-decoration: none;
-    background-color: $brand_color;
-    border-radius: 2px;
-    border: none;
-    font-family: inherit;
-    font-weight: bold;
-    cursor: pointer;
-    color: #fff !important;
-    opacity: 1;
-    transition: all .3s;
-    display: block;
-}
-
-.actions .submit {
-    margin: 0 0 10px;
-    box-sizing: border-box;
-    padding: 0 10px;
-    color: #333;
-}
-
 #home {
     width: 100%;
     text-align: center;
@@ -44,9 +8,9 @@ input[type=submit] {
         position: relative;
     }
 
-
     input[type=submit] {
         width: 200px;
+        margin: auto;
     }
 
     form {
@@ -59,7 +23,7 @@ input[type=submit] {
     }
 
     h1, h2 {
-        font-weight: bold;
+        font-weight: 700;
         margin: 10px;
         padding: 4px;
         color: $brand_color;
