@@ -1,46 +1,60 @@
 ﻿@import "variables";
 
-.navbar {
-    background-color: $navbar_color;
-}
-
-.navbar-toggle {
-    margin: auto;
-    height: $header_height;
-}
-
-.nav {
-    background-color: $navbar_color;
-    text-align: center;
-
-    a {
-        text-align: center;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .navbar-brand {
-        position: absolute;
-        width: 100%;
-        left: 0;
-        text-align: center;
-        margin: auto;
-        height: 100%;
-        float: none;
-    }
-}
-
 #header {
 
-    .navbar-header{
+    .navbar-header {
         height: $header_height;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        border: 0;
+    }
+
+    .navbar {
+        background-color: $header_color;
+        padding: 0;
+    }
+
+    .navbar-toggler {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: $header_height;
+        border-color: transparent !important;
+    }
+
+    @media (max-width: 767px) {
+
+        .navbar-header {
+            width: 100%;
+        }
+
+        .navbar-brand {
+            margin: auto;
+            float: none;
+            text-align: center;
+        }
     }
 
     a {
-        font-size: 1.1em;
-        font-weight: 500;
         color: $brand_color;
-        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    a:hover {
+        opacity: 0.7;
+    }
+
+    .hamburger-box {
+        width: $hamburger_width;
+    }
+
+    .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+        width: $hamburger_width;
+        height: $hamburger_height;
+        background-color: $brand_color;
     }
 }

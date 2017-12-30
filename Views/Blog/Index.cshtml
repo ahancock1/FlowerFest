@@ -4,10 +4,6 @@
     int currentPage = int.Parse(ViewContext.RouteData.Values["page"] as string ?? "0");
 }
 
-@section Head {
-    <link rel="stylesheet" href="/css/blog.scss" />
-}
-
 <!-- Posts -->
 <div class="col-md-9">
     @foreach (var post in Model.Posts)

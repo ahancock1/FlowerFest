@@ -4,10 +4,6 @@
     ViewData["Title"] = "Edit " + (Model.Title ?? "new post");
 }
 
-@section Head{
-    <link rel="stylesheet" href="~/css/admin.scss"/>
-}
-
 <div id="edit">
 
     <form method="post" asp-controller="Blog" asp-action="UpdatePost">
@@ -104,6 +100,6 @@
 
 </div>
 @section Scripts {
-    <script src="~/lib/tinymce/tinymce.min.js"></script>
+    <script src="~/lib/tinymce.min.js"></script>
     <script src="~/js/admin.js" async></script>
 }

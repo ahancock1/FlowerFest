@@ -287,5 +287,7 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 *.ptx
-/wwwroot/css
-/wwwroot/js
+/wwwroot/css/*
+/wwwroot/js/*
+/wwwroot/fonts/*
+/wwwroot/lib/*

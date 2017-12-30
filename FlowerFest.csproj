@@ -6,9 +6,13 @@
 
   <ItemGroup>
     <Compile Remove="Client\**" />
+    <Compile Remove="wwwroot\lib\tinymce\**" />
     <Content Remove="Client\**" />
+    <Content Remove="wwwroot\lib\tinymce\**" />
     <EmbeddedResource Remove="Client\**" />
+    <EmbeddedResource Remove="wwwroot\lib\tinymce\**" />
     <None Remove="Client\**" />
+    <None Remove="wwwroot\lib\tinymce\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,17 +33,16 @@
     <None Remove="Scripts\site.js" />
     <None Remove="Styles\about.scss" />
     <None Remove="Styles\admin.scss" />
-    <None Remove="Styles\belowthefold.scss" />
     <None Remove="Styles\blog.scss" />
     <None Remove="Styles\comments.scss" />
     <None Remove="Styles\contact.scss" />
     <None Remove="Styles\controls.scss" />
+    <None Remove="Styles\footer.scss" />
     <None Remove="Styles\header.scss" />
     <None Remove="Styles\home.scss" />
     <None Remove="Styles\login.scss" />
     <None Remove="Styles\post.scss" />
     <None Remove="Styles\site.scss" />
-    <None Remove="Styles\validation.scss" />
     <None Remove="Styles\_variables.scss" />
     <None Remove="webpack.config.js" />
   </ItemGroup>
@@ -60,7 +63,7 @@
     <Content Include="Styles\admin.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Styles\belowthefold.scss">
+    <Content Include="Styles\footer.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="Styles\blog.scss">
@@ -88,9 +91,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="Styles\site.scss">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Styles\validation.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="Styles\_variables.scss">
@@ -125,11 +125,7 @@
   <ItemGroup>
     <None Include="wwwroot\img\avatar.svg" />
     <None Include="wwwroot\img\logo.png" />
-    <None Include="wwwroot\js\admin.js" />
     <None Include="wwwroot\js\site.js" />
-    <None Include="wwwroot\lib\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
-    <None Include="wwwroot\lib\tinymce\skins\lightgray\fonts\tinymce.svg" />
-    <None Include="wwwroot\lib\tinymce\tinymce.min.js" />
   </ItemGroup>
 
 </Project>

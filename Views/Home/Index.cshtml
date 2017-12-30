@@ -1,5 +1,5 @@
-﻿@section Head {
-    <link rel="stylesheet" href="/css/home.css" inline />
+﻿@{
+    ViewData["Description"] = $"Home";
 }
 
 <div id="home">
@@ -14,8 +14,8 @@
         <div>
             <h2>CHRISTCHURCH, DORSET</h2>
         </div>
-    
-        <br/>
+
+        <br />
         <div>
             <form method="post" asp-action="About">
 

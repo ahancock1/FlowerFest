@@ -42,13 +42,13 @@ namespace FlowerFest
             //services.AddMetaWeblog<Services.MetaWeblogService>();
 
             // Output caching (https://github.com/madskristensen/WebEssentials.AspNetCore.OutputCaching)
-            services.AddOutputCaching(options =>
-            {
-                options.Profiles["default"] = new OutputCacheProfile
-                {
-                    Duration = 3600
-                };
-            });
+            //services.AddOutputCaching(options =>
+            //{
+            //    options.Profiles["default"] = new OutputCacheProfile
+            //    {
+            //        Duration = 3600
+            //    };
+            //});
 
             // Cookie authentication.
             services
@@ -74,12 +74,14 @@ namespace FlowerFest
             //services.AddSingleton<IWmmLogger, WmmNullLogger>(); // Used by HTML minifier
 
             // Bundling, minification and Sass transpilation (https://github.com/ligershark/WebOptimizer)
-            services.AddWebOptimizer(pipeline =>
-            {
-                pipeline.MinifyJsFiles();
-                pipeline.CompileScssFiles()
-                    .InlineImages(1);
-            });
+            services.AddWebOptimizer(
+                //pipeline =>
+            //{
+            //    pipeline.MinifyJsFiles();
+            //    pipeline.CompileScssFiles()
+            //        .InlineImages(1);
+            //}
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,28 +98,30 @@ namespace FlowerFest
             }
 
             app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
-            app.UseWebOptimizer();
+            //app.UseWebOptimizer();
 
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse = context =>
-                {
-                    var time = TimeSpan.FromDays(365);
-                    context.Context.Response.Headers[HeaderNames.CacheControl] =
-                        $"max-age={time.TotalSeconds}";
-                    context.Context.Response.Headers[HeaderNames.Expires] = DateTime.UtcNow.Add(time).ToString("R");
-                }
-            });
+            app.UseStaticFiles(); // For the wwwroot folder
 
-            if (Configuration.GetValue<bool>("forcessl"))
-            {
-                app.UseRewriter(new RewriteOptions().AddRedirectToHttps());
-            }
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    OnPrepareResponse = context =>
+            //    {
+            //        var time = TimeSpan.FromDays(365);
+            //        context.Context.Response.Headers[HeaderNames.CacheControl] =
+            //            $"max-age={time.TotalSeconds}";
+            //        context.Context.Response.Headers[HeaderNames.Expires] = DateTime.UtcNow.Add(time).ToString("R");
+            //    }
+            //});
+
+            //if (Configuration.GetValue<bool>("forcessl"))
+            //{
+            //    app.UseRewriter(new RewriteOptions().AddRedirectToHttps());
+            //}
 
             //app.UseMetaWeblog("/metaweblog");
             app.UseAuthentication();
 
-            app.UseOutputCaching();
+            //app.UseOutputCaching();
             //app.UseWebMarkupMin();
 
             app.UseMvc(routes =>
