@@ -11,6 +11,7 @@ namespace FlowerFest.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using FlowerFest.Models;
+    using System.Threading.Tasks;
 
     public class HomeController : Controller
     {
@@ -75,11 +76,27 @@ namespace FlowerFest.Controllers
             return View();
         }
 
-        public IActionResult SendMail([FromBody] ContactViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Contact(ContactViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Contact", model);
+            }
+
+            var email = model.Email;
+            var name = new
+            {
+                First = model.FirstName,
+                Last = model.LastName
+            };
+            var message = model.Message; 
+
             // https://www.stevejgordon.co.uk/how-to-send-emails-in-asp-net-core-1-0
 
-            return View("Contact");
+
+
+            return Index();
         }
     }
 }
