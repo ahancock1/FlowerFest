@@ -10,6 +10,7 @@ namespace FlowerFest.Controllers
     using ViewModels;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
+    using FlowerFest.Models;
 
     public class HomeController : Controller
     {
@@ -72,6 +73,13 @@ namespace FlowerFest.Controllers
             ViewData["Description"] = _settings.Value.Description;
 
             return View();
+        }
+
+        public IActionResult SendMail([FromBody] ContactViewModel model)
+        {
+            // https://www.stevejgordon.co.uk/how-to-send-emails-in-asp-net-core-1-0
+
+            return View("Contact");
         }
     }
 }

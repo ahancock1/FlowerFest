@@ -5,7 +5,7 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Models
+namespace FlowerFest.ViewModels
 {
     using System.ComponentModel.DataAnnotations;
 
