@@ -26,7 +26,7 @@ input[type=submit] {
     width: 100%;
 }
 
-.standard-control textarea {
+textarea {
     display: block;
     width: 100%;
     margin-bottom: 10px;
@@ -128,13 +128,14 @@ form .field-validation-error span {
     background-position: 96% center;
 }
 
-.standard-control input.input-validation-error, .standard-control input:focus.input-validation-error {
+.standard-control input.input-validation-error, .standard-control input:focus.input-validation-error,
+.standard-control textarea.input-validation-error, .standard-control textarea:focus.input-validation-error {
     border-color: #fd6b66;
     padding-right: 36px;
     background-image: url("//dy3erx8o0a6nh.cloudfront.net/images/input-error.18x15.png");
     background-repeat: no-repeat;
     background-size: 18px 15px;
-    background-position: 96% center;
+    background-position: top 10px right 10px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:2) {
