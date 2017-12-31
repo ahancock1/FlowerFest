@@ -5,78 +5,95 @@
 
 <div id="contact" class="container">
 
-    <h2>@ViewData["Description"]</h2>
+    <h1>@ViewData["Description"]</h1>
 
-    <div class="row">
+    <div class="row justify-content-center">
+        <p class="col-sm-12" style="text-align: justify; padding: 15px">
+            If you would like to discuss any part of FlowerFest 18 please feel free
+            to call us or if you would like to set up an appointment to discuss
+            sponsorship opportunities the FF18 team will gladly visit you at a
+            convenient time.
+        </p>
+    </div>
 
-        <div class="col-md-5">
+    <div class="row justify-content-center">
 
-            <p style="text-align: justify; padding: 15px">
-                If you would like to discuss any part of FlowerFest 18 please feel free
-                to call us or if you would like to set up an appointment to discuss
-                sponsorship opportunities the FF18 team will gladly visit you at a
-                convenient time.
-            </p>
-
-            <div style="text-align: center; padding: 10px">
-                <div>
-                    <i class="fa fa-phone" aria-hidden="true"></i>
-                    <p class="strong">07799 641999</p>
-                </div>
-                <div>
-                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                    <p class="strong">glenda.stansbury@hotmail.co.uk</p>
-                </div>
-            </div>
-
+        <div class="social-block col-xs-auto">
+            <a href="#" class="fa fa-facebook"></a>
+            <p><span class="font-weight-bold">FACEBOOK</span></p>
+            <p>Follow us</p>
+        </div>
+        <div class="social-block col-xs-auto">
+            <a href="#" class="fa fa-twitter"></a>
+            <p><span class="font-weight-bold">TWITTER</span></p>
+            <p>Follow us</p>
         </div>
 
-        <div class="col-md-7">
-
-            <form method="post" asp-controller="Home" asp-action="Contact">
-
-                <fieldset>
-
-                    <div class="row">
-                        <div class="standard-control col-md-6">
-                            <div class="control">
-                                <input class="form-control" asp-for="FirstName" aria-label="FirstName" autofocus placeholder="First Name" />
-                                <span class="text-danger" asp-validation-for="FirstName"></span>
-                            </div>
-                        </div>
-
-                        <div class="standard-control col-md-6">
-                            <div class="control">
-                                <input class="form-control" asp-for="LastName" aria-label="LastName" autofocus placeholder="Last Name" />
-                                <span class="text-danger" asp-validation-for="LastName"></span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="standard-control col-md-12">
-                            <div class="control">
-                                <input class="form-control" asp-for="Email" aria-label="Email" autofocus placeholder="Email" />
-                                <span class="text-danger" asp-validation-for="Email"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="standard-control col-md-12">
-                            <div class="control">
-                                <textarea class="form-control" asp-for="Message" rows="6" autofocus placeholder="Message"></textarea>
-                                <span class="text-danger" asp-validation-for="Message"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class=" col-md-4 col-md-offset-4">
-                        <input class="actions submit" type="submit" value="Submit" />
-                    </div>
-                </fieldset>
-            </form>
+        <div class="social-block col-xs-auto">
+            <a href="#" class="fa fa-mobile"></a>
+            <p><span class="font-weight-bold">PHONE</span></p>
+            <p>+44(0)7799 641999</p>
+        </div>
+        <div class="social-block col-xs-auto">
+            <a href="#" class="fa fa-envelope"></a>
+            <p><span class="font-weight-bold">EMAIL</span></p>
+            <p>glenda.stansbury</p>
+            <p>@@hotmail.co.uk</p>
         </div>
     </div>
+
+    <br />
+
+    <h2>Email Us</h2>
+
+    <form method="post" asp-controller="Home" asp-action="Contact">
+
+        <div class="row justify-content-center">
+            <div class="col-sm-12">
+
+                <div class="row">
+                    <div class="standard-control col-md-6">
+                        <div class="control">
+                            <input class="form-control" asp-for="FirstName" aria-label="FirstName" autofocus placeholder="First Name" />
+                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                        </div>
+                    </div>
+
+                    <div class="standard-control col-md-6">
+                        <div class="control">
+                            <input class="form-control" asp-for="LastName" aria-label="LastName" autofocus placeholder="Last Name" />
+                            <span class="text-danger" asp-validation-for="LastName"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="standard-control col-sm-12">
+                        <div class="control">
+                            <input class="form-control" asp-for="Email" aria-label="Email" autofocus placeholder="Email" />
+                            <span class="text-danger" asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="standard-control col-sm-12">
+                        <div class="control">
+                            <textarea class="form-control" asp-for="Message" rows="6" autofocus placeholder="Message"></textarea>
+                            <span class="text-danger" asp-validation-for="Message"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <input class="actions submit" type="submit" value="Submit" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
 </div>
