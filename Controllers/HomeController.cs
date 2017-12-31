@@ -12,13 +12,22 @@ namespace FlowerFest.Controllers
     using Microsoft.Extensions.Options;
     using FlowerFest.Models;
     using System.Threading.Tasks;
+    using System.IO;
+    using System.Collections.Generic;
+    using System.Net.Mail;
+    using Microsoft.Extensions.Configuration;
+    using System.Net;
+    using FlowerFest.Services.Interfaces;
 
     public class HomeController : Controller
     {
         private readonly IOptionsSnapshot<BlogSettings> _settings;
 
-        public HomeController(IOptionsSnapshot<BlogSettings> settings)
+        private readonly IMailService _mailService;
+
+        public HomeController(IMailService mailService, IOptionsSnapshot<BlogSettings> settings)
         {
+            _mailService = mailService;
             _settings = settings;
         }
 
@@ -77,26 +86,68 @@ namespace FlowerFest.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Contact(ContactViewModel model)
+        public IActionResult Contact(ContactViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("Contact", model);
             }
 
-            var email = model.Email;
+            var from = model.Email;
+            var to = "a.hancock@hotmail.co.uk";
             var name = new
             {
                 First = model.FirstName,
                 Last = model.LastName
             };
-            var message = model.Message; 
+            var message = model.Message;
 
-            // https://www.stevejgordon.co.uk/how-to-send-emails-in-asp-net-core-1-0
-
-
+            _mailService.Send(from, to, message, $"FLOWERFEST - {name.First} {name.Last} sent you a message");
 
             return Index();
+        }
+
+        public async Task<IActionResult> Download(string filename)
+        {
+            if (filename == null)
+                return Content("filename not present");
+
+            var path = Path.Combine(
+                           Directory.GetCurrentDirectory(),
+                           "wwwroot", filename);
+
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            return File(memory, GetContentType(path), Path.GetFileName(path));
+        }
+
+        private string GetContentType(string path)
+        {
+            var types = GetMimeTypes();
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return types[ext];
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                {".txt", "text/plain"},
+                {".pdf", "application/pdf"},
+                {".doc", "application/vnd.ms-word"},
+                {".docx", "application/vnd.ms-word"},
+                {".xls", "application/vnd.ms-excel"},
+                {".xlsx", "application/vnd.openxmlformats" },
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".csv", "text/csv"}
+            };
         }
     }
 }

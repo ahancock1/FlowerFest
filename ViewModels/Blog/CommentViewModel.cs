@@ -7,6 +7,8 @@
 
 namespace FlowerFest.ViewModels
 {
+    using FlowerFest.Helpers;
+    using FlowerFest.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -22,5 +24,12 @@ namespace FlowerFest.ViewModels
         public string Email { get; set; }
         [Required]
         public string Content { get; set; }
+
+        public Post Post { get; set; }
+
+        public bool AreCommentsOpen(int days)
+        {
+            return PostHelper.AreCommentsOpen(Post, days);
+        }
     }
 }

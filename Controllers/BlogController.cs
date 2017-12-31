@@ -198,21 +198,25 @@ namespace FlowerFest.Controllers
                 return View("Post", post);
             }
 
+            var c = new Comment
+            {
+                //ID = new Guid().ToString(),
+                //IsAdmin = User.Identity.IsAuthenticated,
+                //Content = comment.Content.Trim(),
+                //Author = comment.Name,
+                //Email = comment.Email
+            };
+
             if (post == null || !PostHelper.AreCommentsOpen(post, _settings.Value.CommentsCloseAfterDays))
             {
                 return NotFound();
             }
-
-            comment.IsAdmin = User.Identity.IsAuthenticated;
-            comment.Content = comment.Content.Trim();
-            comment.Author = comment.Author.Trim();
-            comment.Email = comment.Email.Trim();
-
+            
             // the website form key should have been removed by javascript
             // unless the comment was posted by a spam robot
             if (!Request.Form.ContainsKey("website"))
             {
-                post.Comments.Add(comment);
+                post.Comments.Add(c);
                 await _blog.SavePost(post);
             }
 

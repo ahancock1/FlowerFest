@@ -6,23 +6,7 @@
     if (commentForm) {
         commentForm.classList.add("js-enabled");
     }
-
-    // Expand comment form
-    //var content = document.querySelector("#comments textarea");
-    //if (content) {
-    //    content.addEventListener("focus", function () {
-    //        document.querySelector(".details").className += " show";
-
-    //        // Removes the hidden website form field to fight spam
-    //        setTimeout(function () {
-    //            var honeypot = document.querySelector("input[name=website]");
-    //            if (honeypot) {
-    //                honeypot.parentNode.removeChild(honeypot);
-    //            }
-    //        }, 2000);
-    //    }, false);
-    //}
-
+    
     // Convert URL to links in comments
     var comments = document.querySelectorAll("#comments .content [itemprop=text]");
 

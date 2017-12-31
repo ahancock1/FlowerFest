@@ -1,7 +1,19 @@
 ﻿@import "variables";
 
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .body-content {
     padding-top: 30px;
+
+    animation: fade-in 1s ease;
 }
 
 * {
@@ -43,20 +55,6 @@ body {
     margin-bottom: $footer_height;
     color: $text_color;
     padding-top: $header_height;
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-main {
-    animation: fade-in 1s ease;
 }
 
 b, strong {

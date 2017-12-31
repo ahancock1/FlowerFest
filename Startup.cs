@@ -8,6 +8,7 @@
 namespace FlowerFest
 {
     using System;
+    using FlowerFest.Services.Interfaces;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,7 @@ namespace FlowerFest
         {
             services.AddMvc();
 
+            services.AddSingleton<IMailService, MailService>();
             services.AddSingleton<IBlogService, BlogService>();
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
