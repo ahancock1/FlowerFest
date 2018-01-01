@@ -127,8 +127,4 @@
     <None Include="wwwroot\img\logo.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\js\" />
-  </ItemGroup>
-
 </Project>
