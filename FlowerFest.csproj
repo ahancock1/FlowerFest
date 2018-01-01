@@ -125,7 +125,10 @@
   <ItemGroup>
     <None Include="wwwroot\img\avatar.svg" />
     <None Include="wwwroot\img\logo.png" />
-    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>
