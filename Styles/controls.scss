@@ -19,7 +19,7 @@ input[type=password] {
 }
 
 input[type=submit] {
-    margin-top: 10px;
+    margin-top: 20px;
     padding: 3px 7px;
     display: block;
     font: inherit;
@@ -42,10 +42,6 @@ textarea {
         list-style: none;
         padding: 0;
     }
-}
-
-.actions {
-    margin: 15px 0;
 }
 
 .submit, .submit.text {
@@ -88,7 +84,7 @@ form .field-validation-error span {
 .standard-control input,
 .standard-control select,
 .standard-control textarea,
-.actions .submit {
+.actions {
     margin: 0 0 10px;
     box-sizing: border-box;
     padding: 3px 7px;
