@@ -2,27 +2,20 @@
     ViewData["Description"] = $"Home";
 }
 
-<div id="home">
-
-    <div class="vcenter">
-        <div>
+<div id="home" class="container-fluid">
+    
+    <div class="content-container">
+        
+        <div class="intro">
             <img class="logo" src="~/img/logo.png" alt="Flower Fest Logo" />
-        </div>
-        <div>
             <h1>13 - 17th JUNE 2018</h1>
-        </div>
-        <div>
             <h2>CHRISTCHURCH, DORSET</h2>
-        </div>
 
-        <br />
-        <div>
             <form method="post" asp-action="About">
-
                 <input class="submit" type="submit" value="Learn More" />
             </form>
         </div>
+
     </div>
-
+    
 </div>
-

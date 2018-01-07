@@ -5,18 +5,28 @@
     top: $header_height;
     right: 0;
     bottom: $footer_height;
-    text-align: center;
-    position: fixed;
-    background: linear-gradient( 
-            rgba(255, 255, 255, 0.45), 
-            rgba(255, 255, 255, 0.45)
-        ),
-        url("../img/hero.jpg"),
-        no-repeat,
-        center,
-        center,
-        fixed;
+    position: fixed;top
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: linear-gradient( rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25) ), url("../img/hero.jpg"), no-repeat, center, center, fixed;
     background-size: cover;
+
+    .content-container {
+        flex: 0 0 100%;
+        padding-bottom: 8rem;
+    }
+
+    .intro {
+        background-color: rgba(255, 255,255, 0.45);
+        padding-bottom: 4rem;
+        display: flex;
+        justify-content: center;
+        flex-flow: column wrap;
+        align-items: center;
+        width: 100%;
+    }
 
     .body-content {
         position: relative;
