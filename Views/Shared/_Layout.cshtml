@@ -41,6 +41,8 @@
     <link rel="edituri" type="application/rsd+xml" title="RSD" href="~/rsd.xml" />
     <link rel="alternate" type="application/rss+xml" href="~/feed/rss/" />
     <link rel="alternate" type="application/atom+xml" href="~/feed/atom/" />
+    
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'/>
 
 </head>
 
@@ -87,7 +89,18 @@
             @{
                 var year = DateTime.Now.Year.ToString();
 
-                <p>&copy; FlowerFest @year</p>
+                <div class="row justify-content-center">
+                    <div class="social-block col-xs-auto">
+                        <a href="https://www.facebook.com/FlowerFest18/" target="_blank" class="fa fa-facebook"></a>
+                    </div>
+                    <div class="social-block col-xs-auto">
+                        <a href="https://twitter.com/FlowerFest18" target="_blank" class="fa fa-twitter"></a>
+                    </div>
+                </div>
+                
+                <div class="row justify-content-center copyright">
+                    <p>&copy; FlowerFest @year</p>  
+                </div>
             }
 
         </div>

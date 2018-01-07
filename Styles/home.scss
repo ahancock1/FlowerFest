@@ -5,7 +5,7 @@
     top: $header_height;
     right: 0;
     bottom: $footer_height;
-    position: fixed;top
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,6 @@
 
     .content-container {
         flex: 0 0 100%;
-        padding-bottom: 8rem;
     }
 
     .intro {
@@ -43,12 +42,13 @@
     }
 
     .logo {
-        height: 180px;
+        width: 550px;
+        margin-bottom: -20px;
     }
 
     h1, h2 {
         font-weight: 700;
-        margin: 10px;
+        margin: 5px;
         padding: 4px;
         color: $brand_color;
     }
@@ -58,6 +58,10 @@
     }
 
     h2 {
-        font-size: 1.2em;
+        font-size: 1.3em;
+    }
+
+    form {
+        margin: 20px;
     }
 }
