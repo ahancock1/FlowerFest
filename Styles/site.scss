@@ -50,7 +50,9 @@ html {
 }
 
 body {
-    font: 16px/1.2 "Open Sans", Ubuntu, "Nimbus Sans L", Avenir, AvenirNext, "Segoe UI", Helvetica, Arial, sans-serif;
+    /*font: 16px/1.2 "Open Sans", Ubuntu, "Nimbus Sans L", Avenir, AvenirNext, "Segoe UI", Helvetica, Arial, sans-serif;*/
+    font-family: Montserrat,sans-serif;
+    font-size: 16px/1.2;
     margin-bottom: $footer_height;
     color: $text_color;
     padding-top: $header_height;
