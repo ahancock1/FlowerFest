@@ -66,7 +66,7 @@ namespace FlowerFest.Controllers
                 }
             };
 
-            return View(about);
+            return Index();
         }
 
         public IActionResult Contact()
