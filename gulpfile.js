@@ -14,6 +14,7 @@ var inputs = {
     libs: [
         "./node_modules/jquery/dist/jquery.js",
         "./node_modules/jquery-validation/dist/jquery.validate.js",
+        "./node_modules/jquery.stellar/jquery.stellar.js",
         "./node_modules/tinymce/tinymce.min.js",
         "./node_modules/hamburgers/dist/hamburgers.css",
         "./node_modules/font-awesome/css/font-awesome.css",

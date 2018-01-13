@@ -399,6 +399,7 @@ $(function () {
         });
         parallax($el);
     });
+
     function parallax($el) {
         var diff_s = $(window).scrollTop();
         var parallax_height = $(".parallax").height();

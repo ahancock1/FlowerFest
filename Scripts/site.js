@@ -7,6 +7,7 @@
         intro();
         backgrounds();
         carousels();
+        parallax();
     });
 
     $(window).scroll(function() {
@@ -19,6 +20,20 @@
         intro();
         header();
         carousels();
+        parallax();
+    });
+
+    var parallaxPositionProperty;
+    if ($(window).width() >= 1024) {
+        parallaxPositionProperty = "position";
+    } else {
+        parallaxPositionProperty = "transform";
+    }
+
+    $(window).stellar({
+        responsive: true,
+        positionProperty: parallaxPositionProperty,
+        horizontalScrolling: false
     });
 
     function spinner() {
@@ -71,6 +86,46 @@
             navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
             //  responsive: true
         });
+    };
+
+    function parallax() {
+        //Parallax Function element
+        $(".parallax").each(function () {
+            var $el = $(this);
+            $(window).scroll(function () {
+                parallax($el);
+            });
+            parallax($el);
+        });
+
+        function parallax($el) {
+            var diff_s = $(window).scrollTop();
+            var parallax_height = $(".parallax").height();
+            var yPos_p = (diff_s * 0.5);
+            var yPos_m = -(diff_s * 0.5);
+            var diff_h = diff_s / parallax_height;
+
+            if ($(".parallax").hasClass("parallax-section")) {
+                $el.css("top", yPos_p);
+            }
+            if ($(".parallax").hasClass("parallax-section2")) {
+                $el.css("top", yPos_m);
+            }
+            if ($(".parallax").hasClass("parallax-static")) {
+                $el.css("top", (diff_s * 1));
+            }
+            if ($(".parallax").hasClass("parallax-opacity")) {
+                $el.css("opacity", (1 - diff_h * 1));
+            }
+
+            if ($(".parallax").hasClass("parallax-background1")) {
+                $el.css("background-position", "left" + " " + yPos_p + "px");
+            }
+            if ($(".parallax").hasClass("parallax-background2")) {
+                $el.css("background-position", "left" + " " + -yPos_p + "px");
+
+            }
+        };
     };
 
 });
