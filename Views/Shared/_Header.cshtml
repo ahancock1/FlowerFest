@@ -1,4 +1,4 @@
-﻿<div id="header">
+﻿@*<div id="header">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container">
 
@@ -25,9 +25,6 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Blog" asp-action="Index">News</a>
                     </li>
-                    @*<li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
-                    </li>*@
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a>
                     </li>
@@ -36,4 +33,44 @@
 
         </div>
     </nav>
+</div>*@
+
+
+
+<div class="header-inner">
+
+    <!-- Logo -->
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index">
+            <img class="logo-light" src="img/logo-small.png" />
+            <img class="logo-dark" src="img/logo-small.png"/>
+        </a>
+    </div>
+    <!-- End Logo -->
+
+    <!-- Mobile Navbar Icon -->
+    <div class="nav-mobile nav-bar-icon">
+        <span></span>
+    </div>
+    <!-- End Mobile Navbar Icon -->
+
+    <!-- Navbar Navigation -->
+    <div class="nav-menu singlepage-nav">
+        <ul class="nav-menu-inner">
+            <li>
+                <a class="current" href="#intro">Home</a>
+            </li>
+            <li>
+                <a href="#about">About</a>
+            </li>
+            <li>
+                <a href="#news">News</a>
+            </li>
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <!-- End Navbar Navigation -->
+
 </div>

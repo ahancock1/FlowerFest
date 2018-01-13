@@ -1,4 +1,4 @@
-﻿@model ContactViewModel
+﻿@*@model ContactViewModel
 @{
     ViewData["Description"] = $"Contact Us";
 }
@@ -91,5 +91,63 @@
             </div>
         </div>
     </form>
+
+</div>*@
+
+
+
+<div class="container text-center">
+    <h1>Contact Us</h1>
+    <p class="lead-lg max-width-700 mb-60">
+        If you would like to discuss any part of FlowerFest 18 please feel free
+        to call us or if you would like to set up an appointment to discuss
+        sponsorship opportunities the FF18 team will gladly visit you at a
+        convenient time.
+    </p>
+
+    <!-- Contact form -->
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form id="contact" class="contact-form row" role="form">
+                <div class="col-md-12 text-center">
+                    <h5 class="successContent">
+                        <i class="fa fa-check left" style="color: #5cb45d;"></i>Your message has been sent successfully.
+                    </h5>
+                    <h5 class="errorContent" style="color: #e1534f;">
+                        <i class="fa fa-exclamation-circle left"></i>There was a problem validating the form please check!
+                    </h5>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-field-wrapper">
+                        <input class="input-lg form-full input-fancy" id="form-name" type="text" name="form-name" placeholder="Your Name" required />
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-field-wrapper">
+                        <input class="input-lg form-full input-fancy" id="form-email" type="email" name="form-email" placeholder="Email" required />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-field-wrapper">
+                        <input class="input-lg form-full input-fancy" id="form-subject" type="text" name="form-subject" placeholder="Subject" />
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-field-wrapper">
+                        <textarea class="home-contact-txt-msg input-lg form-full input-fancy" id="form-message" rows="7" name="form-message" placeholder="Your Message" required></textarea>
+                    </div>
+
+                </div>
+                <div class="col-md-12">
+                    <button class="btn-contact-submit btn btn-lg btn-black" type="submit" id="form-submit" name="submit">Send Message</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <!-- End Contact form -->
 
 </div>
