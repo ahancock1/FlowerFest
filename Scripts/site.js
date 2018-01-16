@@ -23,13 +23,18 @@
     });
 
     function parallax() {
-        $(".jarallax").jarallax({
-            speed: 0.3
-        });
 
-        $(".jarallax-keep-img").jarallax({
-            keepImg: true
-        });
+        var isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/g.test(navigator.userAgent || navigator.vendor || window.opera);
+        if (!isMobile) {
+
+            $(".jarallax").jarallax({
+                speed: 0.3
+            });
+
+            $(".jarallax-keep-img").jarallax({
+                keepImg: true
+            });
+        }
     };
     
     function spinner() {
