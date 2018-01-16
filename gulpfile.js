@@ -14,15 +14,18 @@ var inputs = {
     libs: [
         "./node_modules/jquery/dist/jquery.js",
         "./node_modules/jquery-validation/dist/jquery.validate.js",
-        "./node_modules/jquery.stellar/jquery.stellar.js",
         "./node_modules/tinymce/tinymce.min.js",
         "./node_modules/hamburgers/dist/hamburgers.css",
         "./node_modules/font-awesome/css/font-awesome.css",
         "./node_modules/font-awesome/css/font-awesome.css",
         "./node_modules/bootstrap/dist/js/bootstrap.js",
         "./node_modules/bootstrap/dist/css/bootstrap.css",
-        "./node_modules/et-line/style.css",
         "./node_modules/wowjs/dist/wow.js",
+        "./node_modules/smoothscroll/smoothscroll.js",
+        "./node_modules/animate.css/animate.css",
+        "./node_modules/jarallax/dist/jarallax.css",
+        "./node_modules/jarallax/dist/jarallax.js",
+        "./node_modules/jarallax/dist/jarallax-element.js",
         "./node_modules/owlcarousel-pre/owl-carousel/owl.carousel.js"
     ],
     fonts: [

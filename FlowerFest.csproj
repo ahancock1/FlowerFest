@@ -42,7 +42,6 @@
     <None Remove="Styles\login.scss" />
     <None Remove="Styles\post.scss" />
     <None Remove="Styles\site.scss" />
-    <None Remove="Styles\_variables.scss" />
     <None Remove="webpack.config.js" />
   </ItemGroup>
 
