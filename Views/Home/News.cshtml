@@ -4,15 +4,15 @@
 
     <h1 class="mb-60 text-center">Our Latest News</h1>
     
-    <div class="row">
-
+    <div class="row justify-content-center">
+        
         @foreach (var post in Model.RecentPosts)
         {
             <div class="col-md-4 col-sm-6 mb-sm-30 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.1s">
                 <!-- Post -->
                 <div class="blog-post">
                     <div class="post-media">
-                        @*<img src="img/blog/01.jpg" alt="blog" />*@
+                        <img src="img/intro.jpg" alt="blog" />
                     </div>
                     <div class="post-meta">
                         <span>by <a>@post.Author</a>,</span>

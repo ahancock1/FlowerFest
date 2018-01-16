@@ -1,16 +1,15 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   TestimonalViewModel.cs can not be copied and/or distributed without the express
+//   HomeViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
 namespace FlowerFest.ViewModels.Blog
 {
-    public class TestimonalPostViewModel
+    public class HomeViewModel
     {
-        public string Content { get; set; }
-        public string Author { get; set; }
-        public string Place { get; set; }
+        public TestimonalsViewModel Testimonals { get; set; }
+        public NewsViewModel News { get; set; }
     }
 }

@@ -39,6 +39,8 @@ namespace FlowerFest
 
             services.AddSingleton<IMailService, MailService>();
             services.AddSingleton<IBlogService, BlogService>();
+            services.AddSingleton<ITestimonalService, TestimonalService>();
+
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddMetaWeblog<Services.MetaWeblogService>();

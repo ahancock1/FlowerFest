@@ -52,123 +52,69 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" class="wow-animate">
 
-    <!-- Site preloader -->
-    <section id="spinner">
-        <div class="site-spinner"></div>
-    </section>
-    <!-- End Site preloader -->
+<!-- Site preloader -->
+<section id="spinner">
+    <div class="site-spinner"></div>
+</section>
+<!-- End Site preloader -->
 
-    <!-- Page Wraper -->
-    <div id="page-wraper">
+<!-- Page Wraper -->
+<div id="page-wraper">
 
-        <!-- Header -->
-        <header id="header" class="header header-light">
-            @{
-                await Html.RenderPartialAsync("_Header");
-            }
-        </header>
-
-        <!-- Intro -->
-        <section id="intro" class="intro jarallax" >
-            @{
-                await Html.RenderPartialAsync("Intro");
-            }
-        </section>
-
-        <!-- About -->
-        <section id="about" class="section-padding">
-            @{
-                await Html.RenderPartialAsync("About");
-            }
-        </section>
-
-        <!-- Testimonals -->
-        <section id="testimonials" class="section-padding jarallax pos-section dark-bg bg-image overlay-dark"
-                 data-stellar-background-ratio="0.4" data-background-img="img/testimonals.jpg">
-            @{
-                await Html.RenderPartialAsync("Testimonals", new TestimonalsViewModel());
-            }
-        </section>
-
-        <!-- News -->
-        <section id="news" class="section-padding">
-            @{
-                await Html.RenderPartialAsync("News", new NewsViewModel());
-            }
-        </section>
-
-        <!-- Client Logo Section -->
-        <section id="supported" class="section-padding jarallax bg-image dark-bg pos-section overlay-dark"
-                 data-stellar-background-ratio="0.4" data-background-img="img/testimonals.jpg">
-            @{
-                await Html.RenderPartialAsync("Supported");
-            }
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="section-padding">
-            @{
-                await Html.RenderPartialAsync("Contact");
-            }
-        </section>
-
-        <!-- Social -->
-        <section id="social" class="ptb-60 black-bg text-center dark-bg">
-            @{
-                await Html.RenderPartialAsync("Social");
-            }
-        </section>
-
-        <!-- Footer -->
-        <footer id="footer" class="footer gray-bg">
-            <div class="container text-center">
-                <ul class="social mb-60 wow fadeInUp" data-wow-duration="1.5s">
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/FlowerFest18/">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://www.twitter.com/FlowerFest18/">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                </ul>
-
-                @{
-                    var year = DateTime.Now.Year.ToString();
-
-                    <p class="copyright">
-                        <a class="copy-link scroll-top" href="">&copy; FlowerFest @year</a><br/>
-                        All Rights Reserved
-                    </p>
-                }
-
-            </div>
-        </footer>
-
+    <!-- Header -->
+    <header id="header" class="header header-light">
         @{
-            IgnoreBody();
+            await Html.RenderPartialAsync("_Header");
         }
+    </header>
 
-    </div>
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer id="footer" class="footer gray-bg">
+        <div class="container text-center">
+            <ul class="social mb-60 wow fadeInUp" data-wow-duration="1.5s">
+                <li>
+                    <a target="_blank" href="https://www.facebook.com/FlowerFest18/">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" href="https://www.twitter.com/FlowerFest18/">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+            </ul>
+
+            @{
+                var year = DateTime.Now.Year.ToString();
+
+                <p class="copyright">
+                    <a class="copy-link scroll-top" href="">&copy; FlowerFest @year</a><br/>
+                    All Rights Reserved
+                </p>
+            }
+
+        </div>
+    </footer>
+
+</div>
+
+<!-- JS Script -->
+<script src="~/lib/jquery.js"></script>
+<script src="~/lib/jquery.validate.js"></script>
+<script src="~/lib/bootstrap.js"></script>
+<script src="~/lib/smoothscroll.js"></script>
+<script src="~/lib/wow.js"></script>
+<script src="~/lib/owl.carousel.js"></script>
+<script src="~/lib/jarallax-element.js"></script>
+<script src="~/lib/jarallax.js"></script>
+<script src="~/lib/owl.carousel.js"></script>
+
+<script src="~/js/site.js" type="text/javascript"></script>
 
 
-    <!-- JS Script -->
-    <script src="~/lib/jquery.js"></script>
-    <script src="~/lib/jquery.validate.js"></script>
-    <script src="~/lib/bootstrap.js"></script>
-    <script src="~/lib/smoothscroll.js"></script>
-    <script src="~/lib/wow.js"></script>
-    <script src="~/lib/owl.carousel.js"></script>
-    <script src="~/lib/jarallax-element.js"></script>
-    <script src="~/lib/jarallax.js"></script>
-    <script src="~/lib/owl.carousel.js"></script>
-
-    <script src="~/js/site.js" type="text/javascript"></script>
-
-
-    @RenderSection("Scripts", false)
+@RenderSection("Scripts", false)
 
 </body>
 

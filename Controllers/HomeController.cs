@@ -10,36 +10,69 @@ namespace FlowerFest.Controllers
     using ViewModels;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
-    using FlowerFest.Models;
     using System.Threading.Tasks;
     using System.IO;
     using System.Collections.Generic;
-    using System.Net.Mail;
-    using Microsoft.Extensions.Configuration;
-    using System.Net;
-    using FlowerFest.Services.Interfaces;
+    using Services.Interfaces;
+    using Services;
+    using ViewModels.Blog;
 
     public class HomeController : Controller
     {
         private readonly IOptionsSnapshot<BlogSettings> _settings;
 
         private readonly IMailService _mailService;
+        private readonly ITestimonalService _testimonals;
+        private readonly IBlogService _blog;
 
-        public HomeController(IMailService mailService, IOptionsSnapshot<BlogSettings> settings)
+        public HomeController(
+            IMailService mailService, 
+            ITestimonalService testimonals,
+            IBlogService blog,
+            IOptionsSnapshot<BlogSettings> settings)
         {
             _mailService = mailService;
             _settings = settings;
+            _testimonals = testimonals;
+            _blog = blog;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             ViewData["Title"] = _settings.Value.Name;
-            ViewData["Description"] = _settings.Value.Description;
+            
+            var viewmodel = new HomeViewModel
+            {
+                Testimonals = new TestimonalsViewModel(),
+                News = new NewsViewModel()
+            };
 
-            ViewData["Event"] = "13-17 JUNE 2018";
-            ViewData["Location"] = "CHRISTCHURCH, DORSET";
+            foreach (var testimonal in await _testimonals.All())
+            {
+                viewmodel.Testimonals.Posts.Add(new TestimonalPostViewModel
+                {
+                    Author = testimonal.Author,
+                    Place = testimonal.Place,
+                    Content = testimonal.Content
+                });
+            }
 
-            return View("Views/Home/Index.cshtml");
+            var items = _settings.Value.PostsPerPage;
+            var author = _settings.Value.Owner;
+
+            foreach (var post in await _blog.GetPosts(items))
+            {
+                viewmodel.News.RecentPosts.Add(new PostViewModel
+                {
+                    Author = author,
+                    Categories = post.Categories,
+                    Title = post.Title,
+                    Published = post.PublishedDate,
+                    Slug = post.Slug
+                });
+            }
+
+            return View(viewmodel);
         }
 
         public IActionResult About()
@@ -66,7 +99,7 @@ namespace FlowerFest.Controllers
                 }
             };
 
-            return Index();
+            return View();
         }
 
         public IActionResult Contact()
@@ -104,7 +137,7 @@ namespace FlowerFest.Controllers
 
             _mailService.Send(from, to, message, $"FLOWERFEST - {name.First} {name.Last} sent you a message");
 
-            return Index();
+            return View();
         }
 
         public async Task<IActionResult> Download(string filename)

@@ -11,8 +11,8 @@ namespace FlowerFest
     {
         public string Name { get; set; } = "FlowerFest";
         public string Description { get; set; } = "Christchurch's new event to showcase the benefit of flowers, nature and gardening to everyone's mental health and wellbeing.";
-        public string Owner { get; set; } = "FlowerFest";
-        public int PostsPerPage { get; set; } = 2;
+        public string Owner { get; set; } = "Glenda Stansbury";
+        public int PostsPerPage { get; set; } = 24;
         public int CommentsCloseAfterDays { get; set; } = 31;
     }
 }

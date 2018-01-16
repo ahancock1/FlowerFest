@@ -60,9 +60,9 @@ var scripts = function () {
         .pipe(concat("site.js"))
         .pipe(gulp.dest(outputs.scripts));
 
-    return gulp.src(inputs.scripts)
-        .pipe(concat("site.js"))
-        .pipe(gulp.dest(outputs.scripts));
+    //return gulp.src(inputs.scripts)
+    //    .pipe(concat("site.js"))
+    //    .pipe(gulp.dest(outputs.scripts));
 };
 var fonts = function () {
     return gulp.src(inputs.fonts)

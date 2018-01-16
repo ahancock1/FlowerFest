@@ -12,8 +12,8 @@ namespace FlowerFest.Controllers
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Xml;
-    using FlowerFest.Helpers;
-    using FlowerFest.ViewModels;
+    using Helpers;
+    using ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
