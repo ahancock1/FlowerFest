@@ -86,14 +86,14 @@
         <section id="testimonials" class="section-padding jarallax pos-section dark-bg bg-image overlay-dark"
                  data-stellar-background-ratio="0.4" data-background-img="img/testimonals.jpg">
             @{
-                await Html.RenderPartialAsync("Testimonals");
+                await Html.RenderPartialAsync("Testimonals", new TestimonalsViewModel());
             }
         </section>
 
         <!-- News -->
         <section id="news" class="section-padding">
             @{
-                await Html.RenderPartialAsync("News");
+                await Html.RenderPartialAsync("News", new NewsViewModel());
             }
         </section>
 
