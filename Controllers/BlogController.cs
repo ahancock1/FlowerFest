@@ -19,6 +19,7 @@ namespace FlowerFest.Controllers
     using Microsoft.Extensions.Options;
     using Models;
     using Services;
+    using FlowerFest.ViewModels.Blog;
 
     public class BlogController : Controller
     {
@@ -31,48 +32,56 @@ namespace FlowerFest.Controllers
             _settings = settings;
         }
 
-        [Route("/Blogs/{page:int?}")]
+        [Route("/Blog/{page:int?}")]
         public async Task<IActionResult> Index([FromRoute] int page = 0)
         {
-            var view = new BlogViewModel
+            ViewData["Title"] = $"{_settings.Value.Name} - Blog";
+
+            var viewmodel = new BlogViewModel();
+
+            var items = _settings.Value.PostsPerPage;
+            var author = _settings.Value.Owner;
+
+            foreach ( var post in await _blog.GetPosts(items))
             {
-                Posts = await _blog.GetPosts(_settings.Value.PostsPerPage, _settings.Value.PostsPerPage * page),
-                Categories = await _blog.GetCategories(),
-                RecentPosts = await _blog.GetPosts(5)
-            };
-            
-            ViewData["Title"] = _settings.Value.Name + " - News";
-            ViewData["Description"] = _settings.Value.Description;
+                // TODO - use automapper
+                viewmodel.Posts.Add(new PostViewModel
+                {
+                    Author = author,
+                    Categories = post.Categories,
+                    Title = post.Title,
+                    Published = post.PublishedDate,
+                    Slug = post.Slug,
+                    Description = post.Excerpt
+                });
+            }
 
-            ViewData["prev"] = $"/{page + 1}/";
-            ViewData["next"] = $"/{(page <= 1 ? null : page - 1 + "/")}";
-
-            return View("Views/Blog/Index.cshtml", view);
+            return View("Views/Blog/Index.cshtml", viewmodel);
         }
-
-        [Route("/Blogs/Search/{term}")]
-        public async Task<IActionResult> Search([FromRoute] string term)
-        {
-            return View();
-        }
-
+        
         [Route("/Blog/Category/{category}/{page:int?}")]
         public async Task<IActionResult> Category(string category, int page = 0)
         {
-            var view = new BlogViewModel
+            ViewData["Title"] = $"{_settings.Value.Name} - Blog";
+
+            var viewmodel = new BlogViewModel();
+
+            var author = _settings.Value.Owner;
+
+            foreach (var post in await _blog.GetPostsByCategory(category))
             {
-                Posts = (await _blog.GetPostsByCategory(category)).Skip(_settings.Value.PostsPerPage * page)
-                .Take(_settings.Value.PostsPerPage),
-                Categories = await _blog.GetCategories(),
-                RecentPosts = await _blog.GetPosts(5)
-            };
+                viewmodel.Posts.Add(new PostViewModel
+                {
+                    Author = author,
+                    Categories = post.Categories,
+                    Title = post.Title,
+                    Published = post.PublishedDate,
+                    Slug = post.Slug,
+                    Description = post.Excerpt
+                });
+            }
 
-            ViewData["Title"] = _settings.Value.Name + " " + category;
-            ViewData["Description"] = $"Articles posted in the {category} category";
-            ViewData["prev"] = $"/blog/category/{category}/{page + 1}/";
-            ViewData["next"] = $"/blog/category/{category}/{(page <= 1 ? null : page - 1 + "/")}";
-
-            return View("Views/Blog/Index.cshtml", view);
+            return View("Views/Blog/Index.cshtml", viewmodel);
         }
 
         [Route("/Blog/{slug?}")]

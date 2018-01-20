@@ -22,5 +22,6 @@ namespace FlowerFest.ViewModels.Blog
         public string Title { get; set; }
         public IList<string> Categories { get; set; }
         public string Slug { get; set; }
+        public string Description { get; set; }
     }
 }

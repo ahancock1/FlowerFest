@@ -12,17 +12,19 @@
                 <!-- Post -->
                 <div class="blog-post">
                     <div class="post-media">
-                        <img src="img/intro.jpg" alt="blog" />
+                        <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
+                            <img src="img/intro.jpg" alt="blog" />
+                        </a>
                     </div>
                     <div class="post-meta">
-                        <span>by <a>@post.Author</a>,</span>
+                        <span>by @post.Author,</span>
                         <span class="post-date">
                             @post.Published.ToString("dd MMM yyyy")
                         </span>
                     </div>
                     <div class="post-header">
                         <h4 class="alt-title">
-                            <a href="">
+                            <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
                                 @post.Title
                             </a>
                         </h4>
@@ -31,11 +33,11 @@
                         
                         @foreach (var category in post.Categories)
                         {
-                            <span>
-                                <a href="#">
-                                    @category
-                                </a>
-                            </span>
+                        <span>
+                            <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">
+                                @category
+                            </a>
+                        </span>
                         }
                     </div>
                 </div>
@@ -46,7 +48,9 @@
     </div>
 
     <div class="rows text-center mt-60">
-        <a href="#" class="link">View All Blog <i class="fa fa-angle-right right"></i></a>
+
+        <a asp-controller="Blog" class="link">View All Blog <i class="fa fa-angle-right right"></i></a>
+
     </div>
 
 </div>

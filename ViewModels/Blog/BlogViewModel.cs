@@ -7,16 +7,16 @@
 
 namespace FlowerFest.ViewModels
 {
-    using FlowerFest.Models;
-    using System;
+    using FlowerFest.ViewModels.Blog;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
     public class BlogViewModel
     {
-        public IEnumerable<Post> Posts { get; set; }
-        public IEnumerable<string> Categories { get; set; }
-        public IEnumerable<Post> RecentPosts { get; set; }
+        public BlogViewModel()
+        {
+            Posts = new List<PostViewModel>();
+        }
+
+        public IList<PostViewModel> Posts { get; set; }
     }
 }

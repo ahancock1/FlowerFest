@@ -58,16 +58,20 @@
     <div class="nav-menu singlepage-nav">
         <ul class="nav-menu-inner">
             <li>
-                <a class="current" href="#intro">Home</a>
+                <a class="current" href="@Url.Action("Index", "Home")#intro">Home</a>
             </li>
             <li>
-                <a href="#about">About</a>
+                <a href="@Url.Action("Index", "Home")#about">About</a>
             </li>
             <li>
-                <a href="#news">News</a>
+                <a href="@Url.Action("Index", "Home")#news">News</a>
+            </li>
+
+            <li>
+                <a asp-controller="blog">Blog</a>
             </li>
             <li>
-                <a href="#contact">Contact</a>
+                <a href="@Url.Action("Index", "Home")#contact">Contact</a>
             </li>
         </ul>
     </div>
