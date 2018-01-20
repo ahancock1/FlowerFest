@@ -8,6 +8,7 @@
 namespace FlowerFest.Helpers
 {
     using FlowerFest.Models;
+    using FlowerFest.ViewModels.Blog;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -122,7 +123,7 @@ namespace FlowerFest.Helpers
         /// </summary>
         /// <param name="post"></param>
         /// <returns></returns>
-        public static string CompileContent(Post post)
+        public static string CompileContent(PostDetailViewModel post)
         {
             var result = post.Content;
 

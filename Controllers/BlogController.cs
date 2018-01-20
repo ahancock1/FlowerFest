@@ -91,7 +91,30 @@ namespace FlowerFest.Controllers
 
             if (post != null)
             {
-                return View("PostDetail", post);
+                var author = _settings.Value.Owner;
+
+                var viewmodel = new PostDetailViewModel
+                {
+                    Author = author, 
+                    Categories = post.Categories,
+                    Description = post.Excerpt,
+                    Published = post.PublishedDate,
+                    Title = post.Title,
+                    Content = post.Content
+                };
+
+                foreach(var comment in post.Comments)
+                {
+                    viewmodel.Comments.Add(new CommentViewModel
+                    {
+                        Name = comment.Author,
+                        Content = comment.Content,
+                        Email = comment.Email,
+                        Post = post
+                    });
+                }
+
+                return View("PostDetail", viewmodel);
             }
 
             return NotFound();

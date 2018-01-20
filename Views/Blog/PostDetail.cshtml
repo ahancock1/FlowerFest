@@ -1,61 +1,101 @@
-﻿@model Post
-@inject IOptionsSnapshot<BlogSettings> settings
-@{
-    ViewData["Title"] = Model.Title;
-    ViewData["Description"] = Model.Excerpt;
-    string host = Context.Request.Scheme + "://" + Context.Request.Host;
-}
+﻿@model PostDetailViewModel
 
-<article class="post container" itemscope itemtype="http://schema.org/BlogPosting" itemprop="blogPost">
-    <div class="row">
-        <div class="col-sm-12">
-            <header>
-                <!-- Post Title -->
-                <h1 itemprop="name headline">
-                    @Model.Title
-                </h1>
-                <!-- Post Time -->
-                <time datetime="@Model.PublishedDate.ToString("s")" itemprop="datePublished">Published @Model.PublishedDate.ToString("MMMM d, yyyy")</time>
-                <!-- Edit -->
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <a asp-controller="Blog" asp-action="edit" asp-route-id="@Model.ID" title="Edit the post">Edit post</a>
-                }
-            </header>
+<!-- Page Intro -->
+<section id="inner-intro" class="inner-intro bg-image overlay-dark40 dark-bg parallax parallax-background2" data-background-img="@Url.Content("img/blog/empty.jpg")">
+    <div class="container">
+        <div class="intro-content">
+            <div class="intro-content-inner">
+                <h1 class="">@Model.Title</h1>
+                <h5 class="alt-title intro-sub-title">@Model.Description</h5>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12" itemprop="articleBody mainEntityOfPage" cdnify>
-            @Html.Raw(PostHelper.CompileContent(Model))
+</section>
+<!-- End Page Intro -->
+
+<!-- Blog Section -->
+<section id="blog-single" class="section-padding">
+    <!-- Post Single -->
+    <div class="container">
+        <div class="row">
+            <!--Post Col-->
+            <div class="col-md-8 offset-md-2">
+                <!-- Post -->
+                <div class="blog-post">
+
+                    <div class="post-entry">
+                        @Html.Raw(PostHelper.CompileContent(Model))
+                    </div>
+                    <div class="post-tag">
+
+                        @foreach (var category in Model.Categories)
+    {
+                    <span>
+                        <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">
+                            @category
+                        </a>
+                    </span>
+}
+                    </div>
+
+                    <br />
+
+                    <div class="post-meta">
+                        <span>by <a>John Doe</a>,</span>
+                        <span class="post-date">06 Jan 2016</span>
+                    </div>
+
+                    <br />
+
+                    @*<hr />
+        <div class="post-share">
+            <span>Share this Post:</span>
+            <div class="post-share-social">
+                <a target="_blank" href="https://www.facebook.com/">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a target="_blank" href="https://www.twitter.com/">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a target="_blank" href="https://www.dribbble.com/">
+                    <i class="fa fa-dribbble"></i>
+                </a>
+                <a target="_blank" href="https://www.linkedin.com/">
+                    <i class="fa fa-linkedin"></i>
+                </a>
+                <a target="_blank" href="https://plus.google.com/">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            @if (Model.Categories.Any())
-            {
-                <text> Posted in </text>
-                <ul class="categories">
-                    @foreach (var category in Model.Categories)
-                    {
-                        <li>
-                            <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">@category</a>
-                        </li>
+                    <hr />*@
+
+                    @{
+        //await Html.RenderPartialAsync("_SocialSharing", Model.Title);
+        await Html.RenderPartialAsync("Comments");
                     }
-                </ul>
-                <text>and has</text>
-            }
-            <a href="@Model.Link#comments" itemprop="discussionUrl" title="Go to the comments section">
-                <span itemprop="commentCount">@Model.Comments.Count</span> comments
-            </a>
-            <meta itemprop="author" content="@settings.Value.Owner" />
-            <meta itemprop="dateModified" content="@Model.LastModified.ToString("s")" />
-            <meta itemprop="mainEntityOfPage" content="@(host + Model.Link)" />
+
+
+                </div>
+
+                <!-- End Post -->
+                <!-- Next Prev pagination -->
+                @*<div class="pagination-nav mt-60">
+                    <ul>
+                        <li class="prev"><a href="#"><i class="fa fa-angle-left"></i>Prev Post</a></li>
+
+                        <li class="next"><a href="#">Next Post <i class="fa fa-angle-right"></i></a></li>
+                    </ul>
+                </div>*@
+                <!-- Next Prev pagination -->
+
+            </div>
+
+
         </div>
     </div>
-</article>
+    <!-- End Post Single-->
 
-@{
-    //await Html.RenderPartialAsync("_SocialSharing", Model.Title);
-    await Html.RenderPartialAsync("Comments");
-}
 
+</section>
+<!-- End Blog Section -->
