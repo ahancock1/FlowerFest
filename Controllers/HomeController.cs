@@ -128,14 +128,11 @@ namespace FlowerFest.Controllers
 
             var from = model.Email;
             var to = "a.hancock@hotmail.co.uk";
-            var name = new
-            {
-                First = model.FirstName,
-                Last = model.LastName
-            };
+            var name = model.Name;
             var message = model.Message;
+            var subject = model.Subject;
 
-            _mailService.Send(from, to, message, $"FLOWERFEST - {name.First} {name.Last} sent you a message");
+            _mailService.Send(from, to, message, subject);
 
             return View();
         }

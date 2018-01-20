@@ -1,100 +1,4 @@
-﻿@*@model ContactViewModel
-@{
-    ViewData["Description"] = $"Contact Us";
-}
-
-<div id="contact" class="container">
-
-    <h1>@ViewData["Description"]</h1>
-
-    <div class="row justify-content-center">
-        <p class="col-sm-12 col-lg-10" style="text-align: justify; padding: 15px">
-            If you would like to discuss any part of FlowerFest 18 please feel free
-            to call us or if you would like to set up an appointment to discuss
-            sponsorship opportunities the FF18 team will gladly visit you at a
-            convenient time.
-        </p>
-    </div>
-
-    <div class="row justify-content-center">
-
-        <div class="social-block col-xs-auto">
-            <a href="https://www.facebook.com/FlowerFest18/" target="_blank" class="fa fa-facebook"></a>
-            <p><span class="font-weight-bold">FACEBOOK</span></p>
-            <p>Follow us</p>
-        </div>
-        <div class="social-block col-xs-auto">
-            <a href="https://twitter.com/FlowerFest18" target="_blank" class="fa fa-twitter"></a>
-            <p><span class="font-weight-bold">TWITTER</span></p>
-            <p>Follow us</p>
-        </div>
-
-        <div class="social-block col-xs-auto">
-            <a class="fa fa-mobile"></a>
-            <p><span class="font-weight-bold">PHONE</span></p>
-            <p>+44(0)7799 641999</p>
-        </div>
-        <div class="social-block col-xs-auto">
-            <a class="fa fa-envelope"></a>
-            <p><span class="font-weight-bold">EMAIL</span></p>
-            <p>glenda.stansbury</p>
-            <p>@@hotmail.co.uk</p>
-        </div>
-    </div>
-
-    <br />
-
-    <h2>Email Us</h2>
-
-    <form method="post" asp-controller="Home" asp-action="Contact">
-
-        <div class="row justify-content-center">
-            <div class="col-sm-12 col-lg-10">
-
-                <div class="row">
-                    <div class="standard-control col-md-6">
-                        <div class="control">
-                            <input class="form-control" asp-for="FirstName" aria-label="FirstName" placeholder="First Name" />
-                        </div>
-                    </div>
-
-                    <div class="standard-control col-md-6">
-                        <div class="control">
-                            <input class="form-control" asp-for="LastName" aria-label="LastName" placeholder="Last Name" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="standard-control col-sm-12">
-                        <div class="control">
-                            <input class="form-control" asp-for="Email" aria-label="Email" placeholder="Email" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="standard-control col-sm-12">
-                        <div class="control">
-                            <textarea class="form-control" asp-for="Message" rows="6" placeholder="Message"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row justify-content-center">
-                    <div class="col-md-4">
-                        <input class="actions submit" type="submit" value="Submit" />
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </form>
-
-</div>*@
-
-
+﻿@model ContactViewModel
 
 <div class="container text-center">
     <h1>Contact Us</h1>
@@ -108,7 +12,8 @@
     <!-- Contact form -->
     <div class="row">
         <div class="col-md-8 offset-md-2">
-            <form id="contact" class="contact-form row" role="form">
+
+            <form method="post" asp-controller="Home" asp-action="Contact" class="contact-form row" role="form">
                 <div class="col-md-12 text-center">
                     <h5 class="successContent">
                         <i class="fa fa-check left" style="color: #5cb45d;"></i>Your message has been sent successfully.
@@ -120,29 +25,38 @@
 
                 <div class="col-md-6">
                     <div class="form-field-wrapper">
-                        <input class="input-lg form-full input-fancy" id="form-name" type="text" name="form-name" placeholder="Your Name" required />
+                        <input class="input-lg form-full input-fancy" 
+                               type="text" asp-for="Name"
+                               placeholder="Your Name" required />
                     </div>
 
 
                 </div>
                 <div class="col-md-6">
                     <div class="form-field-wrapper">
-                        <input class="input-lg form-full input-fancy" id="form-email" type="email" name="form-email" placeholder="Email" required />
+                        <input class="input-lg form-full input-fancy"
+                               type="email" asp-for="Email"
+                               placeholder="Email" required />
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-field-wrapper">
-                        <input class="input-lg form-full input-fancy" id="form-subject" type="text" name="form-subject" placeholder="Subject" />
+                        <input class="input-lg form-full input-fancy" 
+                               type="text" asp-for="Subject"
+                               placeholder="Subject" />
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-field-wrapper">
-                        <textarea class="home-contact-txt-msg input-lg form-full input-fancy" id="form-message" rows="7" name="form-message" placeholder="Your Message" required></textarea>
+                        <textarea class="home-contact-txt-msg input-lg form-full input-fancy" 
+                                  rows="7" asp-for="Message"
+                                  placeholder="Your Message" required></textarea>
                     </div>
 
                 </div>
                 <div class="col-md-12">
-                    <button class="btn-contact-submit btn btn-lg btn-black" type="submit" id="form-submit" name="submit">Send Message</button>
+                    <button class="btn-contact-submit btn btn-lg btn-black" type="submit"
+                            id="form-submit" name="submit">Send Message</button>
                 </div>
 
             </form>

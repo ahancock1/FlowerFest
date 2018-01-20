@@ -40,7 +40,7 @@
 <!-- Contact -->
 <section id="contact" class="section-padding">
     @{
-        await Html.RenderPartialAsync("Contact");
+        await Html.RenderPartialAsync("Contact", new ContactViewModel());
     }
 </section>
 
