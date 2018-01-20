@@ -8,6 +8,7 @@
         backgrounds();
         carousels();
         parallax();
+        gravatars();
     });
 
     $(window).scroll(function() {
@@ -21,6 +22,12 @@
         header();
         carousels();
     });
+
+    function gravatars() {
+        // TODO - implement loading gravatars
+         
+
+    };
 
     function parallax() {
 

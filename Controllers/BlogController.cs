@@ -107,7 +107,7 @@ namespace FlowerFest.Controllers
                 {
                     viewmodel.Comments.Add(new CommentViewModel
                     {
-                        Name = comment.Author,
+                        Author = comment.Author,
                         Content = comment.Content,
                         Email = comment.Email,
                         Post = post

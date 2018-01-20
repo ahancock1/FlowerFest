@@ -8,6 +8,7 @@
 namespace FlowerFest.Helpers
 {
     using FlowerFest.Models;
+    using FlowerFest.ViewModels;
     using FlowerFest.ViewModels.Blog;
     using System;
     using System.Collections.Generic;
@@ -144,7 +145,7 @@ namespace FlowerFest.Helpers
             return comment.Content;
         }
 
-        public static string GetGravatar(Comment comment)
+        public static string GetGravatar(CommentViewModel comment)
         {
             using (var md5 = MD5.Create())
             {

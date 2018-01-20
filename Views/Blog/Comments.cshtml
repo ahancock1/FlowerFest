@@ -113,13 +113,13 @@
 {
 <div class="post-author-panel">
     <div class="post-author-hadding">
-        <h4>Posted by <span><a href="#">John Doe</a></span></h4>
+        <h4>Posted by @comment.Author</h4>
     </div>
     <div class="post-author-body">
         <div class="post-author-image">
-            <img src="img/user-av.jpg" alt="" />
+            <img alt="@comment.Author" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="@PostHelper.GetGravatar(comment)" />
         </div>
-        Eligendi et nobis neque minus mollitia sit repudiandae ad repellendus recusandae alias fugit accusantium laboriosam nisi reiciendis deleniti tenetur molestiae maxime id quaerat consequatur fugiat aliquam laborum nam aliquid. Consectetur, perferendis?
+        @comment.Content
     </div>
 </div>
 }

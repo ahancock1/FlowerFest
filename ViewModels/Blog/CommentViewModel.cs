@@ -15,11 +15,10 @@ namespace FlowerFest.ViewModels
     using System.Linq;
     using System.Threading.Tasks;
 
-    // TODO - Use this for the comment section
     public class CommentViewModel
     {
         [Required]
-        public string Name { get; set; }
+        public string Author { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
