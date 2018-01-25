@@ -3266,15 +3266,28 @@ ul.icon-tab-nav li, .icon-tab-nav ul li {
 }
 
 /*------------------------------------------------------------------*/
-/* Client Logo */
+/* Support Logo */
 /*------------------------------------------------------------------*/
 
-.client-logo {
-    height: 90px;
+.support-logo {
+    height: 160px;
     text-align: center;
 }
 
-.client-logo img {
+.support-logo img {
+    height: 100%;
+}
+
+/*------------------------------------------------------------------*/
+/* Support Logo */
+/*------------------------------------------------------------------*/
+
+.main-support-logo {
+    height: 100px;
+    text-align: center;
+}
+
+.main-support-logo img {
     height: 100%;
 }
 
