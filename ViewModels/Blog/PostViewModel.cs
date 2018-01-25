@@ -12,13 +12,8 @@ namespace FlowerFest.ViewModels.Blog
 
     public class PostViewModel
     {
-        public PostViewModel()
-        {
-            Categories = new List<string>();
-        }
-
         public string Author { get; set; }
-        public DateTime Published { get; set; }
+        public DateTime PublishedDate { get; set; }
         public string Title { get; set; }
         public IList<string> Categories { get; set; }
         public string Slug { get; set; }

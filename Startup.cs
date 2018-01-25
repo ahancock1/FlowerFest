@@ -22,6 +22,7 @@ namespace FlowerFest
     using WebEssentials.AspNetCore.OutputCaching;
     using WebMarkupMin.AspNetCore2;
     using WebMarkupMin.Core;
+    using AutoMapper;
 
     public class Startup
     {
@@ -36,10 +37,12 @@ namespace FlowerFest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddAutoMapper();
 
             services.AddSingleton<IMailService, MailService>();
             services.AddSingleton<IBlogService, BlogService>();
             services.AddSingleton<ITestimonalService, TestimonalService>();
+            
 
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -86,6 +89,11 @@ namespace FlowerFest
             //        .InlineImages(1);
             //}
             );
+        }
+
+        private Func<IServiceProvider, Mapper> GetMapperConfiguration()
+        {
+            throw new NotImplementedException();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -73,7 +73,7 @@ namespace FlowerFest.Services
 
         public virtual Task<Post> GetPostById(string id)
         {
-            var post = _cache.FirstOrDefault(p => p.ID.Equals(id, StringComparison.OrdinalIgnoreCase));
+            var post = _cache.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
             var isAdmin = IsAdmin();
 
             if (post != null && post.PublishedDate <= DateTime.UtcNow && (post.IsPublished || isAdmin))
@@ -100,15 +100,15 @@ namespace FlowerFest.Services
         public async Task SavePost(Post post)
         {
             var filePath = GetFilePath(post);
-            post.LastModified = DateTime.UtcNow;
+            post.ModifiedDate = DateTime.UtcNow;
 
             var doc = new XDocument(
                 new XElement("post",
                     new XElement("title", post.Title),
                     new XElement("slug", post.Slug),
                     new XElement("pubDate", post.PublishedDate.ToString("yyyy-MM-dd HH:mm:ss")),
-                    new XElement("lastModified", post.LastModified.ToString("yyyy-MM-dd HH:mm:ss")),
-                    new XElement("excerpt", post.Excerpt),
+                    new XElement("lastModified", post.ModifiedDate.ToString("yyyy-MM-dd HH:mm:ss")),
+                    new XElement("excerpt", post.Description),
                     new XElement("content", post.Content),
                     new XElement("ispublished", post.IsPublished),
                     new XElement("categories", string.Empty),
@@ -131,7 +131,7 @@ namespace FlowerFest.Services
                         new XElement("date", comment.PublishedDate.ToString("yyyy-MM-dd HH:m:ss")),
                         new XElement("content", comment.Content),
                         new XAttribute("isAdmin", comment.IsAdmin),
-                        new XAttribute("id", comment.ID)
+                        new XAttribute("id", comment.Id)
                     ));
             }
 
@@ -186,7 +186,7 @@ namespace FlowerFest.Services
 
         private string GetFilePath(Post post)
         {
-            return Path.Combine(_folder, post.ID + ".xml");
+            return Path.Combine(_folder, post.Id + ".xml");
         }
 
         private void Initialize()
@@ -207,13 +207,13 @@ namespace FlowerFest.Services
 
                 var post = new Post
                 {
-                    ID = Path.GetFileNameWithoutExtension(file),
+                    Id = Path.GetFileNameWithoutExtension(file),
                     Title = ReadValue(doc, "title"),
-                    Excerpt = ReadValue(doc, "excerpt"),
+                    Description = ReadValue(doc, "excerpt"),
                     Content = ReadValue(doc, "content"),
                     Slug = ReadValue(doc, "slug").ToLowerInvariant(),
                     PublishedDate = DateTime.Parse(ReadValue(doc, "pubDate")),
-                    LastModified = DateTime.Parse(ReadValue(doc, "lastModified", DateTime.Now.ToString())),
+                    ModifiedDate = DateTime.Parse(ReadValue(doc, "lastModified", DateTime.Now.ToString())),
                     IsPublished = bool.Parse(ReadValue(doc, "ispublished", "true"))
                 };
 
@@ -250,7 +250,7 @@ namespace FlowerFest.Services
             {
                 var comment = new Comment
                 {
-                    ID = ReadAttribute(node, "id"),
+                    Id = ReadAttribute(node, "id"),
                     Author = ReadValue(node, "author"),
                     Email = ReadValue(node, "email"),
                     IsAdmin = bool.Parse(ReadAttribute(node, "isAdmin", "false")),
@@ -298,7 +298,7 @@ namespace FlowerFest.Services
                         return
                         p.Title.Contains(term, StringComparison.OrdinalIgnoreCase) ||
                         p.Content.Contains(term, StringComparison.OrdinalIgnoreCase) ||
-                        p.Excerpt.Contains(term, StringComparison.OrdinalIgnoreCase) ||
+                        p.Description.Contains(term, StringComparison.OrdinalIgnoreCase) ||
                         p.PublishedDate <= DateTime.UtcNow && (p.IsPublished || isAdmin);
                     }
                 )

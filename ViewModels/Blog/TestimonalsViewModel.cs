@@ -7,15 +7,10 @@
 
 namespace FlowerFest.ViewModels.Blog
 {
-    using System.Collections.Generic;
-
-    public class TestimonalsViewModel
+    public class TestimonalViewModel
     {
-        public TestimonalsViewModel()
-        {
-            Posts = new List<TestimonalPostViewModel>();
-        }
-
-        public IList<TestimonalPostViewModel> Posts { get; set; }
+        public string Content { get; set; }
+        public string Author { get; set; }
+        public string Place { get; set; }
     }
 }

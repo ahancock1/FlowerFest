@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   ContactViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels
+namespace FlowerFest.ViewModels.Home
 {
     using System.ComponentModel.DataAnnotations;
 

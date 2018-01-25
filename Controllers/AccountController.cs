@@ -18,6 +18,7 @@ namespace FlowerFest.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Models;
+    using ViewModels.Account;
 
     [Authorize]
     public class AccountController : Controller

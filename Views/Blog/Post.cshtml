@@ -1,4 +1,4 @@
-﻿@model Post
+﻿@*@model Post
 @inject IOptionsSnapshot<BlogSettings> settings
 @{
     ViewData["Title"] = Model.Title;
@@ -47,4 +47,4 @@
         <meta itemprop="dateModified" content="@Model.LastModified.ToString("s")" />
         <meta itemprop="mainEntityOfPage" content="@(host + Model.Link)" />
     </div>
-</article>
+</article>*@

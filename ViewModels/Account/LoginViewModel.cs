@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   LoginViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Models
+namespace FlowerFest.ViewModels.Account
 {
     using System.ComponentModel.DataAnnotations;
 

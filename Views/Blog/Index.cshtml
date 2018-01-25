@@ -1,7 +1,7 @@
 ﻿@model BlogViewModel
 
 <!-- Page Intro -->
-<section class="inner-intro bg-image jarallax overlay-light" data-background-img="./img/intro.jpg">
+<section class="inner-intro bg-image jarallax overlay-light" data-background-img="./img/blog.jpg">
     <div class="container">
         <div class="intro-content">
             <div class="intro-content-inner">
@@ -26,13 +26,13 @@
                     <div class="blog-post">
                         <div class="post-media">
                             <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
-                                <img src="img/intro.jpg" alt="blog" />
+                                <img src="img/intro.jpg" alt="blog"/>
                             </a>
                         </div>
                         <div class="post-meta">
                             <span>by @post.Author,</span>
                             <span class="post-date">
-                                @post.Published.ToString("dd MMM yyyy")
+                                @post.PublishedDate.ToString("dd MMM yyyy")
                             </span>
                         </div>
                         <div class="post-header">
@@ -48,13 +48,13 @@
                         <div class="post-tag">
 
                             @foreach (var category in post.Categories)
-    {
-                        <span>
-                            <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">
-                                @category
-                            </a>
-                        </span>
-}
+                            {
+                                <span>
+                                    <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">
+                                        @category
+                                    </a>
+                                </span>
+                            }
                         </div>
                     </div>
                 </div>

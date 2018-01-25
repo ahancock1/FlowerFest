@@ -1,4 +1,4 @@
-﻿@model NewsViewModel
+﻿@model IList<PostViewModel>
 
 <div class="container">
 
@@ -6,7 +6,7 @@
     
     <div class="row justify-content-center">
         
-        @foreach (var post in Model.RecentPosts)
+        @foreach (var post in Model)
         {
             <div class="col-md-4 col-sm-6 mb-sm-30 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.1s">
                 <!-- Post -->
@@ -19,7 +19,7 @@
                     <div class="post-meta">
                         <span>by @post.Author,</span>
                         <span class="post-date">
-                            @post.Published.ToString("dd MMM yyyy")
+                            @post.PublishedDate.ToString("dd MMM yyyy")
                         </span>
                     </div>
                     <div class="post-header">
