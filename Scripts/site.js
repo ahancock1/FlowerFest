@@ -24,8 +24,14 @@
     });
 
     function gravatars() {
-        // TODO - implement loading gravatars
-         
+
+        var gravatars = $("data-gravatar");
+        gravatars.each(function (src) {
+
+                
+
+            }
+        });
 
     };
 
