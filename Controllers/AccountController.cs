@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   AccountController.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
@@ -17,7 +17,7 @@ namespace FlowerFest.Controllers
     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
-    using Models;
+    using ViewModels.Account;
 
     [Authorize]
     public class AccountController : Controller
@@ -28,7 +28,7 @@ namespace FlowerFest.Controllers
         {
             _config = config;
         }
-        
+
         [Route("/login")]
         [AllowAnonymous]
         [HttpGet]

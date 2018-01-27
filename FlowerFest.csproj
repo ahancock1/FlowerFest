@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Blog\Post.cshtml" />
     <Content Remove="wwwroot\css\admin.css" />
     <Content Remove="wwwroot\css\belowthefold.css" />
     <Content Remove="wwwroot\css\comments.css" />
@@ -61,6 +62,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.2.0" />
     <PackageReference Include="Azure.ImageOptimizer" Version="1.0.0.38" />
     <PackageReference Include="LigerShark.WebOptimizer.Core" Version="1.0.175-beta" />
     <PackageReference Include="LigerShark.WebOptimizer.Sass" Version="1.0.33-beta" />

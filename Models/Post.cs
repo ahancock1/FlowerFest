@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   Post.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
@@ -14,7 +14,7 @@ namespace FlowerFest.Models
     public class Post
     {
         [Required]
-        public string ID { get; set; } = DateTime.UtcNow.Ticks.ToString();
+        public string Id { get; set; } = DateTime.UtcNow.Ticks.ToString();
 
         [Required]
         public string Title { get; set; }
@@ -22,14 +22,14 @@ namespace FlowerFest.Models
         public string Slug { get; set; }
 
         [Required]
-        public string Excerpt { get; set; }
+        public string Description { get; set; }
 
         [Required]
         public string Content { get; set; }
 
         public DateTime PublishedDate { get; set; } = DateTime.UtcNow;
 
-        public DateTime LastModified { get; set; } = DateTime.UtcNow;
+        public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
 
         public bool IsPublished { get; set; } = true;
 

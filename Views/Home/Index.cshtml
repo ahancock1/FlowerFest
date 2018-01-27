@@ -1,4 +1,5 @@
-﻿@model HomeViewModel
+﻿@using FlowerFest.ViewModels.Home
+@model HomeViewModel
 
 <!-- Intro -->
 <section id="intro" class="intro jarallax" >
@@ -25,7 +26,7 @@
 <!-- News -->
 <section id="news" class="section-padding">
     @{
-        await Html.RenderPartialAsync("News", Model.News);
+        await Html.RenderPartialAsync("News", Model.RecentPosts);
     }
 </section>
 

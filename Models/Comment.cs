@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   Comment.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
@@ -9,13 +9,11 @@ namespace FlowerFest.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Security.Cryptography;
-    using System.Text;
 
     public class Comment
     {
         [Required]
-        public string ID { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         public string Author { get; set; }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   BlogController.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
@@ -8,28 +8,33 @@
 namespace FlowerFest.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Xml;
+    using AutoMapper;
     using Helpers;
-    using ViewModels;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Models;
     using Services;
-    using FlowerFest.ViewModels.Blog;
+    using ViewModels;
+    using ViewModels.Blog;
 
     public class BlogController : Controller
     {
         private readonly IBlogService _blog;
+        private readonly IMapper _mapper;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
 
-        public BlogController(IBlogService blog, IOptionsSnapshot<BlogSettings> settings)
+        public BlogController(IBlogService blog, IOptionsSnapshot<BlogSettings> settings,
+            IMapper mapper)
         {
             _blog = blog;
             _settings = settings;
+            _mapper = mapper;
         }
 
         [Route("/Blog/{page:int?}")]
@@ -37,51 +42,40 @@ namespace FlowerFest.Controllers
         {
             ViewData["Title"] = $"{_settings.Value.Name} - Blog";
 
-            var viewmodel = new BlogViewModel();
+            var viewmodel = new BlogViewModel
+            {
+                Posts = new List<PostViewModel>()
+            };
 
             var items = _settings.Value.PostsPerPage;
-            var author = _settings.Value.Owner;
 
-            foreach ( var post in await _blog.GetPosts(items))
+            foreach (var post in await _blog.GetPosts(items))
             {
-                // TODO - use automapper
-                viewmodel.Posts.Add(new PostViewModel
-                {
-                    Author = author,
-                    Categories = post.Categories,
-                    Title = post.Title,
-                    Published = post.PublishedDate,
-                    Slug = post.Slug,
-                    Description = post.Excerpt
-                });
+                var p = _mapper.Map<PostViewModel>(post);
+                p.Author = _settings.Value.Owner;
+
+                viewmodel.Posts.Add(p);
             }
 
-            return View("Views/Blog/Index.cshtml", viewmodel);
+            return View("Index", viewmodel);
         }
-        
+
         [Route("/Blog/Category/{category}/{page:int?}")]
         public async Task<IActionResult> Category(string category, int page = 0)
         {
             ViewData["Title"] = $"{_settings.Value.Name} - Blog";
 
             var viewmodel = new BlogViewModel();
-
-            var author = _settings.Value.Owner;
-
+            
             foreach (var post in await _blog.GetPostsByCategory(category))
             {
-                viewmodel.Posts.Add(new PostViewModel
-                {
-                    Author = author,
-                    Categories = post.Categories,
-                    Title = post.Title,
-                    Published = post.PublishedDate,
-                    Slug = post.Slug,
-                    Description = post.Excerpt
-                });
+                var p = _mapper.Map<PostViewModel>(post);
+                p.Author = _settings.Value.Owner;
+
+                viewmodel.Posts.Add(p);
             }
 
-            return View("Views/Blog/Index.cshtml", viewmodel);
+            return View("Index", viewmodel);
         }
 
         [Route("/Blog/{slug?}")]
@@ -91,34 +85,25 @@ namespace FlowerFest.Controllers
 
             if (post != null)
             {
-                var author = _settings.Value.Owner;
+                ViewData["Title"] = $"{_settings.Value.Name} - {post.Title}";
 
-                var viewmodel = new PostDetailViewModel
-                {
-                    Author = author, 
-                    Categories = post.Categories,
-                    Description = post.Excerpt,
-                    Published = post.PublishedDate,
-                    Title = post.Title,
-                    Content = post.Content
-                };
+                var viewmodel = _mapper.Map<PostDetailViewModel>(post);
+                viewmodel.Author = _settings.Value.Owner;
 
-                foreach(var comment in post.Comments)
+                foreach (var comment in post.Comments)
                 {
-                    viewmodel.Comments.Add(new CommentViewModel
-                    {
-                        Author = comment.Author,
-                        Content = comment.Content,
-                        Email = comment.Email,
-                        Post = post
-                    });
+                    viewmodel.Comments.Add(
+                        _mapper.Map<CommentViewModel>(comment));
                 }
 
                 return View("PostDetail", viewmodel);
             }
-
+            
             return NotFound();
         }
+
+
+        // Update below
 
         [Route("/Blog/Edit/{id?}")]
         [HttpGet]
@@ -151,7 +136,7 @@ namespace FlowerFest.Controllers
                 return View("Edit", post);
             }
 
-            var existing = await _blog.GetPostById(post.ID) ?? post;
+            var existing = await _blog.GetPostById(post.Id) ?? post;
             string categories = Request.Form["categories"];
 
             existing.Categories = categories.Split(",", StringSplitOptions.RemoveEmptyEntries)
@@ -163,7 +148,7 @@ namespace FlowerFest.Controllers
                 : PostHelper.GenerateSlug(post.Title);
             existing.IsPublished = post.IsPublished;
             existing.Content = post.Content.Trim();
-            existing.Excerpt = post.Excerpt.Trim();
+            existing.Description = post.Description.Trim();
 
             await _blog.SavePost(existing);
 
@@ -230,20 +215,13 @@ namespace FlowerFest.Controllers
                 return View("Post", post);
             }
 
-            var c = new Comment
-            {
-                //ID = new Guid().ToString(),
-                //IsAdmin = User.Identity.IsAuthenticated,
-                //Content = comment.Content.Trim(),
-                //Author = comment.Name,
-                //Email = comment.Email
-            };
+            var c = new Comment();
 
             if (post == null || !PostHelper.AreCommentsOpen(post, _settings.Value.CommentsCloseAfterDays))
             {
                 return NotFound();
             }
-            
+
             // the website form key should have been removed by javascript
             // unless the comment was posted by a spam robot
             if (!Request.Form.ContainsKey("website"))
@@ -252,7 +230,7 @@ namespace FlowerFest.Controllers
                 await _blog.SavePost(post);
             }
 
-            return Redirect(post.Link + "#" + comment.ID);
+            return Redirect(post.Link + "#" + comment.Id);
         }
 
         [Route("/Blog/Comment/{postId}/{commentId}")]
@@ -266,7 +244,7 @@ namespace FlowerFest.Controllers
                 return NotFound();
             }
 
-            var comment = post.Comments.FirstOrDefault(c => c.ID.Equals(commentId, StringComparison.OrdinalIgnoreCase));
+            var comment = post.Comments.FirstOrDefault(c => c.Id.Equals(commentId, StringComparison.OrdinalIgnoreCase));
 
             if (comment == null)
             {

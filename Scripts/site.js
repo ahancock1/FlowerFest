@@ -96,8 +96,22 @@
             slideSpeed: 350,
             pagination: true,  // Show pagination buttons
             navigation: false,  // Hide next and prev buttons
-            navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+            navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
             //  responsive: true
+        });
+
+        // Support
+        $(".support-carousel").owlCarousel({
+            autoPlay: 2500,
+            stopOnHover: true,
+            items: 6,
+            itemsDesktop: [1170, 5],
+            itemsDesktopSmall: [1024, 4],
+            itemsTabletSmall: [768, 3],
+            itemsMobile: [480, 2],
+            pagination: false,  // hide pagination buttons
+            navigation: false,  // hide next and prev buttons
+            navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"]
         });
     };
     

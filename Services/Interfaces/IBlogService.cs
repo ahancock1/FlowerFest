@@ -84,7 +84,7 @@ namespace FlowerFest.Services
 
         public virtual Task<Post> GetPostById(string id)
         {
-            var post = Cache.FirstOrDefault(p => p.ID.Equals(id, StringComparison.OrdinalIgnoreCase));
+            var post = Cache.FirstOrDefault(p => p.Id.Equals(id, StringComparison.OrdinalIgnoreCase));
             var isAdmin = IsAdmin();
 
             if (post != null && post.PublishedDate <= DateTime.UtcNow && (post.IsPublished || isAdmin))

@@ -1,4 +1,4 @@
-﻿@model TestimonalsViewModel
+﻿@model IList<TestimonalViewModel>
 
 <!-- Triangle -->
 <div class="page-triangle white-bg"></div>
@@ -6,7 +6,7 @@
 <div class="container">
     <div class="owl-carousel testimonial-carousel nf-carousel-theme white">
         
-        @foreach (var testimonal in Model.Posts)
+        @foreach (var testimonal in Model)
         {
             <div class="item">
                 <div class="testimonial text-center max-width-700">

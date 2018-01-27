@@ -12,7 +12,7 @@
 
                     @foreach (var comment in Model.Comments)
                     {
-                        <article id="@comment.ID" class="@(comment.IsAdmin ? "admin" : null)" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
+                        <article id="@comment.Id" class="@(comment.IsAdmin ? "admin" : null)" itemprop="comment" itemscope itemtype="http://schema.org/Comment">
 
                             <!-- Gravatar -->
                             <figure class="gravatar">
@@ -36,7 +36,7 @@
                                     @if (User.Identity.IsAuthenticated)
                                     {
                                         <a class="noline" href="mailto:@comment.Email" title="Send email to @comment.Email">&#x2709;</a>
-                                        <a class="delete noline" asp-controller="Blog" asp-Action="DeleteComment" asp-route-postid="@Model.ID" asp-route-commentid="@comment.ID" asp-route-afrt="@ViewData["afrt"]" title="Delete the comment...">Delete...</a>
+                                        <a class="delete noline" asp-controller="Blog" asp-Action="DeleteComment" asp-route-postid="@Model.Id" asp-route-commentid="@comment.Id" asp-route-afrt="@ViewData["afrt"]" title="Delete the comment...">Delete...</a>
                                     }
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                         }
 
                             <form method="post" asp-controller="Blog" asp-action="AddComment"
-                                  asp-route-postid="@Model.ID" asp-antiforgery="false">
+                                  asp-route-postid="@Model.Id" asp-antiforgery="false">
                                 <h3>Post a comment</h3>
 
                                 <div class="row">

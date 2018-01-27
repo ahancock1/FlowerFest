@@ -1,22 +1,14 @@
 ﻿// -----------------------------------------------------------------------
-//   Copyright (C) 2017 Adam Hancock
+//   Copyright (C) 2018 Adam Hancock
 //    
 //   AboutViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels
+namespace FlowerFest.ViewModels.Home
 {
-    using System.Collections.Generic;
-
     public class AboutViewModel
     {
-        public SectionContentViewModel[] Contents { get; set; }
-    }
-
-    public class SectionContentViewModel
-    {
-        public int Index { get; set; }
         public string Content { get; set; }
     }
 }
