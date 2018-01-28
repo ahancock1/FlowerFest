@@ -9,6 +9,7 @@
         carousels();
         parallax();
         gravatars();
+        navigation();
     });
 
     $(window).scroll(function() {
@@ -64,7 +65,26 @@
         } else {
             $(".header").removeClass("header-fixed");
         }
+
     };
+
+    function navigation() {
+
+        var icon = $(".nav-mobile");
+        var menu = $(".nav-menu");
+
+        icon.click(function() {
+
+            if (!$(this).hasClass("active")) {
+                icon.addClass("active");
+                menu.addClass("active");
+            } else {
+                icon.removeClass("active");
+                menu.removeClass("active");
+            }
+
+        });
+    }
 
     function intro() {
         var height = $(window).height();
