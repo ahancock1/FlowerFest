@@ -90,7 +90,6 @@
   <ItemGroup>
     <None Include="Scripts\site.js" />
     <None Include="wwwroot\img\avatar.svg" />
-    <None Include="wwwroot\img\logo.png" />
   </ItemGroup>
 
 </Project>

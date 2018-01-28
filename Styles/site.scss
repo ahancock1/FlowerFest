@@ -1960,8 +1960,8 @@ form label.error {
 }
 
 .header-fixed .logo a {
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
     -o-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
     -moz-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
@@ -2031,9 +2031,9 @@ form label.error {
     }
 
     .header .logo a {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        width: 100px;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        width: 80px;
         transition: all 0.3s ease 0s;
         -o-transition: all 0.3s ease 0s;
         -moz-transition: all 0.3s ease 0s;
@@ -2052,10 +2052,10 @@ form label.error {
 }
 
 .logo a {
-    width: 100px;
+    width: 80px;
     display: block;
-    margin-top: 29px;
-    margin-bottom: 28px;
+    margin-top: 8px;
+    margin-bottom: 8px;
     transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
     -o-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
     -moz-transition: all 0.27s cubic-bezier(0, 0, 0.58, 1) 0s;
@@ -3279,7 +3279,7 @@ ul.icon-tab-nav li, .icon-tab-nav ul li {
 }
 
 /*------------------------------------------------------------------*/
-/* Support Logo */
+/* Main Support Logo */
 /*------------------------------------------------------------------*/
 
 .main-support-logo {
@@ -3291,6 +3291,19 @@ ul.icon-tab-nav li, .icon-tab-nav ul li {
     height: 100%;
 }
 
+/*------------------------------------------------------------------*/
+/* Brand Logo */
+/*------------------------------------------------------------------*/
+
+.intro-logo {
+    height: 200px;
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.intro-logo img {
+    height: 100%;
+}
 
 /*------------------------------------------------------------------*/
 /* Social */
