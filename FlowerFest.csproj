@@ -22,10 +22,6 @@
 
   <ItemGroup>
     <Content Remove="Views\Blog\Post.cshtml" />
-    <Content Remove="wwwroot\css\admin.css" />
-    <Content Remove="wwwroot\css\belowthefold.css" />
-    <Content Remove="wwwroot\css\comments.css" />
-    <Content Remove="wwwroot\css\login.css" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,6 +86,12 @@
   <ItemGroup>
     <None Include="Scripts\site.js" />
     <None Include="wwwroot\img\avatar.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
 </Project>

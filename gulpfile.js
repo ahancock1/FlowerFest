@@ -10,11 +10,13 @@ var webroot = "./wwwroot/";
 
 var inputs = {
     styles: "./Styles/**/*.scss",
-    scripts: "./Scripts/**/*.js",
+    scripts: [
+        "./Scripts/**/site.js",
+        "./Scripts/**/admin.js"
+    ],
     libs: [
         "./node_modules/jquery/dist/jquery.js",
         "./node_modules/jquery-validation/dist/jquery.validate.js",
-        "./node_modules/tinymce/tinymce.min.js",
         "./node_modules/hamburgers/dist/hamburgers.css",
         "./node_modules/font-awesome/css/font-awesome.css",
         "./node_modules/font-awesome/css/font-awesome.css",
@@ -54,24 +56,34 @@ var styles = function () {
         .pipe(sass())
         .pipe(gulp.dest(outputs.styles));
 };
+
 var scripts = function () {
-
-    return gulp.src("./Scripts/**/site.js")
-        .pipe(concat("site.js"))
+    return gulp.src(inputs.scripts)
+        //.pipe(concat("site.js"))
         .pipe(gulp.dest(outputs.scripts));
-
-    //return gulp.src(inputs.scripts)
-    //    .pipe(concat("site.js"))
-    //    .pipe(gulp.dest(outputs.scripts));
 };
+
 var fonts = function () {
     return gulp.src(inputs.fonts)
         .pipe(gulp.dest(outputs.fonts));
 };
+
 var libs = function () {
+
+    tinymce();
+
     return gulp.src(inputs.libs)
         .pipe(gulp.dest(outputs.libs));
 };
+
+var tinymce = function () {
+
+    var input = "./node_modules/tinymce/**/*";
+    var output = outputs.libs + "/tinymce";
+
+    return gulp.src(input)
+        .pipe(gulp.dest(output));
+}
 
 gulp.task("clean", function () {
 

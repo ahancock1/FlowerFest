@@ -15,7 +15,7 @@ namespace FlowerFest.Services
     using System.Threading.Tasks;
     using System.Xml.Linq;
     using System.Xml.XPath;
-    using FlowerFest.Extensions;
+    using Extensions;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
     using Models;
