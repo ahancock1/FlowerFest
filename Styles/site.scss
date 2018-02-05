@@ -4172,7 +4172,7 @@ footer {
     font-size: 18px;
 }
 
-#edit {
+#edit, #login {
 
     .form-control {
         text-transform: none;
@@ -4191,6 +4191,8 @@ footer {
         padding: 3px 7px;
         border: 1px solid gray;
         font: inherit;
+        font-size: 14px;
+        color: #000;
     }
 
     input[type=checkbox] {
@@ -4268,7 +4270,8 @@ footer {
         margin: 0 0 10px;
         box-sizing: border-box;
         padding: 3px 7px;
-        color: #333;
+        color: #000;
+        font-family: 'Open Sans', Arial, sans-serif;
     }
 
     .standard-control input:hover,
