@@ -8,7 +8,7 @@
                 <h1 class="">Blog</h1>
                 <h5 class="alt-title intro-sub-title">Our Latest News</h5>
                 
-                <a class="btn btn-black-outline btn-lg scroll-down" href="#about">LEARN MORE</a>
+                <a class="btn btn-black-outline btn-lg" asp-controller="Blog" asp-action="Edit">Create Post</a>
             </div>
         </div>
     </div>
@@ -58,12 +58,6 @@
                                 </span>
                             }
                         </div>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="post-admin">
-                                <a asp-controller="Blog" asp-action="Edit" asp-route-id="@post.Id" title="Edit">Edit</a>
-                            </div>
-                        }
                     </div>
                 </div>
             }

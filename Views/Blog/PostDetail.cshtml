@@ -7,6 +7,8 @@
             <div class="intro-content-inner">
                 <h1 class="">@Model.Title</h1>
                 <h5 class="alt-title intro-sub-title">@Model.Description</h5>
+                
+                <a class="btn btn-black-outline btn-lg" asp-controller="Blog" asp-action="Edit" asp-route-id="@Model.Id">Edit Post</a>
             </div>
         </div>
     </div>

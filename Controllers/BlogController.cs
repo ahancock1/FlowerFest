@@ -89,13 +89,7 @@ namespace FlowerFest.Controllers
 
                 var viewmodel = _mapper.Map<PostDetailViewModel>(post);
                 viewmodel.Author = _settings.Value.Owner;
-
-                foreach (var comment in post.Comments)
-                {
-                    viewmodel.Comments.Add(
-                        _mapper.Map<CommentViewModel>(comment));
-                }
-
+                
                 return View("PostDetail", viewmodel);
             }
             
@@ -125,11 +119,11 @@ namespace FlowerFest.Controllers
             return NotFound();
         }
 
-        [Route("/Blog/{slug?}")]
+        [Route("/Blog/Update")]
         [HttpPost]
         [Authorize]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> UpdatePost(Post post)
+        public async Task<IActionResult> Update(Post post)
         {
             if (!ModelState.IsValid)
             {

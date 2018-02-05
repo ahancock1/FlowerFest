@@ -28,18 +28,18 @@
             </li>
 
             <li>
-                <a asp-controller="blog">Blog</a>
+                <a asp-controller="blog" asp-action="Index">Blog</a>
             </li>
             <li>
                 <a href="@Url.Action("Index", "Home")#contact">Contact</a>
             </li>
-            
-        @if (User.Identity.IsAuthenticated)
-        {
-            <li>
-                <a asp-controller="Account" asp-action="LogOutAsync">Logout</a>
-            </li>
-        }
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a asp-controller="Account" asp-action="LogOutAsync">Logout</a>
+                </li>
+            }
         </ul>
     </div>
     <!-- End Navbar Navigation -->

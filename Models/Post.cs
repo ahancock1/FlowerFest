@@ -14,6 +14,9 @@ namespace FlowerFest.Models
     public class Post
     {
         [Required]
+        public string Spotlight { get; set; } = "";
+
+        [Required]
         public string Id { get; set; } = DateTime.UtcNow.Ticks.ToString();
 
         [Required]
