@@ -33,6 +33,13 @@
             <li>
                 <a href="@Url.Action("Index", "Home")#contact">Contact</a>
             </li>
+            
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li>
+                <a asp-controller="Account" asp-action="LogOutAsync">Logout</a>
+            </li>
+        }
         </ul>
     </div>
     <!-- End Navbar Navigation -->
