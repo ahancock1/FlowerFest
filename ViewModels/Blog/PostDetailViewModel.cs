@@ -12,6 +12,7 @@ namespace FlowerFest.ViewModels.Blog
 
     public class PostDetailViewModel
     {
+        public string Spotlight { get; set; }
         public string Id { get; set; }
         public string Author { get; set; }
         public DateTime PublishedDate { get; set; }

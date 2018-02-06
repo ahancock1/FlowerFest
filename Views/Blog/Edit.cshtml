@@ -1,4 +1,4 @@
-﻿@model Post
+﻿@model EditPostViewModel
 @{
     var isNew = string.IsNullOrEmpty(Model.Title);
     ViewData["Title"] = "Edit " + (Model.Title ?? "new post");
@@ -6,21 +6,25 @@
 <section class="section-padding">
     <div class="container">
         <div id="edit">
-            
-            <form method="post" asp-controller="Blog" asp-action="Update">
+
+            <form asp-controller="Blog" asp-action="Update" emethod="post" enctype="multipart/form-data">
 
                 <input type="hidden" asp-for="@Model.Id"/>
-                
+
                 <!-- Spotlight -->
-                <div class="row">
-                    <div class="standard-control col-md-12">
-                        <label asp-for="@Model.Spotlight">Spotlight</label>
-                        <div class="control">
-                            <input class="form-control" asp-for="@Model.Spotlight" autofocus placeholder="The header spotlight image" />
-                            <span class="text-danger" asp-validation-for="@Model.Spotlight"></span>
+                @if (isNew)
+                {
+                    <div class="row justify-content-center">
+                        <div class="standard-control col-md-12 col-sm-12">
+                            <label asp-for="Spotlight">Spotlight</label>
+                            <div class="control">
+                                <input class="form-control" type="file" asp-for="Spotlight"
+                                       autofocus placeholder="The header spotlight image"/>
+                                <span class="text-danger" asp-validation-for="Spotlight"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
 
                 <!-- Title -->
                 <div class="row">
@@ -89,17 +93,17 @@
 
                     @if (isNew)
                     {
-                        <div class="col-md-offset-4 col-md-4">
-                            <input class="actions submit" type="submit" value="Save" asp-action="UpdatePost" asp-route-id="@Model"/>
+                        <div class="standard-control col-md-4">
+                            <input class="actions submit" type="submit" value="Save"/>
                         </div>
                     }
                     else
                     {
-                        <div class="col-md-offset-2 col-md-4 ">
+                        <div class="standard-control col-md-4 ">
                             <input class="actions submit delete" type="submit" value="Delete" asp-action="Delete" asp-route-id="@Model.Id"/>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="standard-control col-md-4">
                             <input class="actions submit" type="submit" value="Save"/>
                         </div>
                     }

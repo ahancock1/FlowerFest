@@ -9,6 +9,7 @@ namespace FlowerFest.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
@@ -16,8 +17,13 @@ namespace FlowerFest.Controllers
     using AutoMapper;
     using Helpers;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.FileProviders;
     using Microsoft.Extensions.Options;
+    using Microsoft.Net.Http.Headers;
     using Models;
     using Services;
     using ViewModels;
@@ -28,13 +34,15 @@ namespace FlowerFest.Controllers
         private readonly IBlogService _blog;
         private readonly IMapper _mapper;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public BlogController(IBlogService blog, IOptionsSnapshot<BlogSettings> settings,
-            IMapper mapper)
+            IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             _blog = blog;
             _settings = settings;
             _mapper = mapper;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [Route("/Blog/{page:int?}")]
@@ -106,30 +114,117 @@ namespace FlowerFest.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return View(new Post());
+                return View(new EditPostViewModel());
             }
 
             var post = await _blog.GetPostById(id);
 
             if (post != null)
             {
-                return View(post);
+                var edit = _mapper.Map<EditPostViewModel>(post);
+
+                //edit.Spotlight = await OpenSpotlight(post.Spotlight);
+
+                return View(edit);
             }
 
             return NotFound();
         }
 
+        private Task<IFormFile> OpenSpotlight(string filename)
+        {
+            if (!string.IsNullOrEmpty(filename))
+            {
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+
+                if (Directory.Exists(uploads))
+                {
+                    var filepath = Path.Combine(uploads, filename);
+
+                    // Check file exists
+
+                    using (var stream = new FileStream(filepath, FileMode.Open))
+                    {
+                        var file = new FormFile(stream, 0, stream.Length, "spotlight", filename);
+
+                        return Task.FromResult((IFormFile) file);
+                    }
+                }
+            }
+
+            return Task.FromResult(default(IFormFile));
+        }
+
+        private async Task<string> SaveSpotlight(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+
+                if (!Directory.Exists(uploads))
+                {
+                    Directory.CreateDirectory(uploads);
+                }
+                
+                var filename = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+
+                var filepath = Path.Combine(uploads, filename);
+
+                using (var stream = new FileStream(filepath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                return filename;
+            }
+
+            return null;
+        }
+
+        private bool ValidateSpotlight(IFormFile file)
+        {
+            if (file == null || file.Length == 0) return false;
+
+            var accepted = new[]
+            {
+                "jpg",
+                "jpeg",
+                "png"
+            };
+
+            var extension = Path.GetExtension(file.FileName);
+
+            foreach (var type in accepted)
+            {
+                if (extension.ToLower().Contains(type))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
         [Route("/Blog/Update")]
         [HttpPost]
         [Authorize]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Update(Post post)
+        public async Task<IActionResult> Update(EditPostViewModel edit)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || !ValidateSpotlight(edit.Spotlight))
             {
-                return View("Edit", post);
+                return View("Edit", edit);
             }
+            
+            var filename = await SaveSpotlight(edit.Spotlight);
+            
+            var post = _mapper.Map<Post>(edit);
 
+            if (!string.IsNullOrEmpty(filename))
+            {
+                post.Spotlight = filename;
+            }
+            
             var existing = await _blog.GetPostById(post.Id) ?? post;
             string categories = Request.Form["categories"];
 
@@ -192,7 +287,23 @@ namespace FlowerFest.Controllers
             if (existing != null)
             {
                 await _blog.DeletePost(existing);
-                return Redirect("/");
+
+                var viewmodel = new BlogViewModel
+                {
+                    Posts = new List<PostViewModel>()
+                };
+
+                var items = _settings.Value.PostsPerPage;
+
+                foreach (var post in await _blog.GetPosts(items))
+                {
+                    var p = _mapper.Map<PostViewModel>(post);
+                    p.Author = _settings.Value.Owner;
+
+                    viewmodel.Posts.Add(p);
+                }
+
+                return View("Index", viewmodel);
             }
 
             return NotFound();

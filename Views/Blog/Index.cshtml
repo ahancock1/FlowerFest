@@ -28,7 +28,7 @@
                     <div class="blog-post">
                         <div class="post-media">
                             <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
-                                <img src="img/intro.jpg" alt="blog"/>
+                                <img src="@Url.Content($"~/uploads/{post.Spotlight}")" alt="blog"/>
                             </a>
                         </div>
                         <div class="post-meta">

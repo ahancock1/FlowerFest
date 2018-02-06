@@ -26,6 +26,11 @@ namespace FlowerFest.Mappings
 
             CreateMap<Testimonal, TestimonalViewModel>();
             CreateMap<TestimonalViewModel, Testimonal>();
+
+            CreateMap<Post, EditPostViewModel>()
+                .ForMember(dest => dest.Spotlight, opt => opt.Ignore());
+
+            CreateMap<EditPostViewModel, Post>();
         }
     }
 }
