@@ -90,12 +90,7 @@ namespace FlowerFest
             //}
             );
         }
-
-        private Func<IServiceProvider, Mapper> GetMapperConfiguration()
-        {
-            throw new NotImplementedException();
-        }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
