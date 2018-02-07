@@ -8,7 +8,10 @@
                 <h1 class="">Blog</h1>
                 <h5 class="alt-title intro-sub-title">Our Latest News</h5>
                 
-                <a class="btn btn-black-outline btn-lg" asp-controller="Blog" asp-action="Edit">Create Post</a>
+@if (User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-black-outline btn-lg" asp-controller="Blog" asp-action="Edit">Create Post</a>
+}
             </div>
         </div>
     </div>
