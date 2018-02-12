@@ -211,7 +211,7 @@ namespace FlowerFest.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(EditPostViewModel edit)
         {
-            if (!ModelState.IsValid || !ValidateSpotlight(edit.Spotlight))
+            if (!ModelState.IsValid)// || !ValidateSpotlight(edit.Spotlight))
             {
                 return View("Edit", edit);
             }

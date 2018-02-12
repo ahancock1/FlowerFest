@@ -28,7 +28,18 @@ namespace FlowerFest.Services
 
         public BlogService(IHostingEnvironment env, IHttpContextAccessor contextAccessor)
         {
+            if (string.IsNullOrWhiteSpace(env.WebRootPath))
+            {
+                env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+            }
+
             _folder = Path.Combine(env.WebRootPath, "posts");
+
+            if (!Directory.Exists(_folder))
+            {
+                Directory.CreateDirectory(_folder);
+            }
+
             _contextAccessor = contextAccessor;
 
             Initialize();

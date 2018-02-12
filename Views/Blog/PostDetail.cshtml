@@ -46,8 +46,9 @@
                     <br/>
 
                     <div class="post-meta">
-                        <span>by <a>John Doe</a>,</span>
-                        <span class="post-date">06 Jan 2016</span>
+                        <span>by <a>@Model.Author</a>,</span>
+                        <span class="post-date">
+                            @Model.PublishedDate.ToString("dd MMM yyyy")</span>
                     </div>
 
                     <br/>

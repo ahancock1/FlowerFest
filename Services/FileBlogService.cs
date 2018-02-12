@@ -112,7 +112,8 @@ namespace FlowerFest.Services
                     new XElement("content", post.Content),
                     new XElement("ispublished", post.IsPublished),
                     new XElement("categories", string.Empty),
-                    new XElement("comments", string.Empty)
+                    new XElement("comments", string.Empty),
+                    new XElement("spotlight", post.Spotlight)
                 ));
 
             var categories = doc.XPathSelectElement("post/categories");
@@ -214,7 +215,8 @@ namespace FlowerFest.Services
                     Slug = ReadValue(doc, "slug").ToLowerInvariant(),
                     PublishedDate = DateTime.Parse(ReadValue(doc, "pubDate")),
                     ModifiedDate = DateTime.Parse(ReadValue(doc, "lastModified", DateTime.Now.ToString())),
-                    IsPublished = bool.Parse(ReadValue(doc, "ispublished", "true"))
+                    IsPublished = bool.Parse(ReadValue(doc, "ispublished", "true")),
+                    Spotlight = ReadValue(doc, "spotlight")
                 };
 
                 LoadCategories(post, doc);

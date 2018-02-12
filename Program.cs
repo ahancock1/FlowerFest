@@ -7,6 +7,7 @@
 
 namespace FlowerFest
 {
+    using System.IO;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
 
@@ -19,8 +20,9 @@ namespace FlowerFest
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseIISIntegration()
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseKestrel(a => a.AddServerHeader = false)
                 .Build();
     }
 }
