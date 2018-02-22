@@ -20,13 +20,13 @@ namespace FlowerFest.Services
     using Microsoft.AspNetCore.Http;
     using Models;
 
-    public class BlogService : IBlogService
+    public class OldBlogService : IOldBlogService
     {
         private readonly List<Post> _cache = new List<Post>();
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly string _folder;
 
-        public BlogService(IHostingEnvironment env, IHttpContextAccessor contextAccessor)
+        public OldBlogService(IHostingEnvironment env, IHttpContextAccessor contextAccessor)
         {
             if (string.IsNullOrWhiteSpace(env.WebRootPath))
             {

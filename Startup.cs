@@ -7,6 +7,7 @@
 
 namespace FlowerFest
 {
+    using System.IO;
     using AutoMapper;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
@@ -15,14 +16,19 @@ namespace FlowerFest
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
+    using Repository;
+    using Repository.Interfaces;
     using Services;
     using Services.Interfaces;
 
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment)
         {
             Configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -34,8 +40,33 @@ namespace FlowerFest
             services.AddAutoMapper();
 
             services.AddSingleton<IMailService, MailService>();
-            services.AddSingleton<IBlogService, BlogService>();
+            services.AddSingleton<IOldBlogService, OldBlogService>();
             services.AddSingleton<ITestimonalService, TestimonalService>();
+
+            var webroot = _environment.WebRootPath;
+
+            services
+                .AddSingleton<IFileService>(s =>
+                    new FileService(
+                        Path.Combine(webroot, "Uploads")));
+
+            // Repositories
+            services
+                .AddSingleton<IBlogRepository>(s =>
+                    new BlogRepository(
+                        Path.Combine(webroot, "Posts")))
+                .AddSingleton<ITestimonalRepository>(s =>
+                    new TestimonalRepository(
+                        Path.Combine(webroot, "Testimonals")))
+                .AddSingleton<ISupportRepository>(s =>
+                    new SupportRepository(
+                        Path.Combine(webroot, "Support")));
+
+            // Services
+            services.AddSingleton<IBlogService, BlogService>();
+
+
+
 
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -54,9 +85,9 @@ namespace FlowerFest
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();

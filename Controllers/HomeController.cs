@@ -19,7 +19,7 @@ namespace FlowerFest.Controllers
 
     public class HomeController : Controller
     {
-        private readonly IBlogService _blog;
+        private readonly IOldBlogService _blog;
 
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
@@ -29,7 +29,7 @@ namespace FlowerFest.Controllers
         public HomeController(
             IMailService mailService,
             ITestimonalService testimonals,
-            IBlogService blog,
+            IOldBlogService blog,
             IOptionsSnapshot<BlogSettings> settings,
             IMapper mapper)
         {

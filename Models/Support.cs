@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   Testimonal.cs can not be copied and/or distributed without the express
+//   Support.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
@@ -10,12 +10,11 @@ namespace FlowerFest.Models
     using System;
     using Repository;
 
-    public class Testimonal : IEntity
+    public class Support : IEntity
     {
+        public string Image { get; set; }
+        public string Link { get; set; }
+        public string Name { get; set; }
         public Guid Id { get; set; }
-
-        public string Content { get; set; }
-        public string Author { get; set; }
-        public string Place { get; set; }
     }
 }

@@ -31,12 +31,12 @@ namespace FlowerFest.Controllers
 
     public class BlogController : Controller
     {
-        private readonly IBlogService _blog;
+        private readonly IOldBlogService _blog;
         private readonly IMapper _mapper;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public BlogController(IBlogService blog, IOptionsSnapshot<BlogSettings> settings,
+        public BlogController(IOldBlogService blog, IOptionsSnapshot<BlogSettings> settings,
             IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             _blog = blog;
@@ -231,7 +231,6 @@ namespace FlowerFest.Controllers
             existing.Categories = categories.Split(",", StringSplitOptions.RemoveEmptyEntries)
                 .Select(c => c.Trim().ToLowerInvariant()).ToList();
             existing.Title = post.Title.Trim();
-            existing.Slug = post.Slug.Trim();
             existing.Slug = !string.IsNullOrWhiteSpace(post.Slug)
                 ? post.Slug.Trim()
                 : PostHelper.GenerateSlug(post.Title);
@@ -255,7 +254,7 @@ namespace FlowerFest.Controllers
             {
                 var doc = new XmlDocument();
                 doc.LoadXml("<root>" + match.Value + "</root>");
-
+                    
                 var img = doc.FirstChild.FirstChild;
                 var srcNode = img.Attributes["src"];
                 var fileNameNode = img.Attributes["data-filename"];

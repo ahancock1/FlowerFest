@@ -20,7 +20,7 @@ namespace FlowerFest.Services
     using Microsoft.AspNetCore.Http;
     using Models;
 
-    public class FileBlogService : IBlogService
+    public class FileBlogService : IOldBlogService
     {
         private readonly List<Post> _cache = new List<Post>();
         private readonly IHttpContextAccessor _contextAccessor;
