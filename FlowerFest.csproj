@@ -221,6 +221,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewModels\Dashboard\" />
+    <Folder Include="Views\Dashboard\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\img\" />

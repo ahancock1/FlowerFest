@@ -1,26 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿// -----------------------------------------------------------------------
+//   Copyright (C) 2018 Adam Hancock
+//    
+//   ImageController.cs can not be copied and/or distributed without the express
+//   permission of Adam Hancock
+// -----------------------------------------------------------------------
 
 namespace FlowerFest.Controllers
 {
-    using System.IO;
+    using System;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using Services.Interfaces;
 
     public class ImageController : BaseController<ImageController>
     {
         private readonly IFileService _fileService;
 
-        protected ImageController(IFileService fileService, ILogger<ImageController> logger) 
+        protected ImageController(IFileService fileService, ILogger<ImageController> logger)
             : base(logger)
         {
             _fileService = fileService;
         }
-        
+
         [Route("api/images/upload")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {

@@ -76,7 +76,6 @@ namespace FlowerFest.Services
             {
                 throw new ArgumentException("Count must be above 0.");
             }
-            ;
 
             return Task.FromResult(
                 _mapper.Map<IEnumerable<BlogPost>>(
@@ -126,7 +125,7 @@ namespace FlowerFest.Services
 
         public Task<BlogPost> GetPostById(Guid id)
         {
-            if (id == Guid.Empty)
+            if (id.Equals(Guid.Empty))
             {
                 throw new ArgumentException("Post id can not be null.");
             }
@@ -247,7 +246,7 @@ namespace FlowerFest.Services
 
         public Task<bool> DeletePost(Guid id)
         {
-            if (id == Guid.Empty)
+            if (id.Equals(Guid.Empty))
             {
                 throw new ArgumentException("Post id can not be empty");
             }

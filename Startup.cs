@@ -42,7 +42,8 @@ namespace FlowerFest
                 .AddSingleton<IMapperConfiguration, CommentMappings>()
                 .AddSingleton<IMapperConfiguration, PartnerMappings>()
                 .AddSingleton<IMapperConfiguration, TestimonalMappings>()
-                .AddSingleton<IMapperConfiguration, BlogMappings>();
+                .AddSingleton<IMapperConfiguration, BlogMappings>()
+                .AddSingleton<IMapperConfiguration, SectionMappings>();
 
             services.AddSingleton(provider =>
             {
@@ -69,7 +70,10 @@ namespace FlowerFest
                         Path.Combine(webroot, "Testimonals")))
                 .AddSingleton<IPartnerRepository>(s =>
                     new PartnerRepository(
-                        Path.Combine(webroot, "Support")));
+                        Path.Combine(webroot, "Support")))
+                .AddSingleton<ISectionRepository>(s =>
+                    new SectionRepository(
+                        Path.Combine(webroot, "Sections")));
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -95,8 +99,9 @@ namespace FlowerFest
             // Services
             services
                 .AddSingleton<IBlogService, BlogService>()
-                .AddSingleton<ITestimonalService, TestimonalService>();
-
+                .AddSingleton<ITestimonalService, TestimonalService>()
+                .AddSingleton<ISectionService, SectionService>();
+            
 
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
