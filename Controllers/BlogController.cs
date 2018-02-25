@@ -19,6 +19,7 @@ namespace FlowerFest.Controllers
     using Services.Interfaces;
     using ViewModels.Blog;
 
+    // TODO - Add area
     public class BlogController : BaseController<BlogController>
     {
         private readonly IBlogService _blogService;

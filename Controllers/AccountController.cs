@@ -35,13 +35,12 @@ namespace FlowerFest.Controllers
             _salt = config["user:salt"];
             _username = config["user:username"];
         }
-
+        
         [Route("/login")]
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login()
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -49,10 +48,8 @@ namespace FlowerFest.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LoginAsync(string returnUrl, LoginViewModel model)
+        public async Task<IActionResult> LoginAsync(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-
             var username = model.UserName;
             var password = model.Password;
 
@@ -68,7 +65,7 @@ namespace FlowerFest.Controllers
                     var properties = new AuthenticationProperties {IsPersistent = model.RememberMe};
                     await HttpContext.SignInAsync(principle, properties);
 
-                    return LocalRedirect(returnUrl ?? "/");
+                    return RedirectToAction("Index", "Dashboard");
                 }
 
                 ModelState.AddModelError(string.Empty, "Username or password is invalid.");

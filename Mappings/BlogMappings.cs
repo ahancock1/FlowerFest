@@ -16,9 +16,9 @@ namespace FlowerFest.Mappings
     using Models;
     using ViewModels.Blog;
 
-    public class BlogMappings : IMapperConfiguration
+    public class BlogMappings : ContentMapping
     {
-        public void Configure(IMapperConfigurationExpression config)
+        public override void Configure(IMapperConfigurationExpression config)
         {
             config.CreateMap<BlogPost, BlogPostModel>();
             config.CreateMap<BlogPostModel, BlogPost>();

@@ -22,6 +22,7 @@ namespace FlowerFest.Controllers
     {
         private readonly IBlogService _blogService;
         private readonly ITestimonalService _testimonalService;
+        private readonly ISectionService _sectionService;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
@@ -31,6 +32,7 @@ namespace FlowerFest.Controllers
         public HomeController(
             IBlogService blogService,
             ITestimonalService testimonalService,
+            ISectionService sectionService,
             IMailService mailService,
             IMapper mapper,
             IOptionsSnapshot<BlogSettings> settings,
@@ -39,6 +41,7 @@ namespace FlowerFest.Controllers
         {
             _blogService = blogService;
             _testimonalService = testimonalService;
+            _sectionService = sectionService;
             _mailService = mailService;
             _mapper = mapper;
             _settings = settings;
@@ -55,7 +58,9 @@ namespace FlowerFest.Controllers
                     Testimonals = _mapper.Map<IEnumerable<TestimonalViewModel>>(
                         await _testimonalService.GetTestimonals()),
                     RecentPosts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
-                        await _blogService.GetPosts(postsPerPage))
+                        await _blogService.GetPosts(postsPerPage)),
+                    Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                        await _sectionService.GetSections())
                 });
             }
             catch (Exception e)

@@ -1,19 +1,29 @@
-﻿@using FlowerFest.ViewModels.Home
-@model HomeViewModel
+﻿@model HomeViewModel
+
+@{
+    Layout = "_LandingLayout";
+}
 
 <!-- Intro -->
-<section id="intro" class="intro jarallax" >
+<section id="intro" class="intro jarallax">
     @{
         await Html.RenderPartialAsync("Intro");
     }
 </section>
 
+@{
+    foreach (var section in Model.Sections)
+    {
+        await Html.RenderPartialAsync("Section", section);
+    }
+}
+
 <!-- About -->
-<section id="about" class="section-padding">
+@*<section id="about" class="section-padding">
     @{
         await Html.RenderPartialAsync("About");
     }
-</section>
+</section>*@
 
 <!-- Testimonals -->
 <section id="testimonials" class="section-padding jarallax pos-section dark-bg bg-image overlay-dark"

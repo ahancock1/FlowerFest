@@ -12,9 +12,9 @@ namespace FlowerFest.Mappings
     using Models;
     using ViewModels.Home;
 
-    public class SectionMappings : IMapperConfiguration
+    public class SectionMappings : ContentMapping
     {
-        public void Configure(IMapperConfigurationExpression config)
+        public override void Configure(IMapperConfigurationExpression config)
         {
             config.CreateMap<SectionModel, Section>();
             config.CreateMap<Section, SectionModel>();

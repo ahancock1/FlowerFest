@@ -19,5 +19,6 @@ namespace FlowerFest.Models
         public bool IsPublished { get; set; }
         public Guid Id { get; set; }
         public string Background { get; set; }
+        public string Tag { get; set; }
     }
 }

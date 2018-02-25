@@ -27,7 +27,14 @@ namespace FlowerFest.Repository
         {
             if (Directory.GetFiles(_path).Length > 0) return;
 
-
+            Create(new SectionModel
+            {
+                Title = "About FlowerFest",
+                Description = "The about section for the home page",
+                Index = 0,
+                IsPublished = true,
+                Tag = "About"
+            });
         }
     }
 }

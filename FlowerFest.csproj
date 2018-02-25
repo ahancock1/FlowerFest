@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Account\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Scripts\admin.js" />
     <None Remove="Scripts\hamburger.js" />
     <None Remove="Styles\about.scss" />
@@ -221,8 +225,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Dashboard\" />
-    <Folder Include="Views\Dashboard\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\img\" />

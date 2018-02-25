@@ -8,11 +8,12 @@
 namespace FlowerFest.ViewModels.Blog
 {
     using System.Collections.Generic;
+    using Home;
 
     public class HomeViewModel
     {
         public IEnumerable<TestimonalViewModel> Testimonals { get; set; }
-
         public IEnumerable<BlogPostViewModel> RecentPosts { get; set; }
+        public IEnumerable<SectionViewModel> Sections { get; set; }
     }
 }

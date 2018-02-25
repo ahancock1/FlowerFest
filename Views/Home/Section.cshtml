@@ -1,0 +1,16 @@
+﻿@model SectionViewModel
+    
+<section id="@Model.Tag" 
+         class="section-padding jarallax pos-section light-bg bg-image overlay-light"
+         data-stellar-background-ratio="0.4"
+         data-background-img="@Url.Content($"~/uploads/{Model.Background}")">
+
+    <div class="container text-center mb-60">
+        <h1 class="mb-60 text-center">@Model.Title</h1>
+        
+        <div class="lead-lg">
+            @Html.Raw(Model.Content)
+        </div>
+
+    </div>
+</section>
