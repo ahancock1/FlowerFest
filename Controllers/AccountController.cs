@@ -17,16 +17,23 @@ namespace FlowerFest.Controllers
     using Microsoft.AspNetCore.Cryptography.KeyDerivation;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Logging;
     using ViewModels.Account;
 
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController<AccountController>
     {
-        private readonly IConfiguration _config;
+        private readonly string _password;
+        private readonly string _salt;
+        private readonly string _username;
 
-        public AccountController(IConfiguration config)
+        public AccountController(IConfiguration config,
+            ILogger<AccountController> logger)
+            : base(logger)
         {
-            _config = config;
+            _password = config["user:password"];
+            _salt = config["user:salt"];
+            _username = config["user:username"];
         }
 
         [Route("/login")]
@@ -46,21 +53,31 @@ namespace FlowerFest.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
 
-            if (ModelState.IsValid && model.UserName == _config["user:username"] &&
-                VerifyHashedPassword(model.Password, _config))
+            var username = model.UserName;
+            var password = model.Password;
+
+            try
             {
-                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, _config["user:username"]));
+                if (ModelState.IsValid && username.Equals(_username) &&
+                    VerifyPassword(password))
+                {
+                    var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                    identity.AddClaim(new Claim(ClaimTypes.Name, _username));
 
-                var principle = new ClaimsPrincipal(identity);
-                var properties = new AuthenticationProperties {IsPersistent = model.RememberMe};
-                await HttpContext.SignInAsync(principle, properties);
+                    var principle = new ClaimsPrincipal(identity);
+                    var properties = new AuthenticationProperties {IsPersistent = model.RememberMe};
+                    await HttpContext.SignInAsync(principle, properties);
 
-                return LocalRedirect(returnUrl ?? "/");
+                    return LocalRedirect(returnUrl ?? "/");
+                }
+
+                ModelState.AddModelError(string.Empty, "Username or password is invalid.");
+                return View("login", model);
             }
-
-            ModelState.AddModelError(string.Empty, "Username or password is invalid.");
-            return View("login", model);
+            catch (Exception e)
+            {
+               return ServerError(e);
+            }
         }
 
         [Route("/logout")]
@@ -71,20 +88,24 @@ namespace FlowerFest.Controllers
         }
 
         [NonAction]
-        internal static bool VerifyHashedPassword(string password, IConfiguration config)
+        private bool VerifyPassword(string password)
         {
-            var saltBytes = Encoding.UTF8.GetBytes(config["user:salt"]);
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentException("Password can not be null or empty.");
+            }
 
-            var hashBytes = KeyDerivation.Pbkdf2(
+            var salt = Encoding.UTF8.GetBytes(_salt);
+
+            var hash = KeyDerivation.Pbkdf2(
                 password,
-                saltBytes,
+                salt,
                 KeyDerivationPrf.HMACSHA1,
                 1000,
                 256 / 8
             );
 
-            var hashText = BitConverter.ToString(hashBytes).Replace("-", string.Empty);
-            return hashText == config["user:password"];
+            return BitConverter.ToString(hash).Replace("-", string.Empty).Equals(_password);
         }
     }
 }
