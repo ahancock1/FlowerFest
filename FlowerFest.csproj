@@ -5,30 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Client\**" />
-    <Compile Remove="Repository\NewFolder\**" />
-    <Content Remove="Client\**" />
-    <Content Remove="Repository\NewFolder\**" />
-    <EmbeddedResource Remove="Client\**" />
-    <EmbeddedResource Remove="Repository\NewFolder\**" />
-    <None Remove="Client\**" />
-    <None Remove="Repository\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Controllers\RobotsController.cs" />
-    <Compile Remove="Mappings\AutoMapperProfile.cs" />
-    <Compile Remove="Models\Comment.cs" />
-    <Compile Remove="Models\Post.cs" />
-    <Compile Remove="Models\Testimonal.cs" />
-    <Compile Remove="Repository\Interfaces\ISupportRepository.cs" />
-    <Compile Remove="Repository\SupportRepository.cs" />
-    <Compile Remove="Services\Interfaces\IContentService.cs" />
+    <Compile Remove="Services\Interfaces\IOldBlogService.cs" />
     <Compile Remove="Services\MetaWeblogService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Blog\Post.cshtml" />
+    <Compile Remove="Services\OldBlogService.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,16 +27,6 @@
     <None Remove="Styles\post.scss" />
     <None Remove="Styles\site.scss" />
     <None Remove="webpack.config.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Mappings\TestimonalMappings.cs" />
-    <Compile Include="Models\BlogPostModel.cs" />
-    <Compile Include="Models\CommentModel.cs" />
-    <Compile Include="Models\PartnerModel.cs" />
-    <Compile Include="Models\TestimonalModel.cs" />
-    <Compile Include="Repository\Interfaces\IPartnerRepository.cs" />
-    <Compile Include="Repository\PartnerRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -253,8 +223,11 @@
   <ItemGroup>
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\Posts\" />
+    <Folder Include="wwwroot\Testimonals\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 

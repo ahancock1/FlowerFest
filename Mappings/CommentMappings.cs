@@ -7,20 +7,51 @@
 
 namespace FlowerFest.Mappings
 {
+    using System.Security.Cryptography;
+    using System.Text;
     using AutoMapper;
     using DTO;
     using Models;
     using ViewModels.Blog;
 
-    public class CommentMappings : Profile
+    public class CommentMappings : IMapperConfiguration
     {
-        public CommentMappings()
+        public void Configure(IMapperConfigurationExpression config)
         {
-            CreateMap<CommentModel, Comment>();
-            CreateMap<Comment, CommentModel>();
+            config.CreateMap<CommentModel, Comment>();
+            config.CreateMap<Comment, CommentModel>();
 
-            CreateMap<Comment, CommentViewModel>();
-            CreateMap<CommentViewModel, Comment>();
+            config.CreateMap<Comment, CommentViewModel>();
+            config.CreateMap<CommentViewModel, Comment>();
+
+            config.CreateMap<CommentViewModel, Comment>()
+                .ForMember(
+                    dest => dest.Email,
+                    opt => opt.MapFrom(
+                        src => src.Email.Trim().ToLowerInvariant()))
+                .ForMember(
+                    dest => dest.Gravatar,
+                    opt => opt.MapFrom(
+                        src => GetGravatar(src.Email.Trim().ToLowerInvariant())));
+            config.CreateMap<Comment, CommentViewModel>();
+        }
+
+        private string GetGravatar(string email)
+        {
+            using (var md5 = MD5.Create())
+            {
+                var input = Encoding.UTF8.GetBytes(email);
+                var bytes = md5.ComputeHash(input);
+
+                var builder = new StringBuilder();
+                foreach (var b in bytes)
+                {
+                    builder.Append(b.ToString("X2"));
+                }
+                var gavatar = builder.ToString().ToLowerInvariant();
+
+                return $"https://www.gravatar.com/avatar/{gavatar}?s=60&d=blank";
+            }
         }
     }
 }

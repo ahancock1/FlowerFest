@@ -15,12 +15,12 @@ namespace FlowerFest.Repository
     using System.Xml;
     using System.Xml.Serialization;
 
-    public abstract class Repository<T> : IRepository<T> where T : IEntity
+    public abstract class BaseRepository<T> : IRepository<T> where T : IEntity
     {
         private readonly string _path;
         private readonly List<T> _store;
 
-        protected Repository(string path)
+        protected BaseRepository(string path)
         {
             _path = path;
             _store = new List<T>();

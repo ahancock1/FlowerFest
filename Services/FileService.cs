@@ -28,9 +28,7 @@ namespace FlowerFest.Services
                 Directory.CreateDirectory(_path);
             }
         }
-
-        public async Task<string> Save()
-
+        
         public async Task<string> Save(IFormFile file)
         {
             if (file == null || file.Length <= 0)

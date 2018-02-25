@@ -24,37 +24,38 @@ namespace FlowerFest.Controllers
         [Route("api/images/upload")]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
-            var supported = new[]
-            {
-                ".jpg", ".jpeg", ".png"
-            };
+            throw new NotImplementedException();
+            //var supported = new[]
+            //{
+            //    ".jpg", ".jpeg", ".png"
+            //};
 
-            if (!_fileService.Validate(file, supported))
-            {
-                return BadRequest("Unsupported media type");
-            }
+            //if (!_fileService.Validate(file, supported))
+            //{
+            //    return BadRequest("Unsupported media type");
+            //}
 
-            await _fileService.Save(file);
+            //await _fileService.Save(file);
 
-            // Check if the request contains multipart/form-data.
-            if (!Request.Content.IsMimeMultipartContent("form-data"))
-            {
-                return BadRequest("Unsupported media type");
-            }
-            try
-            {
-                var provider = new CustomMultipartFormDataStreamProvider(workingFolder);
-                await Request.Content.ReadAsMultipartAsync(provider);
+            //// Check if the request contains multipart/form-data.
+            //if (!Request.Content.IsMimeMultipartContent("form-data"))
+            //{
+            //    return BadRequest("Unsupported media type");
+            //}
+            //try
+            //{
+            //    var provider = new CustomMultipartFormDataStreamProvider(workingFolder);
+            //    await Request.Content.ReadAsMultipartAsync(provider);
 
-                var file = provider.FileData.First();
-                var fileInfo = new FileInfo(file.LocalFileName);
+            //    var file = provider.FileData.First();
+            //    var fileInfo = new FileInfo(file.LocalFileName);
 
-                return Ok(new { location = $"/images/{DateTime.Today.ToString("ddMMyyyy")}/{fileInfo.Name}" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.GetBaseException().Message);
-            }
+            //    return Ok(new { location = $"/images/{DateTime.Today.ToString("ddMMyyyy")}/{fileInfo.Name}" });
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest(ex.GetBaseException().Message);
+            //}
         }
     }
 }

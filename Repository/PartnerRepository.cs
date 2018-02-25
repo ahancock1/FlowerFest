@@ -10,7 +10,7 @@ namespace FlowerFest.Repository
     using Interfaces;
     using Models;
 
-    public class PartnerRepository : Repository<PartnerModel>, IPartnerRepository
+    public class PartnerRepository : BaseRepository<PartnerModel>, IPartnerRepository
     {
         public PartnerRepository(string path)
             : base(path)

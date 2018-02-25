@@ -17,5 +17,6 @@ namespace FlowerFest.DTO
         public string Content { get; set; }
         public DateTime PublishedDate { get; set; }
         public bool IsAdmin { get; set; }
+        public string Gravatar { get; set; }
     }
 }

@@ -21,5 +21,7 @@ namespace FlowerFest.ViewModels.Blog
         public string Content { get; set; }
 
         public string Id { get; set; }
+
+        public string Gravatar { get; set; }
     }
 }

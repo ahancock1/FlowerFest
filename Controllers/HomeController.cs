@@ -7,68 +7,61 @@
 
 namespace FlowerFest.Controllers
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Services;
     using Services.Interfaces;
     using ViewModels.Blog;
     using ViewModels.Home;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController<HomeController>
     {
-        private readonly IOldBlogService _blog;
-
+        private readonly IBlogService _blogService;
+        private readonly ITestimonalService _testimonalService;
         private readonly IMailService _mailService;
         private readonly IMapper _mapper;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
-        private readonly ITestimonalService _testimonals;
+
+        private readonly int postsPerPage = 6;
 
         public HomeController(
+            IBlogService blogService,
+            ITestimonalService testimonalService,
             IMailService mailService,
-            ITestimonalService testimonals,
-            IOldBlogService blog,
+            IMapper mapper,
             IOptionsSnapshot<BlogSettings> settings,
-            IMapper mapper)
+            ILogger<HomeController> logger)
+            : base(logger)
         {
+            _blogService = blogService;
+            _testimonalService = testimonalService;
             _mailService = mailService;
-            _settings = settings;
-            _testimonals = testimonals;
-            _blog = blog;
             _mapper = mapper;
+            _settings = settings;
         }
 
         public async Task<IActionResult> Index()
         {
             ViewData["Title"] = _settings.Value.Name;
 
-            var viewmodel = new HomeViewModel
+            try
             {
-                RecentPosts = new List<PostViewModel>(),
-                Testimonals = new List<TestimonalViewModel>()
-            };
-
-            // Testimonals
-            foreach (var testimonal in await _testimonals.All())
-            {
-                viewmodel.Testimonals.Add(
-                    _mapper.Map<TestimonalViewModel>(testimonal));
+                return View("Index", new HomeViewModel
+                {
+                    Testimonals = _mapper.Map<IEnumerable<TestimonalViewModel>>(
+                        await _testimonalService.GetTestimonals()),
+                    RecentPosts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
+                        await _blogService.GetPosts(postsPerPage))
+                });
             }
-
-            var items = _settings.Value.PostsPerPage;
-
-            // Posts
-            foreach (var post in await _blog.GetPosts(items))
+            catch (Exception e)
             {
-                var p = _mapper.Map<PostViewModel>(post);
-                p.Author = _settings.Value.Owner;
-
-                viewmodel.RecentPosts.Add(p);
+                return ServerError(e);
             }
-
-            return View("Index", viewmodel);
         }
 
         public IActionResult Error()
@@ -79,22 +72,32 @@ namespace FlowerFest.Controllers
         }
 
         [HttpPost]
-        public IActionResult Contact(ContactViewModel model)
+        public async Task<IActionResult> Contact(ContactViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View("Contact", model);
             }
 
-            var from = model.Email;
-            var to = "a.hancock@hotmail.co.uk";
-            var name = model.Name;
-            var message = model.Message;
-            var subject = model.Subject;
+            try
+            {
+                var from = model.Email;
+                var to = "a.hancock@hotmail.co.uk";
+                var name = model.Name;
+                var message = model.Message;
+                var subject = model.Subject;
 
-            _mailService.Send(from, to, message, subject);
+                if (await _mailService.Send(from, to, message, subject))
+                {
+                    return Ok();
+                }
 
-            return View();
+                return BadRequest();
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
     }
 }

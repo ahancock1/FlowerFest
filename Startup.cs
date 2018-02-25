@@ -9,6 +9,7 @@ namespace FlowerFest
 {
     using System.IO;
     using AutoMapper;
+    using Mappings;
     using Microsoft.AspNetCore.Authentication.Cookies;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -16,7 +17,6 @@ namespace FlowerFest
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
-    using Middleware;
     using Repository;
     using Repository.Interfaces;
     using Services;
@@ -34,27 +34,31 @@ namespace FlowerFest
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        private void ConfigureMappings(IServiceCollection services)
         {
-            services.AddMvc();
-
-            services.AddSingleton<IMailService, MailService>();
-            services.AddSingleton<IOldBlogService, OldBlogService>();
-            services.AddSingleton<ITestimonalService, TestimonalService>();
-
-            // Webroot
-            var webroot = _environment.WebRootPath;
-
             // Mappings
-            services.AddAutoMapper();
-
-            // Uploads
             services
-                .AddSingleton<IFileService>(s =>
-                    new FileService(
-                        Path.Combine(webroot, "Uploads")));
+                .AddSingleton<IMapperConfiguration, BlogMappings>()
+                .AddSingleton<IMapperConfiguration, CommentMappings>()
+                .AddSingleton<IMapperConfiguration, PartnerMappings>()
+                .AddSingleton<IMapperConfiguration, TestimonalMappings>()
+                .AddSingleton<IMapperConfiguration, BlogMappings>();
 
+            services.AddSingleton(provider =>
+            {
+                var mapper = new MapperConfiguration(config =>
+                {
+                    foreach (var mapping in provider.GetServices<IMapperConfiguration>())
+                    {
+                        mapping.Configure(config);
+                    }
+                });
+                return mapper.CreateMapper();
+            });
+        }
+
+        private void ConfigureRepositories(IServiceCollection services, string webroot)
+        {
             // Repositories
             services
                 .AddSingleton<IBlogRepository>(s =>
@@ -66,11 +70,34 @@ namespace FlowerFest
                 .AddSingleton<IPartnerRepository>(s =>
                     new PartnerRepository(
                         Path.Combine(webroot, "Support")));
+        }
 
-            // Services
-            services.AddSingleton<IBlogService, BlogService>();
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc();
+
+            services.AddSingleton<IMailService, MailService>();
+            
+
+            var webroot = _environment.WebRootPath;
+
+            ConfigureMappings(services);
+            ConfigureRepositories(services, webroot);
 
             
+            // Uploads
+            services
+                .AddSingleton<IFileService>(s =>
+                    new FileService(
+                        Path.Combine(webroot, "Uploads")));
+            
+            // Services
+            services
+                .AddSingleton<IBlogService, BlogService>()
+                .AddSingleton<ITestimonalService, TestimonalService>();
+
+
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

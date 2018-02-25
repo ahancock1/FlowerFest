@@ -12,24 +12,27 @@ namespace FlowerFest.Services
     using Interfaces;
     using System.Net.Mail;
     using System.Net;
+    using System.Threading.Tasks;
 
     public class MailService : IMailService
     {
-        private readonly IConfiguration _config;
+        private readonly string _username;
+        private readonly string _password;
+        private readonly string _server;
+        private readonly int _port;
+        private readonly bool _ssl;
 
         public MailService(IConfiguration config)
         {
-            _config = config;
+            _username = config["smtp:username"];
+            _password = config["smtp:password"];
+            _server = config["smtp:server"];
+            _port = Convert.ToInt32(config["smtp:port"]);
+            _ssl = Convert.ToBoolean(config["smtp:ssl"]);
         }
 
-        public bool Send(string from, string to, string body, string subject = "")
+        public Task<bool> Send(string from, string to, string body, string subject = "")
         {
-            var username = _config["smtp:username"];
-            var password = _config["smtp:password"];
-            var server = _config["smtp:server"];
-            var port = Convert.ToInt32(_config["smtp:port"]);
-            var ssl = Convert.ToBoolean(_config["smtp:ssl"]);
-
             using (var message = new MailMessage
             {
                 From = new MailAddress(from)
@@ -42,22 +45,22 @@ namespace FlowerFest.Services
 
                 try
                 {
-                    using (var client = new SmtpClient(server, port)
+                    using (var client = new SmtpClient(_server, _port)
                     {
                         UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(username, password),
-                        EnableSsl = ssl
+                        Credentials = new NetworkCredential(_username, _password),
+                        EnableSsl = _ssl
                     })
                     {
                         client.Send(message);
-                    }                
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                    }
 
-                return true;
+                    return Task.FromResult(true);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error sending email", e);
+                }
             }
         }
     }

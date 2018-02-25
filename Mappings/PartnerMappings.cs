@@ -11,12 +11,12 @@ namespace FlowerFest.Mappings
     using DTO;
     using Models;
 
-    public class PartnerMappings : Profile
+    public class PartnerMappings : IMapperConfiguration
     {
-        public PartnerMappings()
+        public void Configure(IMapperConfigurationExpression config)
         {
-            CreateMap<PartnerModel, Partner>();
-            CreateMap<Partner, PartnerModel>();
+            config.CreateMap<PartnerModel, Partner>();
+            config.CreateMap<Partner, PartnerModel>();
         }
     }
 }

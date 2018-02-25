@@ -10,7 +10,7 @@ namespace FlowerFest.Repository
     using Interfaces;
     using Models;
 
-    public class BlogRepository : Repository<BlogPostModel>, IBlogRepository
+    public class BlogRepository : BaseRepository<BlogPostModel>, IBlogRepository
     {
         public BlogRepository(string path)
             : base(path)

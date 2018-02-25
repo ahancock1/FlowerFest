@@ -11,8 +11,8 @@ namespace FlowerFest.ViewModels.Blog
 
     public class HomeViewModel
     {
-        public IList<TestimonalViewModel> Testimonals { get; set; }
+        public IEnumerable<TestimonalViewModel> Testimonals { get; set; }
 
-        public IList<BlogPostViewModel> RecentPosts { get; set; }
+        public IEnumerable<BlogPostViewModel> RecentPosts { get; set; }
     }
 }

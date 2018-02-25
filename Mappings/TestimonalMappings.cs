@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   AutoMapperProfile.cs can not be copied and/or distributed without the express
+//   TestimonalMappings.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
@@ -12,15 +12,15 @@ namespace FlowerFest.Mappings
     using Models;
     using ViewModels.Blog;
 
-    public class TestimonalMappings : Profile
+    public class TestimonalMappings : IMapperConfiguration
     {
-        public TestimonalMappings()
+        public void Configure(IMapperConfigurationExpression config)
         {
-            CreateMap<TestimonalModel, Testimonal>();
-            CreateMap<Testimonal, TestimonalModel>();
+            config.CreateMap<TestimonalModel, Testimonal>();
+            config.CreateMap<Testimonal, TestimonalModel>();
 
-            CreateMap<Testimonal, TestimonalViewModel>();
-            CreateMap<TestimonalViewModel, Testimonal>();
+            config.CreateMap<Testimonal, TestimonalViewModel>();
+            config.CreateMap<TestimonalViewModel, Testimonal>();
         }
     }
 }
