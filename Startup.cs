@@ -16,6 +16,7 @@ namespace FlowerFest
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection.Extensions;
+    using Middleware;
     using Repository;
     using Repository.Interfaces;
     using Services;
@@ -37,14 +38,18 @@ namespace FlowerFest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddAutoMapper();
 
             services.AddSingleton<IMailService, MailService>();
             services.AddSingleton<IOldBlogService, OldBlogService>();
             services.AddSingleton<ITestimonalService, TestimonalService>();
 
+            // Webroot
             var webroot = _environment.WebRootPath;
 
+            // Mappings
+            services.AddAutoMapper();
+
+            // Uploads
             services
                 .AddSingleton<IFileService>(s =>
                     new FileService(
@@ -58,16 +63,14 @@ namespace FlowerFest
                 .AddSingleton<ITestimonalRepository>(s =>
                     new TestimonalRepository(
                         Path.Combine(webroot, "Testimonals")))
-                .AddSingleton<ISupportRepository>(s =>
-                    new SupportRepository(
+                .AddSingleton<IPartnerRepository>(s =>
+                    new PartnerRepository(
                         Path.Combine(webroot, "Support")));
 
             // Services
             services.AddSingleton<IBlogService, BlogService>();
 
-
-
-
+            
             services.Configure<BlogSettings>(Configuration.GetSection("blog"));
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

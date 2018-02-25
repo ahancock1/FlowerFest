@@ -9,40 +9,30 @@ namespace FlowerFest.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using System.Xml;
     using AutoMapper;
-    using Helpers;
+    using DTO;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.Internal;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.FileProviders;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
-    using Microsoft.Net.Http.Headers;
-    using Models;
-    using Services;
-    using ViewModels;
+    using Services.Interfaces;
     using ViewModels.Blog;
 
-    public class BlogController : Controller
+    public class BlogController : BaseController<BlogController>
     {
-        private readonly IOldBlogService _blog;
+        private readonly IBlogService _blogService;
         private readonly IMapper _mapper;
+        private readonly int _postsPerPage = int.MaxValue;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public BlogController(IOldBlogService blog, IOptionsSnapshot<BlogSettings> settings,
-            IMapper mapper, IHostingEnvironment hostingEnvironment)
+        public BlogController(IBlogService blogService, IOptionsSnapshot<BlogSettings> settings,
+            IMapper mapper, ILogger<BlogController> logger)
+            : base(logger)
         {
-            _blog = blog;
+            _blogService = blogService;
             _settings = settings;
             _mapper = mapper;
-            _hostingEnvironment = hostingEnvironment;
         }
 
         [Route("/Blog/{page:int?}")]
@@ -50,62 +40,64 @@ namespace FlowerFest.Controllers
         {
             ViewData["Title"] = $"{_settings.Value.Name} - Blog";
 
-            var viewmodel = new BlogViewModel
+            try
             {
-                Posts = new List<PostViewModel>()
-            };
-
-            var items = _settings.Value.PostsPerPage;
-
-            foreach (var post in await _blog.GetPosts(items))
-            {
-                var p = _mapper.Map<PostViewModel>(post);
-                p.Author = _settings.Value.Owner;
-
-                viewmodel.Posts.Add(p);
+                return View("Index", new BlogViewModel
+                {
+                    Posts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
+                        await _blogService.GetPosts(_postsPerPage))
+                });
             }
-
-            return View("Index", viewmodel);
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
 
         [Route("/Blog/Category/{category}/{page:int?}")]
         public async Task<IActionResult> Category(string category, int page = 0)
         {
-            ViewData["Title"] = $"{_settings.Value.Name} - Blog";
-
-            var viewmodel = new BlogViewModel();
-            
-            foreach (var post in await _blog.GetPostsByCategory(category))
+            if (string.IsNullOrEmpty(category))
             {
-                var p = _mapper.Map<PostViewModel>(post);
-                p.Author = _settings.Value.Owner;
-
-                viewmodel.Posts.Add(p);
+                return NotFound();
             }
 
-            return View("Index", viewmodel);
+            ViewData["Title"] = $"{_settings.Value.Name} - Blog";
+
+            try
+            {
+                return View("Index", new BlogViewModel
+                {
+                    Posts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
+                        await _blogService.GetPostsByCategory(category))
+                });
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
 
         [Route("/Blog/{slug?}")]
         public async Task<IActionResult> Post(string slug)
         {
-            var post = await _blog.GetPostBySlug(slug);
-
-            if (post != null)
+            var post = await _blogService.GetPostBySlug(slug);
+            if (post == null)
             {
-                ViewData["Title"] = $"{_settings.Value.Name} - {post.Title}";
-
-                var viewmodel = _mapper.Map<PostDetailViewModel>(post);
-                viewmodel.Author = _settings.Value.Owner;
-                
-                return View("PostDetail", viewmodel);
+                return NotFound();
             }
-            
-            return NotFound();
+
+            ViewData["Title"] = $"{_settings.Value.Name} - {post.Title}";
+
+            try
+            {
+                return View("PostDetail", _mapper.Map<PostDetailViewModel>(post));
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
-
-
-        // Update below
 
         [Route("/Blog/Edit/{id?}")]
         [HttpGet]
@@ -114,164 +106,60 @@ namespace FlowerFest.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                return View(new EditPostViewModel());
+                return View("Edit", new EditPostViewModel());
             }
 
-            var post = await _blog.GetPostById(id);
-
-            if (post != null)
+            var post = await _blogService.GetPostById(Guid.Parse(id));
+            if (post == null)
             {
-                var edit = _mapper.Map<EditPostViewModel>(post);
-
-                //edit.Spotlight = await OpenSpotlight(post.Spotlight);
-
-                return View(edit);
+                return NotFound();
             }
 
-            return NotFound();
+            try
+            {
+                return View("Edit", _mapper.Map<EditPostViewModel>(post));
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
 
-        private Task<IFormFile> OpenSpotlight(string filename)
-        {
-            if (!string.IsNullOrEmpty(filename))
-            {
-                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
-
-                if (Directory.Exists(uploads))
-                {
-                    var filepath = Path.Combine(uploads, filename);
-
-                    // Check file exists
-
-                    using (var stream = new FileStream(filepath, FileMode.Open))
-                    {
-                        var file = new FormFile(stream, 0, stream.Length, "spotlight", filename);
-
-                        return Task.FromResult((IFormFile) file);
-                    }
-                }
-            }
-
-            return Task.FromResult(default(IFormFile));
-        }
-
-        private async Task<string> SaveSpotlight(IFormFile file)
-        {
-            if (file != null && file.Length > 0)
-            {
-                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
-
-                if (!Directory.Exists(uploads))
-                {
-                    Directory.CreateDirectory(uploads);
-                }
-                
-                var filename = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-
-                var filepath = Path.Combine(uploads, filename);
-
-                using (var stream = new FileStream(filepath, FileMode.Create))
-                {
-                    await file.CopyToAsync(stream);
-                }
-
-                return filename;
-            }
-
-            return null;
-        }
-
-        private bool ValidateSpotlight(IFormFile file)
-        {
-            if (file == null || file.Length == 0) return false;
-
-            var accepted = new[]
-            {
-                "jpg",
-                "jpeg",
-                "png"
-            };
-
-            var extension = Path.GetExtension(file.FileName);
-
-            foreach (var type in accepted)
-            {
-                if (extension.ToLower().Contains(type))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-        
         [Route("/Blog/Update")]
         [HttpPost]
         [Authorize]
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Update(EditPostViewModel edit)
         {
-            if (!ModelState.IsValid)// || !ValidateSpotlight(edit.Spotlight))
+            if (!ModelState.IsValid)
             {
                 return View("Edit", edit);
             }
-            
-            var filename = await SaveSpotlight(edit.Spotlight);
-            
-            var post = _mapper.Map<Post>(edit);
 
-            if (!string.IsNullOrEmpty(filename))
+            try
             {
-                post.Spotlight = filename;
-            }
-            
-            var existing = await _blog.GetPostById(post.Id) ?? post;
-            string categories = Request.Form["categories"];
-
-            existing.Categories = categories.Split(",", StringSplitOptions.RemoveEmptyEntries)
-                .Select(c => c.Trim().ToLowerInvariant()).ToList();
-            existing.Title = post.Title.Trim();
-            existing.Slug = !string.IsNullOrWhiteSpace(post.Slug)
-                ? post.Slug.Trim()
-                : PostHelper.GenerateSlug(post.Title);
-            existing.IsPublished = post.IsPublished;
-            existing.Content = post.Content.Trim();
-            existing.Description = post.Description.Trim();
-
-            await _blog.SavePost(existing);
-
-            await SaveFilesToDisk(existing);
-
-            return Redirect(post.Link);
-        }
-
-        private async Task SaveFilesToDisk(Post post)
-        {
-            var imgRegex = new Regex("<img[^>].+ />", RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            var base64Regex = new Regex("data:[^/]+/(?<ext>[a-z]+);base64,(?<base64>.+)", RegexOptions.IgnoreCase);
-
-            foreach (Match match in imgRegex.Matches(post.Content))
-            {
-                var doc = new XmlDocument();
-                doc.LoadXml("<root>" + match.Value + "</root>");
-                    
-                var img = doc.FirstChild.FirstChild;
-                var srcNode = img.Attributes["src"];
-                var fileNameNode = img.Attributes["data-filename"];
-
-                // The HTML editor creates base64 DataURIs which we'll have to convert to image files on disk
-                if (srcNode != null && fileNameNode != null)
+                BlogPost post;
+                if (string.IsNullOrEmpty(edit.Id))
                 {
-                    var base64Match = base64Regex.Match(srcNode.Value);
-                    if (base64Match.Success)
-                    {
-                        var bytes = Convert.FromBase64String(base64Match.Groups["base64"].Value);
-                        srcNode.Value = await _blog.SaveFile(bytes, fileNameNode.Value).ConfigureAwait(false);
-
-                        img.Attributes.Remove(fileNameNode);
-                        post.Content = post.Content.Replace(match.Value, img.OuterXml);
-                    }
+                    post = await _blogService.CreatePost(
+                        _mapper.Map<BlogPost>(edit), edit.Spotlight);
                 }
+                else
+                {
+                    post = await _blogService.UpdatePost(
+                        _mapper.Map<BlogPost>(edit));
+                }
+
+                if (post != null)
+                {
+                    return Redirect($"Blog/{post.Slug}");
+                }
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
             }
         }
 
@@ -281,84 +169,66 @@ namespace FlowerFest.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
-            var existing = await _blog.GetPostById(id);
-
-            if (existing != null)
+            try
             {
-                await _blog.DeletePost(existing);
-
-                var viewmodel = new BlogViewModel
+                if (await _blogService.DeletePost(Guid.Parse(id)))
                 {
-                    Posts = new List<PostViewModel>()
-                };
-
-                var items = _settings.Value.PostsPerPage;
-
-                foreach (var post in await _blog.GetPosts(items))
-                {
-                    var p = _mapper.Map<PostViewModel>(post);
-                    p.Author = _settings.Value.Owner;
-
-                    viewmodel.Posts.Add(p);
+                    return Redirect("Blog");
                 }
 
-                return View("Index", viewmodel);
+                return NotFound();
             }
-
-            return NotFound();
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
 
         [Route("/Blog/Comment/{postId}")]
         [HttpPost]
-        public async Task<IActionResult> AddComment(string postId, Comment comment)
+        public async Task<IActionResult> AddComment(string postId, CommentViewModel comment)
         {
-            var post = await _blog.GetPostById(postId);
+            var id = Guid.Parse(postId);
+
+            var post = await _blogService.GetPostById(id);
 
             if (!ModelState.IsValid)
             {
-                return View("Post", post);
+                return View("PostDetail", _mapper.Map<PostDetailViewModel>(post));
             }
-
-            var c = new Comment();
-
-            if (post == null || !PostHelper.AreCommentsOpen(post, _settings.Value.CommentsCloseAfterDays))
-            {
-                return NotFound();
-            }
-
-            // the website form key should have been removed by javascript
-            // unless the comment was posted by a spam robot
-            if (!Request.Form.ContainsKey("website"))
-            {
-                post.Comments.Add(c);
-                await _blog.SavePost(post);
-            }
-
-            return Redirect(post.Link + "#" + comment.Id);
-        }
-
-        [Route("/Blog/Comment/{postId}/{commentId}")]
-        [Authorize]
-        public async Task<IActionResult> DeleteComment(string postId, string commentId)
-        {
-            var post = await _blog.GetPostById(postId);
 
             if (post == null)
             {
                 return NotFound();
             }
 
-            var comment = post.Comments.FirstOrDefault(c => c.Id.Equals(commentId, StringComparison.OrdinalIgnoreCase));
-
-            if (comment == null)
+            if (!Request.Form.ContainsKey("website"))
             {
-                return NotFound();
+                await _blogService.AddComment(id, _mapper.Map<Comment>(comment));
             }
 
-            post.Comments.Remove(comment);
-            await _blog.SavePost(post);
+            return Redirect($"Blog/{post.Slug}#{comment.Id}");
+        }
 
-            return Redirect(post.Link + "#comments");
+        [Route("/Blog/Comment/{postId}/{commentId}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteComment(string postId, string commentId)
+        {
+            try
+            {
+                var post = await _blogService.DeleteComment(Guid.Parse(postId), Guid.Parse(commentId));
+
+                if (post != null)
+                {
+                    return Redirect($"Blog/{post.Slug}#comments");
+                }
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
     }
 }

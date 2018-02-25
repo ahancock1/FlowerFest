@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   PostViewModel.cs can not be copied and/or distributed without the express
+//   BlogPostViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ namespace FlowerFest.ViewModels.Blog
     using System;
     using System.Collections.Generic;
 
-    public class PostViewModel
+    public class BlogPostViewModel
     {
         public string Spotlight { get; set; }
         public string Id { get; set; }

@@ -7,14 +7,9 @@
 
 namespace FlowerFest.Repository.Interfaces
 {
-    using System;
     using Models;
 
-    public interface ITestimonalRepository
+    public interface ITestimonalRepository : IRepository<TestimonalModel>
     {
-        bool CreateTestimonal(Testimonal testimonal);
-        bool UpdateTestimonal(Testimonal testimonal);
-        bool DeleteTestimonal(Testimonal testimonal);
-        Testimonal GetTestimonal(Guid id);
     }
 }

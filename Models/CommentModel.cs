@@ -1,25 +1,21 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   CommentViewModel.cs can not be copied and/or distributed without the express
+//   CommentModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels.Blog
+namespace FlowerFest.Models
 {
-    using System.ComponentModel.DataAnnotations;
+    using System;
+    using Repository;
 
-    public class CommentViewModel
+    public class CommentModel : IEntity
     {
-        [Required]
         public string Author { get; set; }
-
-        [Required]
         public string Email { get; set; }
-
-        [Required]
         public string Content { get; set; }
-
-        public string Id { get; set; }
+        public DateTime PublishedDate { get; set; }
+        public Guid Id { get; set; }
     }
 }

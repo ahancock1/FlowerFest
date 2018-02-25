@@ -15,8 +15,7 @@ namespace FlowerFest.Repository
     using System.Xml;
     using System.Xml.Serialization;
 
-    public abstract class Repository<T>
-        where T : IEntity
+    public abstract class Repository<T> : IRepository<T> where T : IEntity
     {
         private readonly string _path;
         private readonly List<T> _store;
@@ -26,10 +25,15 @@ namespace FlowerFest.Repository
             _path = path;
             _store = new List<T>();
 
+            if (!Directory.Exists(_path))
+            {
+                Directory.CreateDirectory(_path);
+            }
+
             Load();
         }
 
-        protected IEnumerable<T> All(
+        public IEnumerable<T> All(
             Func<T, bool> predicate = null,
             Func<T, object> orderby = null,
             int? skip = null,
@@ -60,7 +64,7 @@ namespace FlowerFest.Repository
             return items.ToList();
         }
 
-        protected bool Create(T item)
+        public bool Create(T item)
         {
             if (item == null) return false;
 
@@ -85,7 +89,7 @@ namespace FlowerFest.Repository
             return false;
         }
 
-        protected bool Delete(T item)
+        public bool Delete(T item)
         {
             if (!ValidateItem(item)) return false;
 
@@ -113,12 +117,12 @@ namespace FlowerFest.Repository
             return false;
         }
 
-        protected T Retrieve(Guid id)
+        public T Get(Func<T, bool> predicate)
         {
-            return id != default(Guid) ? _store.FirstOrDefault(i => i.Id == id) : default(T);
+            return predicate != null ? _store.FirstOrDefault(predicate) : default(T);
         }
 
-        protected bool Update(T item)
+        public bool Update(T item)
         {
             if (!ValidateItem(item)) return false;
 
@@ -126,7 +130,7 @@ namespace FlowerFest.Repository
             {
                 Serialize(item);
 
-                var existing = Retrieve(item.Id);
+                var existing = Get(i => i.Id.Equals(item.Id));
 
                 if (existing != null)
                 {
@@ -167,11 +171,6 @@ namespace FlowerFest.Repository
 
         private void Load()
         {
-            if (!Directory.Exists(_path))
-            {
-                Directory.CreateDirectory(_path);
-            }
-
             foreach (var filepath in Directory.GetFiles(_path))
             {
                 try

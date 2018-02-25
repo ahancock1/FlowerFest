@@ -7,14 +7,9 @@
 
 namespace FlowerFest.Repository.Interfaces
 {
-    using System;
     using Models;
 
-    public interface ISupportRepository
+    public interface IPartnerRepository : IRepository<PartnerModel>
     {
-        bool CreateSupport(Support support);
-        bool UpdateSupport(Support support);
-        bool DeleteSupport(Support support);
-        Support GetSupport(Guid id);
     }
 }

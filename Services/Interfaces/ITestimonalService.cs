@@ -9,10 +9,11 @@ namespace FlowerFest.Services.Interfaces
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Models;
+    using DTO;
 
     public interface ITestimonalService
     {
-        Task<IEnumerable<Testimonal>> All();
+        Task<IEnumerable<Testimonal>> GetTestimonals();
+        Task<bool> Create(Testimonal testimonal);
     }
 }

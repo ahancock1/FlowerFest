@@ -1,21 +1,21 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   Testimonal.cs can not be copied and/or distributed without the express
+//   Comment.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Models
+namespace FlowerFest.DTO
 {
     using System;
-    using Repository;
 
-    public class Testimonal : IEntity
+    public class Comment
     {
         public Guid Id { get; set; }
-
-        public string Content { get; set; }
         public string Author { get; set; }
-        public string Place { get; set; }
+        public string Email { get; set; }
+        public string Content { get; set; }
+        public DateTime PublishedDate { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

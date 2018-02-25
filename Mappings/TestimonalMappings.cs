@@ -8,29 +8,19 @@
 namespace FlowerFest.Mappings
 {
     using AutoMapper;
+    using DTO;
     using Models;
     using ViewModels.Blog;
 
-    public class AutoMapperProfile : Profile
+    public class TestimonalMappings : Profile
     {
-        public AutoMapperProfile()
+        public TestimonalMappings()
         {
-            CreateMap<PostViewModel, Post>();
-            CreateMap<Post, PostViewModel>();
-
-            CreateMap<PostDetailViewModel, Post>();
-            CreateMap<Post, PostDetailViewModel>();
-
-            CreateMap<CommentViewModel, Comment>();
-            CreateMap<Comment, CommentViewModel>();
+            CreateMap<TestimonalModel, Testimonal>();
+            CreateMap<Testimonal, TestimonalModel>();
 
             CreateMap<Testimonal, TestimonalViewModel>();
             CreateMap<TestimonalViewModel, Testimonal>();
-
-            CreateMap<Post, EditPostViewModel>()
-                .ForMember(dest => dest.Spotlight, opt => opt.Ignore());
-
-            CreateMap<EditPostViewModel, Post>();
         }
     }
 }

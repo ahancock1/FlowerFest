@@ -7,35 +7,14 @@
 
 namespace FlowerFest.Repository
 {
-    using System;
     using Interfaces;
     using Models;
 
-    public class TestimonalRepository : Repository<Testimonal>, ITestimonalRepository
+    public class TestimonalRepository : Repository<TestimonalModel>, ITestimonalRepository
     {
         public TestimonalRepository(string path)
             : base(path)
         {
-        }
-
-        public bool CreateTestimonal(Testimonal testimonal)
-        {
-            return Create(testimonal);
-        }
-
-        public bool UpdateTestimonal(Testimonal testimonal)
-        {
-            return Update(testimonal);
-        }
-
-        public bool DeleteTestimonal(Testimonal testimonal)
-        {
-            return Delete(testimonal);
-        }
-
-        public Testimonal GetTestimonal(Guid id)
-        {
-            return Retrieve(id);
         }
     }
 }

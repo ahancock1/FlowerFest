@@ -11,6 +11,6 @@ namespace FlowerFest.ViewModels.Blog
 
     public class BlogViewModel
     {
-        public IList<PostViewModel> Posts { get; set; }
+        public IEnumerable<BlogPostViewModel> Posts { get; set; }
     }
 }

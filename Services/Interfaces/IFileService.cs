@@ -7,25 +7,12 @@
 
 namespace FlowerFest.Services.Interfaces
 {
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
 
     public interface IFileService
     {
-        void Save(IFormFile file);
-    }
-
-    public class FileService : IFileService
-    {
-        private readonly string _path;
-
-        public FileService(string path)
-        {
-            _path = path;
-        }
-
-        public void Save(IFormFile file)
-        {
-
-        }
+        Task<string> Save(IFormFile file);
+        bool Validate(IFormFile file, params string[] extensions);
     }
 }

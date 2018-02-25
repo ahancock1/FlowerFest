@@ -8,9 +8,6 @@
 namespace FlowerFest.Services
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.Extensions.Configuration;
     using Interfaces;
     using System.Net.Mail;
@@ -55,7 +52,7 @@ namespace FlowerFest.Services
                         client.Send(message);
                     }                
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return false;
                 }

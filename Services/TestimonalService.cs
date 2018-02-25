@@ -7,34 +7,45 @@
 
 namespace FlowerFest.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using DTO;
     using Interfaces;
     using Models;
+    using Repository.Interfaces;
 
     public class TestimonalService : ITestimonalService
     {
-        public Task<IEnumerable<Testimonal>> All()
-        {
-            IEnumerable<Testimonal> posts = new List<Testimonal>(new[]
-            {
-                new Testimonal
-                {
-                    Author = "Tim Lloyd",
-                    Place = "Captain's Club Hotel",
-                    Content =
-                        "The FlowerFest 18 is a very exciting prospect for Christchurch and the fact that it is being centred around the Priory Church in conjunction with the Priory Music Festival will give this new event the exposure it deserves during it’s inaugural year. As a neighbourhood business we are proud to be supporters."
-                },
-                new Testimonal
-                {
-                    Author = "Tom Le Mesurier",
-                    Place = "Flora Direct",
-                    Content =
-                        "We look forward to supporting FF18. Growing up in Christchurch it will be a fantastic to see it in bloom."
-                }
-            });
+        private readonly IMapper _mapper;
+        private readonly ITestimonalRepository _repository;
 
-            return Task.FromResult(posts);
+        public TestimonalService(ITestimonalRepository repository, IMapper mapper)
+        {
+            _repository = repository;
+            _mapper = mapper;
+        }
+
+        public Task<IEnumerable<Testimonal>> GetTestimonals()
+        {
+            return Task.FromResult(
+                _mapper.Map<IEnumerable<Testimonal>>(
+                    _repository
+                        .All()));
+        }
+
+        public Task<bool> Create(Testimonal testimonal)
+        {
+            if (testimonal == null)
+            {
+                throw new ArgumentException("Testimonal can not be null.");
+            }
+
+            return Task.FromResult(
+                _repository
+                    .Create(
+                        _mapper.Map<TestimonalModel>(testimonal)));
         }
     }
 }

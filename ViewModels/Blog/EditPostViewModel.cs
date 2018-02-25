@@ -7,19 +7,16 @@
 
 namespace FlowerFest.ViewModels.Blog
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Http;
 
     public class EditPostViewModel
     {
-        //[Required(ErrorMessage = "Please Upload a Valid Image File")]
         [DataType(DataType.Upload)]
         public IFormFile Spotlight { get; set; }
 
         [Required]
-        public string Id { get; set; } = DateTime.UtcNow.Ticks.ToString();
+        public string Id { get; set; }
 
         [Required]
         public string Title { get; set; }
@@ -32,14 +29,8 @@ namespace FlowerFest.ViewModels.Blog
         [Required]
         public string Content { get; set; }
 
-        public DateTime PublishedDate { get; set; } = DateTime.UtcNow;
-
-        public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
-
         public bool IsPublished { get; set; } = true;
 
-        public IList<string> Categories { get; set; } = new List<string>();
-        
-        public string Link => $"/blog/{Slug}/";
+        public string Categories { get; set; }
     }
 }

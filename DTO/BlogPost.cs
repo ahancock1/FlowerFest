@@ -5,24 +5,24 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Models
+namespace FlowerFest.DTO
 {
     using System;
     using System.Collections.Generic;
-    using Repository;
 
-    public class BlogPost : IEntity
+    public class BlogPost
     {
         public string Slug { get; set; }
         public string Spotlight { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Content { get; set; }
-        public DateTime PublishedDate { get; set; } = DateTime.UtcNow;
-        public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
-        public IList<Comment> Comments { get; set; } = new List<Comment>();
-        public IList<string> Categories { get; set; } = new List<string>();
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public DateTime PublishedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public IList<Comment> Comments { get; set; }
+        public IList<string> Categories { get; set; }
+        public Guid Id { get; set; }
         public bool IsPublished { get; set; }
+        public string Author { get; set; }
     }
 }

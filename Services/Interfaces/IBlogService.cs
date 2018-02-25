@@ -9,56 +9,22 @@ namespace FlowerFest.Services.Interfaces
 {
     using System;
     using System.Collections.Generic;
-    using Models;
-    using Repository.Interfaces;
+    using System.Threading.Tasks;
+    using DTO;
+    using Microsoft.AspNetCore.Http;
 
     public interface IBlogService
     {
-        IEnumerable<BlogPost> GetPosts(int count, int skip = 0);
-        IEnumerable<BlogPost> GetPostsByCategory(string category);
-        BlogPost GetPostBySlug(string slug);
-        BlogPost GetPostById(Guid id);
-        IEnumerable<string> GetCategories();
-        IEnumerable<BlogPost> Search(string term);
-    }
-
-    public class BlogService : IBlogService
-    {
-        private readonly IBlogRepository _repository;
-
-        public BlogService(IBlogRepository repository)
-        {
-            _repository = repository;
-        }
-
-        public IEnumerable<BlogPost> GetPosts(int count, int skip = 0)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<BlogPost> GetPostsByCategory(string category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BlogPost GetPostBySlug(string slug)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BlogPost GetPostById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<string> GetCategories()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<BlogPost> Search(string term)
-        {
-            throw new NotImplementedException();
-        }
+        Task<IEnumerable<BlogPost>> GetPosts(int count, int skip = 0);
+        Task<IEnumerable<BlogPost>> GetPostsByCategory(string category);
+        Task<BlogPost> GetPostBySlug(string slug);
+        Task<BlogPost> GetPostById(Guid id);
+        Task<IEnumerable<string>> GetCategories();
+        Task<IEnumerable<BlogPost>> Search(string term);
+        Task<BlogPost> AddComment(Guid postId, Comment comment);
+        Task<BlogPost> DeleteComment(Guid postId, Guid commentId);
+        Task<BlogPost> UpdatePost(BlogPost post);
+        Task<BlogPost> CreatePost(BlogPost post, IFormFile spotlight);
+        Task<bool> DeletePost(Guid id);
     }
 }

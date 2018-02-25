@@ -13,6 +13,6 @@ namespace FlowerFest.ViewModels.Blog
     {
         public IList<TestimonalViewModel> Testimonals { get; set; }
 
-        public IList<PostViewModel> RecentPosts { get; set; }
+        public IList<BlogPostViewModel> RecentPosts { get; set; }
     }
 }
