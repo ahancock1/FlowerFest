@@ -5,10 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ImageController.cs" />
     <Compile Remove="Controllers\RobotsController.cs" />
+    <Compile Remove="Controllers\SectionController.cs" />
     <Compile Remove="Services\Interfaces\IOldBlogService.cs" />
     <Compile Remove="Services\MetaWeblogService.cs" />
     <Compile Remove="Services\OldBlogService.cs" />
+    <Compile Remove="ViewModels\FileViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +34,11 @@
     <None Remove="Styles\post.scss" />
     <None Remove="Styles\site.scss" />
     <None Remove="webpack.config.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Controllers\FilesController.cs" />
+    <Compile Include="ViewModels\FilesViewModel.cs" />
   </ItemGroup>
 
   <ItemGroup>

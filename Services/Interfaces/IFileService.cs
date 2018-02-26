@@ -7,6 +7,7 @@
 
 namespace FlowerFest.Services.Interfaces
 {
+    using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;
 
@@ -14,5 +15,6 @@ namespace FlowerFest.Services.Interfaces
     {
         Task<string> Save(IFormFile file);
         bool Validate(IFormFile file, params string[] extensions);
+        Task<bool> Delete(Guid id);
     }
 }
