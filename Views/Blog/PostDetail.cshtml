@@ -1,5 +1,12 @@
 ﻿@model PostDetailViewModel
 
+<!-- Header -->
+<header id="header" class="header header-light">
+    @{
+        await Html.RenderPartialAsync("_Header", Model.Sections);
+    }
+</header>
+
 <!-- Page Intro -->
 <section id="inner-intro" class="inner-intro bg-image overlay-light jarallax" data-background-img="@Url.Content($"~/uploads/{Model.Spotlight}")">
     <div class="container">

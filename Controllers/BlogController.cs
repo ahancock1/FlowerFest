@@ -18,6 +18,7 @@ namespace FlowerFest.Controllers
     using Microsoft.Extensions.Options;
     using Services.Interfaces;
     using ViewModels.Blog;
+    using ViewModels.Home;
 
     // TODO - Add area
     public class BlogController : BaseController<BlogController>
@@ -25,15 +26,21 @@ namespace FlowerFest.Controllers
         private readonly IBlogService _blogService;
         private readonly IMapper _mapper;
         private readonly int _postsPerPage = int.MaxValue;
+        private readonly ISectionService _sectionService;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
 
-        public BlogController(IBlogService blogService, IOptionsSnapshot<BlogSettings> settings,
-            IMapper mapper, ILogger<BlogController> logger)
+        public BlogController(
+            IBlogService blogService,
+            ISectionService sectionService,
+            IOptionsSnapshot<BlogSettings> settings,
+            IMapper mapper,
+            ILogger<BlogController> logger)
             : base(logger)
         {
             _blogService = blogService;
             _settings = settings;
             _mapper = mapper;
+            _sectionService = sectionService;
         }
 
         [Route("/Blog/{page:int?}")]
@@ -46,7 +53,9 @@ namespace FlowerFest.Controllers
                 return View("Index", new BlogViewModel
                 {
                     Posts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
-                        await _blogService.GetPosts(_postsPerPage))
+                        await _blogService.GetPosts(_postsPerPage)),
+                    Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                        await _sectionService.GetSections())
                 });
             }
             catch (Exception e)
@@ -70,7 +79,9 @@ namespace FlowerFest.Controllers
                 return View("Index", new BlogViewModel
                 {
                     Posts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
-                        await _blogService.GetPostsByCategory(category))
+                        await _blogService.GetPostsByCategory(category)),
+                    Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                        await _sectionService.GetSections())
                 });
             }
             catch (Exception e)
@@ -92,7 +103,11 @@ namespace FlowerFest.Controllers
 
             try
             {
-                return View("PostDetail", _mapper.Map<PostDetailViewModel>(post));
+                var viewmodel = _mapper.Map<PostDetailViewModel>(post);
+                viewmodel.Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                    await _sectionService.GetSections());
+
+                return View("PostDetail", viewmodel);
             }
             catch (Exception e)
             {

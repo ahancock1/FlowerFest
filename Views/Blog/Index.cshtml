@@ -4,6 +4,13 @@
     Layout = "_LandingLayout";
 }
 
+<!-- Header -->
+<header id="header" class="header header-light">
+    @{
+        await Html.RenderPartialAsync("_Header", Model.Sections);
+    }
+</header>
+
 <!-- Blog Intro -->
 <section class="inner-intro bg-image jarallax overlay-light" data-background-img="./img/blog.jpg">
     <div class="container">

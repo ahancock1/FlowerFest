@@ -9,6 +9,7 @@ namespace FlowerFest.ViewModels.Blog
 {
     using System;
     using System.Collections.Generic;
+    using Home;
 
     public class PostDetailViewModel
     {
@@ -21,5 +22,7 @@ namespace FlowerFest.ViewModels.Blog
         public string Description { get; set; }
         public string Content { get; set; }
         public IList<CommentViewModel> Comments { get; set; }
+
+        public IEnumerable<SectionViewModel> Sections { get; set; }
     }
 }
