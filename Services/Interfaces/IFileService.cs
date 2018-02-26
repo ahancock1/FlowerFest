@@ -8,7 +8,9 @@
 namespace FlowerFest.Services.Interfaces
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using DTO;
     using Microsoft.AspNetCore.Http;
 
     public interface IFileService
@@ -16,5 +18,6 @@ namespace FlowerFest.Services.Interfaces
         Task<string> Save(IFormFile file);
         bool Validate(IFormFile file, params string[] extensions);
         Task<bool> Delete(Guid id);
+        Task<IEnumerable<FileDetail>> GetFiles();
     }
 }

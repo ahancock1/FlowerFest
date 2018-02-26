@@ -8,12 +8,14 @@
 namespace FlowerFest.Services
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
+    using DTO;
+    using Extensions;
     using Interfaces;
     using Microsoft.AspNetCore.Http;
-    using Extensions;
 
     public class FileService : IFileService
     {
@@ -28,7 +30,7 @@ namespace FlowerFest.Services
                 Directory.CreateDirectory(_path);
             }
         }
-        
+
         public async Task<string> Save(IFormFile file)
         {
             if (file == null || file.Length <= 0)
@@ -57,6 +59,41 @@ namespace FlowerFest.Services
                     type =>
                         Path.GetExtension(file.FileName)
                             .Contains(type, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public Task<bool> Delete(Guid id)
+        {
+            if (id.Equals(Guid.Empty))
+            {
+                throw new ArgumentException("File id can not be null.");
+            }
+
+            var path = Directory.GetFiles(_path)
+                .FirstOrDefault(file =>
+                    file.Contains(id.ToString()));
+
+            if (path == null)
+            {
+                return Task.FromResult(false);
+            }
+
+            File.Delete(path);
+
+            return Task.FromResult(true);
+        }
+
+        public Task<IEnumerable<FileDetail>> GetFiles()
+        {
+            var files = Directory.GetFiles(_path)
+                .Select(path => new FileDetail
+                {
+                    Name = Path.GetFileNameWithoutExtension(path)
+                        .ToLowerInvariant(),
+                    Path = path
+                })
+                .ToList();
+
+            return Task.FromResult((IEnumerable<FileDetail>) files);
         }
     }
 }
