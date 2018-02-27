@@ -18,7 +18,7 @@ namespace FlowerFest.Controllers
     using Services.Interfaces;
     using ViewModels;
 
-    [Route("Api/[controller]")]
+    [Route("Dashboard/Files")]
     public class FilesController : BaseController<FilesController>
     {
         private readonly IFileService _fileService;
@@ -39,21 +39,15 @@ namespace FlowerFest.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            var supported = new[]
-            {
-                ".jpg", ".jpeg", ".png"
-            };
-
-            if (!_fileService.Validate(file, supported))
-            {
-                return BadRequest();
-            }
-
             try
             {
                 await _fileService.Save(file);
 
-                return RedirectToAction("Files");
+                return RedirectToAction("Index");
+            }
+            catch (NotSupportedException e)
+            {
+                return BadRequest();
             }
             catch (Exception e)
             {
@@ -61,12 +55,28 @@ namespace FlowerFest.Controllers
             }
         }
 
+        [Route("{id}")]
         [Authorize]
-        public async Task<IActionResult> Files()
+        public async Task<IActionResult> Index(string id)
         {
             try
             {
-                return View("Files", _mapper.Map<IEnumerable<FileDetailsViewModel>>(
+                if (!string.IsNullOrEmpty(id))
+                {
+                    var file = await _fileService.GetFile(Guid.Parse(id));
+
+                    if (file != null)
+                    {
+                        var data = await _fileService.Read(file);
+                        var type = await _fileService.GetContentType(file);
+
+                        return File(data, type, id);
+                    }
+
+                    return NotFound();
+                }
+
+                return View("Index", _mapper.Map<IEnumerable<FileDetailsViewModel>>(
                     await _fileService.GetFiles()));
             }
             catch (Exception e)
@@ -74,14 +84,7 @@ namespace FlowerFest.Controllers
                 return ServerError(e);
             }
         }
-
-        [Authorize]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Download(string id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         [HttpPost]
         [Authorize]
         [AutoValidateAntiforgeryToken]

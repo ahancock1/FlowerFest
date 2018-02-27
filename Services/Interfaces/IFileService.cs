@@ -16,8 +16,10 @@ namespace FlowerFest.Services.Interfaces
     public interface IFileService
     {
         Task<string> Save(IFormFile file);
-        bool Validate(IFormFile file, params string[] extensions);
         Task<bool> Delete(Guid id);
+        Task<FileDetail> GetFile(Guid id);
         Task<IEnumerable<FileDetail>> GetFiles();
+        Task<byte[]> Read(FileDetail file);
+        Task<string> GetContentType(FileDetail file);
     }
 }
