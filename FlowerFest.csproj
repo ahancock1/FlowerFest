@@ -221,6 +221,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Blog\ViewModels\" />
+    <Folder Include="Areas\Blog\Views\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\img\" />

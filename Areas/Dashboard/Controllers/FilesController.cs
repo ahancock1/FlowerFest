@@ -5,20 +5,20 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Controllers
+namespace FlowerFest.Areas.Dashboard.Controllers
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
+    using FlowerFest.Controllers;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Services.Interfaces;
     using ViewModels;
-
-    [Route("Dashboard/Files")]
+    
     public class FilesController : BaseController<FilesController>
     {
         private readonly IFileService _fileService;
@@ -55,7 +55,7 @@ namespace FlowerFest.Controllers
             }
         }
 
-        [Route("{id}")]
+        [Route("Dashboard/Files/{id}")]
         [Authorize]
         public async Task<IActionResult> Index(string id)
         {
@@ -76,7 +76,7 @@ namespace FlowerFest.Controllers
                     return NotFound();
                 }
 
-                return View("Index", _mapper.Map<IEnumerable<FileDetailsViewModel>>(
+                return View("Index", _mapper.Map<IEnumerable<FileViewModel>>(
                     await _fileService.GetFiles()));
             }
             catch (Exception e)

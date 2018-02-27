@@ -284,16 +284,6 @@ namespace FlowerFest.Services
 
         public async Task<string> SaveSpotlight(IFormFile file)
         {
-            var supported = new[]
-            {
-                ".jpg", ".jpeg", ".png"
-            };
-
-            if (!_fileService.Validate(file, supported))
-            {
-                throw new NotSupportedException("File format is not supported");
-            }
-
             return await _fileService.Save(file);
         }
 

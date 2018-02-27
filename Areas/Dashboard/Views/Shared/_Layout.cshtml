@@ -62,21 +62,7 @@
 
 <div id="dashboard" class="wrapper">
 
-    <!-- Sidebar -->
-    <nav id="sidebar">
-
-        <div class="sidebar-header">
-            <h3>Dashboard</h3>
-        </div>
-
-        <!-- Sidebar Links -->
-        <ul class="list-unstyled components">
-            <li class="active">
-                <a asp-controller="Files" asp-action="Index">Files</a>
-            </li>
-            
-        </ul>
-    </nav>
+    @Html.RenderPartialAsync("_SideBar");
 
     <!-- Page Content -->
     <div id="content">

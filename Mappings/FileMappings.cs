@@ -7,16 +7,16 @@
 
 namespace FlowerFest.Mappings
 {
+    using Areas.Dashboard.ViewModels;
     using AutoMapper;
     using DTO;
-    using ViewModels;
 
     public class FileMappings : IMapperConfiguration
     {
         public void Configure(IMapperConfigurationExpression config)
         {
-            config.CreateMap<FileDetail, FileDetailsViewModel>();
-            config.CreateMap<FileDetailsViewModel, FileDetail>();
+            config.CreateMap<FileDetail, FileViewModel>();
+            config.CreateMap<FileViewModel, FileDetail>();
         }
     }
 }

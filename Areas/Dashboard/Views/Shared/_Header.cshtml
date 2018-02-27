@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SectionViewModel>
+
+<div class="header-inner">
+
+    <!-- Logo -->
+    <div class="logo">
+        <a asp-controller="Home" asp-action="Index">
+            <img src="~/img/logo-large.png"/>
+        </a>
+    </div>
+    <!-- End Logo -->
+
+    <!-- Mobile Navbar Icon -->
+    <div class="nav-mobile nav-bar-icon">
+        <span></span>
+    </div>
+    <!-- End Mobile Navbar Icon -->
+
+    <!-- Navbar Navigation -->
+    <div class="nav-menu singlepage-nav">
+        <ul class="nav-menu-inner">
+            <li>
+                <a class="current" href="@Url.Action("Index", "Home")#intro">Home</a>
+            </li>
+            
+            @foreach (var section in Model.Where(s => !string.IsNullOrEmpty(s.Tag)))
+            {
+                <li>
+                    @{
+                        var tag = section.Tag;
+                        var url = $"{Url.Action("Index", "Home")}#{tag}";
+                    }
+
+                    <a href="@url">@tag</a>
+                </li>
+            }
+            
+            <li>
+                <a href="@Url.Action("Index", "Home")#news">News</a>
+            </li>
+
+            <li>
+                <a asp-controller="blog" asp-action="Index">Blog</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", "Home")#contact">Contact</a>
+            </li>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a asp-controller="Account" asp-action="LogOutAsync">Logout</a>
+                </li>
+            }
+        </ul>
+    </div>
+    <!-- End Navbar Navigation -->
+
+</div>

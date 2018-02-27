@@ -5,9 +5,9 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels
+namespace FlowerFest.Areas.Dashboard.ViewModels
 {
-    public class FileDetailsViewModel
+    public class FileViewModel
     {
         public string Name { get; set; }
         public string Path { get; set; }

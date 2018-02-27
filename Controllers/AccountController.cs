@@ -65,7 +65,7 @@ namespace FlowerFest.Controllers
                     var properties = new AuthenticationProperties {IsPersistent = model.RememberMe};
                     await HttpContext.SignInAsync(principle, properties);
 
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Home", new { area = "Dashboard"});
                 }
 
                 ModelState.AddModelError(string.Empty, "Username or password is invalid.");
