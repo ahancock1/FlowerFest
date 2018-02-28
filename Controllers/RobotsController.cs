@@ -5,28 +5,33 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFestival.Controllers
+namespace FlowerFest.Controllers
 {
     using System;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
     using System.Xml;
+    using FlowerFest;
+    using Microsoft.AspNetCore.Hosting;
+    using Services.Interfaces;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Microsoft.SyndicationFeed;
     using Microsoft.SyndicationFeed.Atom;
     using Microsoft.SyndicationFeed.Rss;
-    using Services;
 
     public class RobotsController : Controller
     {
-        private readonly IBlogService _blog;
+        private readonly IBlogService _blogService;
         private readonly IOptionsSnapshot<BlogSettings> _settings;
 
-        public RobotsController(IBlogService blog, IOptionsSnapshot<BlogSettings> settings)
+        public RobotsController(
+            IBlogService blogService,
+            IHostingEnvironment environment,
+            IOptionsSnapshot<BlogSettings> settings)
         {
-            _blog = blog;
+            _blogService = blogService;
             _settings = settings;
         }
 
@@ -55,14 +60,14 @@ namespace FlowerFestival.Controllers
                 xml.WriteStartDocument();
                 xml.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
-                var posts = await _blog.GetPosts(int.MaxValue);
+                var posts = await _blogService.GetPosts(int.MaxValue);
 
                 foreach (var post in posts)
                 {
-                    var lastMod = new[] {post.PubDate, post.LastModified};
+                    var lastMod = new[] {post.PublishedDate, post.ModifiedDate};
 
                     xml.WriteStartElement("url");
-                    xml.WriteElementString("loc", host + post.GetLink());
+                    xml.WriteElementString("loc", $"{host}/Blog/{post.Slug}");
                     xml.WriteElementString("lastmod", lastMod.Max().ToString("yyyy-MM-ddThh:mmzzz"));
                     xml.WriteEndElement();
                 }
@@ -113,8 +118,8 @@ namespace FlowerFestival.Controllers
 
             using (var xmlWriter = XmlWriter.Create(Response.Body, new XmlWriterSettings {Async = true, Indent = true}))
             {
-                var posts = await _blog.GetPosts(10);
-                var writer = await GetWriter(type, xmlWriter, posts.Max(p => p.PubDate));
+                var posts = (await _blogService.GetPosts(10)).ToList();
+                var writer = await GetWriter(type, xmlWriter, posts.Max(p => p.PublishedDate));
 
                 foreach (var post in posts)
                 {
@@ -122,9 +127,9 @@ namespace FlowerFestival.Controllers
                     {
                         Title = post.Title,
                         Description = post.Content,
-                        Id = host + post.GetLink(),
-                        Published = post.PubDate,
-                        LastUpdated = post.LastModified,
+                        Id = $"{host}/Blog/{post.Slug}",
+                        Published = post.PublishedDate,
+                        LastUpdated = post.ModifiedDate,
                         ContentType = "html"
                     };
 

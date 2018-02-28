@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\RobotsController.cs" />
     <Compile Remove="Services\Interfaces\IOldBlogService.cs" />
     <Compile Remove="Services\MetaWeblogService.cs" />
     <Compile Remove="Services\OldBlogService.cs" />
