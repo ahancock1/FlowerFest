@@ -23,18 +23,6 @@
                 <a class="current" href="@Url.Action("Index", "Home")#intro">Home</a>
             </li>
             
-            @foreach (var section in Model.Where(s => !string.IsNullOrEmpty(s.Tag)))
-            {
-                <li>
-                    @{
-                        var tag = section.Tag;
-                        var url = $"{Url.Action("Index", "Home")}#{tag}";
-                    }
-
-                    <a href="@url">@tag</a>
-                </li>
-            }
-            
             <li>
                 <a href="@Url.Action("Index", "Home")#news">News</a>
             </li>

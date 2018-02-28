@@ -5,7 +5,7 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Areas.Dashboard.ViewModels
+namespace FlowerFest.Areas.Dashboard.ViewModels.Sections
 {
     public class SectionViewModel
     {

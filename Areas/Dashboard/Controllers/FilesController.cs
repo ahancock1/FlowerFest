@@ -17,8 +17,9 @@ namespace FlowerFest.Areas.Dashboard.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Services.Interfaces;
-    using ViewModels;
-    
+    using ViewModels.Files;
+
+    [Area("Dashboard")]
     public class FilesController : BaseController<FilesController>
     {
         private readonly IFileService _fileService;
@@ -55,7 +56,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             }
         }
 
-        [Route("Dashboard/Files/{id}")]
+        [Route("Dashboard/Files/{id?}")]
         [Authorize]
         public async Task<IActionResult> Index(string id)
         {

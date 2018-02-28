@@ -7,7 +7,7 @@
 
 namespace FlowerFest.Mappings
 {
-    using Areas.Dashboard.ViewModels;
+    using Areas.Dashboard.ViewModels.Files;
     using AutoMapper;
     using DTO;
 

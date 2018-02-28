@@ -8,6 +8,7 @@
 namespace FlowerFest.Areas.Dashboard.Controllers
 {
     using System;
+    using System.Threading.Tasks;
     using FlowerFest.Controllers;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
@@ -20,7 +21,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         {
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {

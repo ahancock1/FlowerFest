@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   DashboardViewModel.cs can not be copied and/or distributed without the express
+//   TestimonialViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Areas.Dashboard.ViewModels.Home
+namespace FlowerFest.Areas.Dashboard.ViewModels.Testimonials
 {
-    public class DashboardViewModel
+    public class TestimonialViewModel
     {
     }
 }

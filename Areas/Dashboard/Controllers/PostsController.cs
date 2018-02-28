@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   HomeController.cs can not be copied and/or distributed without the express
+//   PostsController.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
@@ -14,13 +14,13 @@ namespace FlowerFest.Areas.Dashboard.Controllers
     using Microsoft.Extensions.Logging;
 
     [Area("Dashboard")]
-    public class PartnersController : BaseController<PartnersController>
+    public class PostsController : BaseController<PostsController>
     {
-        public PartnersController(ILogger<PartnersController> logger)
+        public PostsController(ILogger<PostsController> logger)
             : base(logger)
         {
         }
-
+        
         public async Task<IActionResult> Index()
         {
             try

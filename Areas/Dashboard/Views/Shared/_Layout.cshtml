@@ -60,9 +60,11 @@
 </section>
 <!-- End Site preloader -->
 
-<div id="dashboard" class="wrapper">
+<div id="dashboard">
 
-    @Html.RenderPartialAsync("_SideBar");
+    @{
+        await Html.RenderPartialAsync("_SideBar");
+    }
 
     <!-- Page Content -->
     <div id="content">
