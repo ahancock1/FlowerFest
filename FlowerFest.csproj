@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Blog\NewFolder\**" />
+    <Content Remove="Areas\Blog\NewFolder\**" />
+    <EmbeddedResource Remove="Areas\Blog\NewFolder\**" />
+    <None Remove="Areas\Blog\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Services\Interfaces\IOldBlogService.cs" />
     <Compile Remove="Services\MetaWeblogService.cs" />
     <Compile Remove="Services\OldBlogService.cs" />
@@ -220,8 +227,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Blog\ViewModels\" />
-    <Folder Include="Areas\Blog\Views\" />
     <Folder Include="wwwroot\css\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\img\" />

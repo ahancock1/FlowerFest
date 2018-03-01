@@ -1,18 +1,19 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   BlogViewModel.cs can not be copied and/or distributed without the express
+//   HomeViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels.Blog
+namespace FlowerFest.Areas.Blog.ViewModels
 {
     using System.Collections.Generic;
     using Home;
 
-    public class BlogViewModel
+    public class HomeViewModel
     {
-        public IEnumerable<BlogPostViewModel> Posts { get; set; }
+        public IEnumerable<TestimonalViewModel> Testimonals { get; set; }
+        public IEnumerable<BlogPostViewModel> RecentPosts { get; set; }
         public IEnumerable<SectionViewModel> Sections { get; set; }
     }
 }

@@ -17,7 +17,6 @@ namespace FlowerFest.Controllers
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Services.Interfaces;
-    using ViewModels.Blog;
     using ViewModels.Home;
 
     // TODO - Add area

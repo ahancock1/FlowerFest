@@ -10,7 +10,6 @@ namespace FlowerFest.Mappings
     using AutoMapper;
     using DTO;
     using Models;
-    using ViewModels.Blog;
 
     public class TestimonalMappings : IMapperConfiguration
     {

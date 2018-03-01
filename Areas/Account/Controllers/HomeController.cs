@@ -5,7 +5,7 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.Controllers
+namespace FlowerFest.Areas.Account.Controllers
 {
     using System;
     using System.Security.Claims;
@@ -18,17 +18,19 @@ namespace FlowerFest.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
-    using ViewModels.Account;
+    using FlowerFest.Controllers;
+    using ViewModels.Home;
 
     [Authorize]
-    public class AccountController : BaseController<AccountController>
+    [Area("Account")]
+    public class HomeController : BaseController<HomeController>
     {
         private readonly string _password;
         private readonly string _salt;
         private readonly string _username;
 
-        public AccountController(IConfiguration config,
-            ILogger<AccountController> logger)
+        public HomeController(IConfiguration config,
+            ILogger<HomeController> logger)
             : base(logger)
         {
             _password = config["user:password"];

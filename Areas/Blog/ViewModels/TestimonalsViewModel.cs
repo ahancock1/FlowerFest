@@ -5,8 +5,8 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels.Blog
-{
+namespace FlowerFest.Areas.Blog.ViewModels
+{ 
     public class TestimonalViewModel
     {
         public string Content { get; set; }

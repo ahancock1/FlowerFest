@@ -5,15 +5,14 @@
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels.Blog
+namespace FlowerFest.Areas.Blog.ViewModels.Home
 {
     using System.Collections.Generic;
-    using Home;
+    using FlowerFest.ViewModels.Home;
 
     public class HomeViewModel
     {
-        public IEnumerable<TestimonalViewModel> Testimonals { get; set; }
-        public IEnumerable<BlogPostViewModel> RecentPosts { get; set; }
+        public IEnumerable<PostViewModel> Posts { get; set; }
         public IEnumerable<SectionViewModel> Sections { get; set; }
     }
 }

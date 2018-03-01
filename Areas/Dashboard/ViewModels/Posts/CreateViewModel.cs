@@ -1,24 +1,35 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   BlogPostViewModel.cs can not be copied and/or distributed without the express
+//   CreatePostViewModel.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
-namespace FlowerFest.ViewModels.Blog
+namespace FlowerFest.Areas.Dashboard.ViewModels.Posts
 {
-    using System;
-    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
-    public class BlogPostViewModel
+    public class CreateViewModel
     {
+        [Required]
         public string Spotlight { get; set; }
+
+        [Required]
         public string Id { get; set; }
-        public string Author { get; set; }
-        public DateTime PublishedDate { get; set; }
+
+        [Required]
         public string Title { get; set; }
-        public IList<string> Categories { get; set; }
+
         public string Slug { get; set; }
+
+        [Required]
         public string Description { get; set; }
+
+        [Required]
+        public string Content { get; set; }
+
+        public bool IsPublished { get; set; }
+
+        public string Categories { get; set; }
     }
 }
