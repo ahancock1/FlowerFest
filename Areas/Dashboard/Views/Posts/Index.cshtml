@@ -1,9 +1,54 @@
 ﻿@model IEnumerable<PostViewModel>
 
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Posts";
 }
 
-<div>
-    <p>Posts</p>
-</div>
+<h2>Courses</h2>
+
+<p>
+    <a asp-action="Create" asp-controller="Posts" asp-area="Dashboard">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPublished)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <label>@item.Id</label>
+                </td>
+                <td>
+                    <label>@item.Title</label>
+                </td>
+                <td>
+                    <label>@item.IsPublished</label>
+                </td>
+                <td>
+                    <label>@item.PublishedDate</label>
+                </td>
+                <td>
+                    <a asp-area="Dashboard" asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-area="Dashboard" asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

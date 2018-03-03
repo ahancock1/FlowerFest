@@ -25,7 +25,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         {
             try
             {
-                return View("Index");
+                return View();
             }
             catch (Exception e)
             {

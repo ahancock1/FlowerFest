@@ -13,12 +13,14 @@ namespace FlowerFest.Areas.Blog.Controllers
     using AutoMapper;
     using DTO;
     using FlowerFest.Controllers;
+    using FlowerFest.ViewModels.Home;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Services.Interfaces;
     using ViewModels.Blog;
+    using PostViewModel = ViewModels.Blog.PostViewModel;
 
     [Area("Blog")]
     public class BlogController : BaseController<BlogController>
@@ -54,8 +56,8 @@ namespace FlowerFest.Areas.Blog.Controllers
                 {
                     Posts = _mapper.Map<IEnumerable<PostViewModel>>(
                         await _blogService.GetPosts(_postsPerPage)),
-                    //Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
-                    //    await _sectionService.GetSections())
+                    Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                        await _sectionService.GetSections())
                 });
             }
             catch (Exception e)
@@ -80,8 +82,8 @@ namespace FlowerFest.Areas.Blog.Controllers
                 {
                     Posts = _mapper.Map<IEnumerable<PostViewModel>>(
                         await _blogService.GetPostsByCategory(category)),
-                    //Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
-                    //    await _sectionService.GetSections())
+                    Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                        await _sectionService.GetSections())
                 });
             }
             catch (Exception e)
@@ -109,8 +111,8 @@ namespace FlowerFest.Areas.Blog.Controllers
             try
             {
                 var viewmodel = _mapper.Map<BlogPostViewModel>(post);
-                //viewmodel.Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
-                //    await _sectionService.GetSections());
+                viewmodel.Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
+                    await _sectionService.GetSections());
 
                 return View("Post", viewmodel);
             }

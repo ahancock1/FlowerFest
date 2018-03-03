@@ -7,7 +7,20 @@
 
 namespace FlowerFest.Areas.Dashboard.ViewModels.Posts
 {
+    using System;
+    using System.ComponentModel;
+
     public class PostViewModel
     {
+        [DisplayName("ID")]
+        public Guid Id { get; set; }
+
+        public string Title { get; set; }
+
+        [DisplayName("Published")]
+        public bool IsPublished { get; set; }
+
+        [DisplayName("Date Published")]
+        public DateTime PublishedDate { get; set; }
     }
 }

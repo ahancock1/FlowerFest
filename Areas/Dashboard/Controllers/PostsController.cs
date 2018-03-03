@@ -73,9 +73,15 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             }
         }
 
+        public async Task<IActionResult> Create()
+        {
+            return View(new CreatePostViewModel());
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Create(CreatePostViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
