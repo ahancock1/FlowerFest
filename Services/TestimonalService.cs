@@ -27,15 +27,15 @@ namespace FlowerFest.Services
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<Testimonal>> GetTestimonals()
+        public Task<IEnumerable<Testimonial>> GetTestimonals()
         {
             return Task.FromResult(
-                _mapper.Map<IEnumerable<Testimonal>>(
+                _mapper.Map<IEnumerable<Testimonial>>(
                     _repository
                         .All()));
         }
 
-        public Task<bool> Create(Testimonal testimonal)
+        public Task<bool> Create(Testimonial testimonal)
         {
             if (testimonal == null)
             {

@@ -1,7 +1,7 @@
 ﻿@model HomeViewModel
 
 @{
-    Layout = "_LandingLayout";
+    Layout = "_Layout";
 }
 
 <!-- Header -->
@@ -36,7 +36,7 @@
 <section id="testimonials" class="section-padding jarallax pos-section dark-bg bg-image overlay-dark"
          data-stellar-background-ratio="0.4" data-background-img="img/testimonals.jpg">
     @{
-        await Html.RenderPartialAsync("Testimonals", Model.Testimonals);
+        await Html.RenderPartialAsync("Testimonials", Model.Testimonials);
     }
 </section>
 

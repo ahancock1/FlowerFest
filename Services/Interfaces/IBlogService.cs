@@ -24,7 +24,7 @@ namespace FlowerFest.Services.Interfaces
         Task<BlogPost> AddComment(Guid postId, Comment comment);
         Task<BlogPost> DeleteComment(Guid postId, Guid commentId);
         Task<BlogPost> UpdatePost(BlogPost post);
-        Task<BlogPost> CreatePost(BlogPost post, IFormFile spotlight);
+        Task<BlogPost> CreatePost(BlogPost post);//, IFormFile spotlight);
         Task<bool> DeletePost(Guid id);
     }
 }

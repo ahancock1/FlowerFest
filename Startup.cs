@@ -8,6 +8,7 @@
 namespace FlowerFest
 {
     using System.IO;
+    using Areas.Dashboard.Mappings;
     using AutoMapper;
     using Mappings;
     using Microsoft.AspNetCore.Authentication.Cookies;
@@ -37,6 +38,9 @@ namespace FlowerFest
         private void ConfigureMappings(IServiceCollection services)
         {
             // Mappings
+            services
+                .AddSingleton<IMapperConfiguration, DashboardMappings>();
+
             services
                 .AddSingleton<IMapperConfiguration, BlogMappings>()
                 .AddSingleton<IMapperConfiguration, CommentMappings>()

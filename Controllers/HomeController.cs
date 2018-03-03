@@ -15,7 +15,6 @@ namespace FlowerFest.Controllers
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Options;
     using Services.Interfaces;
-    using ViewModels.Blog;
     using ViewModels.Home;
 
     public class HomeController : BaseController<HomeController>
@@ -55,9 +54,9 @@ namespace FlowerFest.Controllers
             {
                 return View("Index", new HomeViewModel
                 {
-                    Testimonals = _mapper.Map<IEnumerable<TestimonalViewModel>>(
+                    Testimonials = _mapper.Map<IEnumerable<TestimonialViewModel>>(
                         await _testimonalService.GetTestimonals()),
-                    RecentPosts = _mapper.Map<IEnumerable<BlogPostViewModel>>(
+                    RecentPosts = _mapper.Map<IEnumerable<PostViewModel>>(
                         await _blogService.GetPosts(postsPerPage)),
                     Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
                         await _sectionService.GetSections())

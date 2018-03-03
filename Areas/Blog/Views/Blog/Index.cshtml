@@ -1,0 +1,80 @@
+﻿@model BlogViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<!-- Header -->
+<header id="header" class="header header-light">
+    @{
+        await Html.RenderPartialAsync("_Header", Model.Sections);
+    }
+</header>
+
+<!-- Blog Intro -->
+<section class="inner-intro bg-image jarallax overlay-light" data-background-img="./img/blog.jpg">
+    <div class="container">
+        <div class="intro-content">
+            <div class="intro-content-inner">
+                <h1 class="">Blog</h1>
+                <h5 class="alt-title intro-sub-title">Our Latest News</h5>
+                
+@if (User.Identity.IsAuthenticated)
+{
+    <a class="btn btn-black-outline btn-lg" asp-controller="Blog" asp-action="Edit">Create Post</a>
+}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Page Intro -->
+
+<!-- Blog Section -->
+<section class="section-padding">
+    <div class="container">
+        <div class="row">
+
+            <!-- TODO - Move to post -->
+            @foreach (var post in Model.Posts)
+            {
+                <div class="col-md-4 col-sm-6 mb-sm-30 wow fadeIn" data-wow-duration="2s" data-wow-delay="0.1s">
+                    <!-- Post -->
+                    <div class="blog-post">
+                        <div class="post-media">
+                            <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
+                                <img src="@Url.Content($"~/uploads/{post.Spotlight}")" alt="blog"/>
+                            </a>
+                        </div>
+                        <div class="post-meta">
+                            <span>by @post.Author,</span>
+                            <span class="post-date">
+                                @post.PublishedDate.ToString("dd MMM yyyy")
+                            </span>
+                        </div>
+                        <div class="post-header">
+                            <h4 class="alt-title">
+                                <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
+                                    @post.Title
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="post-entry">
+                            <p>@post.Description</p>
+                        </div>
+                        <div class="post-tag">
+
+                            @foreach (var category in post.Categories)
+                            {
+                                <span>
+                                    <a asp-controller="Blog" asp-action="Category" asp-route-category="@category.ToLowerInvariant()">
+                                        @category
+                                    </a>
+                                </span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

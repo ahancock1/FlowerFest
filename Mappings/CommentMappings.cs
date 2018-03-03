@@ -9,10 +9,10 @@ namespace FlowerFest.Mappings
 {
     using System.Security.Cryptography;
     using System.Text;
+    using Areas.Blog.ViewModels.Blog;
     using AutoMapper;
     using DTO;
     using Models;
-    using ViewModels.Blog;
 
     public class CommentMappings : IMapperConfiguration
     {

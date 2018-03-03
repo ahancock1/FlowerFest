@@ -11,6 +11,7 @@ namespace FlowerFest.Mappings
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using Areas.Dashboard.ViewModels.Posts;
     using AutoMapper;
     using DTO;
     using Models;
@@ -21,16 +22,13 @@ namespace FlowerFest.Mappings
         {
             config.CreateMap<BlogPost, BlogPostModel>();
             config.CreateMap<BlogPostModel, BlogPost>();
-
-            config.CreateMap<BlogPost, BlogPostViewModel>();
-            config.CreateMap<BlogPostViewModel, BlogPost>();
-
-            config.CreateMap<BlogPost, PostDetailViewModel>()
-                .ForMember(
-                    dest => dest.Content,
-                    opt => opt.MapFrom(
-                        src => CompileContent(src.Content)));
-            config.CreateMap<PostDetailViewModel, BlogPost>();
+            
+            //config.CreateMap<BlogPost, PostViewModel>()
+            //    .ForMember(
+            //        dest => dest.Content,
+            //        opt => opt.MapFrom(
+            //            src => CompileContent(src.Content)));
+            //config.CreateMap<PostViewModel, BlogPost>();
 
             config.CreateMap<BlogPost, EditPostViewModel>()
                 .ForMember(

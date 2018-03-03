@@ -10,16 +10,17 @@ namespace FlowerFest.Mappings
     using AutoMapper;
     using DTO;
     using Models;
+    using ViewModels.Home;
 
     public class TestimonalMappings : IMapperConfiguration
     {
         public void Configure(IMapperConfigurationExpression config)
         {
-            config.CreateMap<TestimonalModel, Testimonal>();
-            config.CreateMap<Testimonal, TestimonalModel>();
+            config.CreateMap<TestimonalModel, Testimonial>();
+            config.CreateMap<Testimonial, TestimonalModel>();
 
-            config.CreateMap<Testimonal, TestimonalViewModel>();
-            config.CreateMap<TestimonalViewModel, Testimonal>();
+            config.CreateMap<Testimonial, TestimonialViewModel>();
+            config.CreateMap<TestimonialViewModel, Testimonial>();
         }
     }
 }

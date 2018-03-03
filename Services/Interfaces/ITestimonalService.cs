@@ -13,7 +13,7 @@ namespace FlowerFest.Services.Interfaces
 
     public interface ITestimonalService
     {
-        Task<IEnumerable<Testimonal>> GetTestimonals();
-        Task<bool> Create(Testimonal testimonal);
+        Task<IEnumerable<Testimonial>> GetTestimonals();
+        Task<bool> Create(Testimonial testimonal);
     }
 }

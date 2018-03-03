@@ -11,13 +11,16 @@ namespace FlowerFest.Areas.Dashboard.Controllers
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using AutoMapper;
+    using DTO;
     using FlowerFest.Controllers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Services.Interfaces;
     using ViewModels.Posts;
 
     [Area("Dashboard")]
+    [Authorize]
     public class PostsController : BaseController<PostsController>
     {
         private readonly IMapper _mapper;
@@ -32,7 +35,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             _blogService = blogService;
             _mapper = mapper;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             try
@@ -48,20 +51,77 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Details(string id = "")
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var post = _blogService.GetPostById(Guid.Parse(id));
+
+                if (post == null)
+                {
+                    return NotFound();
+                }
+
+                return View(_mapper.Map<PostViewModel>(post));
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
 
-        public async Task<IActionResult> Create(CreateViewModel model)
+        public async Task<IActionResult> Create(CreatePostViewModel model)
         {
             if (ModelState.IsValid)
             {
-                
+                return View(model);
             }
 
-            throw new NotImplementedException();
+            try
+            {
+                var post = await _blogService.CreatePost(
+                        _mapper.Map<BlogPost>(model));
+
+                if (post != null)
+                {
+                    return Redirect("Index");
+                }
+
+                return BadRequest();
+
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
         }
 
-        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id = "")
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    return NotFound();
+                }
+
+                if (await _blogService.DeletePost(Guid.Parse(id)))
+                {
+                    return Redirect("Blog");
+                }
+
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return ServerError(e);
+            }
+        }
+
         public async Task<IActionResult> Edit(string id = "")
         {
             try
@@ -71,10 +131,13 @@ namespace FlowerFest.Areas.Dashboard.Controllers
                     return NotFound();
                 }
 
-                var post = _mapper.Map<EditViewModel>(
-                    await _blogService.GetPostById(Guid.Parse(id)));
+                var post = await _blogService.GetPostById(Guid.Parse(id));
+                if (post == null)
+                {
+                    return NotFound();
+                }
 
-                return View(post);
+                return View(_mapper.Map<EditPostViewModel>(post));
             }
             catch (Exception e)
             {
@@ -83,7 +146,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        private async Task<IActionResult> Edit(EditViewModel model)
+        private async Task<IActionResult> Edit(EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -92,7 +155,16 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                throw new NotImplementedException();
+                var post = await _blogService.UpdatePost(
+                    _mapper.Map<BlogPost>(model));
+
+                if (post != null)
+                {
+                    return Redirect("Index");
+                }
+
+                return NotFound();
+
             }
             catch (Exception e)
             {

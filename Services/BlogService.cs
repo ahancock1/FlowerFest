@@ -218,11 +218,11 @@ namespace FlowerFest.Services
             return null;
         }
 
-        public async Task<BlogPost> CreatePost(BlogPost post, IFormFile spotlight)
+        public async Task<BlogPost> CreatePost(BlogPost post)//, IFormFile spotlight)
         {
-            if (post == null || spotlight == null)
+            if (post == null)// || spotlight == null)
             {
-                throw new ArgumentException($"Invalid argument, can not be null: {post}, {spotlight}");
+                throw new ArgumentException($"Invalid argument, can not be null: {post}");//, { spotlight}");
             }
 
             var model = _mapper.Map<BlogPostModel>(post);
@@ -234,7 +234,7 @@ namespace FlowerFest.Services
                 model.Slug = GenerateSlug(model.Title);
             }
 
-            model.Spotlight = await SaveSpotlight(spotlight);
+            //model.Spotlight = await SaveSpotlight(spotlight);
 
             if (_repository.Create(model))
             {
