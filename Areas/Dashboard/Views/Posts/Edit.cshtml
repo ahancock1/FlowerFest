@@ -1,35 +1,30 @@
-﻿@model EditViewModel
-
+﻿@model CreatePostViewModel
 @{
-    Layout = "_Layout";
-
-    var isNew = string.IsNullOrEmpty(Model.Title);
-    ViewData["Title"] = "Edit " + (Model.Title ?? "new post");
+    ViewData["Title"] = "Edit";
 }
 
+<h2>Edit Post</h2>
 
 <section class="section-padding">
     <div class="container">
         <div id="edit">
 
-            <form asp-controller="Blog" asp-action="Update" emethod="post" enctype="multipart/form-data">
+            <form asp-controller="Posts" asp-action="Create" asp-area="Dashboard" 
+                  emethod="post" enctype="multipart/form-data">
 
                 <input type="hidden" asp-for="@Model.Id" />
 
                 <!-- Spotlight -->
-                @if (isNew)
-                {
-                    <div class="row justify-content-center">
-                        <div class="standard-control col-md-12 col-sm-12">
-                            <label asp-for="Spotlight">Spotlight</label>
-                            <div class="control">
-                                <input class="form-control" type="file" asp-for="Spotlight"
-                                       autofocus placeholder="The header spotlight image" />
-                                <span class="text-danger" asp-validation-for="Spotlight"></span>
-                            </div>
+                <div class="row justify-content-center">
+                    <div class="standard-control col-md-12 col-sm-12">
+                        <label asp-for="Spotlight">Spotlight</label>
+                        <div class="control">
+                            <input class="form-control" type="file" asp-for="Spotlight"
+                                   autofocus placeholder="The header spotlight image"/>
+                            <span class="text-danger" asp-validation-for="Spotlight"></span>
                         </div>
                     </div>
-                }
+                </div>
 
                 <!-- Title -->
                 <div class="row">
@@ -96,22 +91,11 @@
 
                 <div class="row justify-content-center">
 
-                    @if (isNew)
-                    {
-                        <div class="standard-control col-md-4">
-                            <input class="actions submit" type="submit" value="Save" />
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="standard-control col-md-4 ">
-                            <input class="actions submit delete" type="submit" value="Delete" asp-action="Delete" asp-route-id="@Model.Id" />
-                        </div>
-
-                        <div class="standard-control col-md-4">
-                            <input class="actions submit" type="submit" value="Save" />
-                        </div>
-                    }
+                    
+                    <div class="standard-control col-md-4">
+                        <input class="actions submit" type="submit" value="Save" />
+                    </div>
+                    
 
                 </div>
 
