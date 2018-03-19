@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   ITestimonalService.cs can not be copied and/or distributed without the express
+//   IPartnerService.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
@@ -12,12 +12,12 @@ namespace FlowerFest.Services.Interfaces
     using System.Threading.Tasks;
     using DTO;
 
-    public interface ITestimonalService
+    public interface IPartnerService
     {
-        Task<IEnumerable<Testimonial>> GetTestimonals();
-        Task<bool> Create(Testimonial testimonal);
-        Task<bool> Update(Testimonial testomonial);
+        Task<IEnumerable<Partner>> GetPartners();
+        Task<bool> Create(Partner partner);
+        Task<bool> Update(Partner partner);
         Task<bool> Delete(Guid id);
-        Task<Testimonial> Get(Guid id);
+        Task<Partner> Get(Guid id);
     }
 }
