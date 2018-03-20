@@ -15,9 +15,9 @@ namespace FlowerFest.Services.Interfaces
     public interface IPartnerService
     {
         Task<IEnumerable<Partner>> GetPartners();
-        Task<bool> Create(Partner partner);
-        Task<bool> Update(Partner partner);
-        Task<bool> Delete(Guid id);
-        Task<Partner> Get(Guid id);
+        Task<bool> CreatePartner(Partner partner);
+        Task<bool> UpdatePartner(Partner partner);
+        Task<bool> DeletePartner(Guid id);
+        Task<Partner> GetPartner(Guid id);
     }
 }

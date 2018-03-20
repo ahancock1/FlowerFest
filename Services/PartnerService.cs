@@ -12,6 +12,7 @@ namespace FlowerFest.Services
     using System.Threading.Tasks;
     using AutoMapper;
     using DTO;
+    using Helpers;
     using Interfaces;
     using Models;
     using Repository.Interfaces;
@@ -21,7 +22,8 @@ namespace FlowerFest.Services
         private readonly IMapper _mapper;
         private readonly IPartnerRepository _repository;
 
-        public PartnerService(IPartnerRepository repository, IMapper mapper)
+        public PartnerService(IPartnerRepository repository, 
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -34,18 +36,18 @@ namespace FlowerFest.Services
                     _repository.All()));
         }
 
-        public Task<Partner> Get(Guid id)
+        public Task<Partner> GetPartner(Guid id)
         {
-            ThrowIfNull(id);
+            Gaurd.ThrowIfNull(id);
 
             return Task.FromResult(
                 _mapper.Map<Partner>(
                     _repository.Get(p => p.Id.Equals(id))));
         }
 
-        public Task<bool> Create(Partner partner)
+        public Task<bool> CreatePartner(Partner partner)
         {
-            ThrowIfNull(partner);
+            Gaurd.ThrowIfNull(partner);
 
             return Task.FromResult(
                 _repository
@@ -53,9 +55,9 @@ namespace FlowerFest.Services
                         _mapper.Map<PartnerModel>(partner)));
         }
 
-        public Task<bool> Update(Partner partner)
+        public Task<bool> UpdatePartner(Partner partner)
         {
-            ThrowIfNull(partner);
+            Gaurd.ThrowIfNull(partner);
 
             return Task.FromResult(
                 _repository
@@ -63,9 +65,9 @@ namespace FlowerFest.Services
                         _mapper.Map<PartnerModel>(partner)));
         }
 
-        public Task<bool> Delete(Guid id)
+        public Task<bool> DeletePartner(Guid id)
         {
-            ThrowIfNull(id);
+            Gaurd.ThrowIfNull(id);
 
             var model = _repository.Get(p => p.Id.Equals(id));
 
@@ -78,12 +80,5 @@ namespace FlowerFest.Services
             return Task.FromResult(false);
         }
 
-        private void ThrowIfNull<T>(T item)
-        {
-            if (item == null)
-            {
-                throw new ArgumentException($"{typeof(T)} can not be null.");
-            }
-        }
     }
 }

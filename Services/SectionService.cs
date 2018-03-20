@@ -13,6 +13,7 @@ namespace FlowerFest.Services
     using System.Threading.Tasks;
     using AutoMapper;
     using DTO;
+    using Helpers;
     using Interfaces;
     using Models;
     using Repository.Interfaces;
@@ -40,23 +41,15 @@ namespace FlowerFest.Services
                             section.Index)));
         }
 
-        public Task<Section> CreateSection(Section section)
+        public Task<bool> CreateSection(Section section)
         {
-            if (section == null)
-            {
-                throw new ArgumentException("Section can not be null.");
-            }
+            Gaurd.ThrowIfNull(section);
 
             ValidateIndex(section.Index);
 
-            var model = _mapper.Map<SectionModel>(section);
-
-            if (_repository.Create(model))
-            {
-                return Task.FromResult(section);
-            }
-
-            return null;
+            return Task.FromResult(
+                _repository.Create(
+                    _mapper.Map<SectionModel>(section)));
         }
 
         private void ValidateIndex(int index)
@@ -78,31 +71,21 @@ namespace FlowerFest.Services
             }
         }
 
-        public Task<Section> UpdateSection(Section section)
+        public Task<bool> UpdateSection(Section section)
         {
-            if (section == null)
-            {
-                throw new ArgumentException("Section can not be null.");
-            }
+            Gaurd.ThrowIfNull(section);
 
             ValidateIndex(section.Index);
 
-            var model = _mapper.Map<SectionModel>(section);
-
-            if (_repository.Update(model))
-            {
-                return Task.FromResult(section);
-            }
-
-            return null;
+            return Task.FromResult(
+                _repository
+                    .Update(
+                        _mapper.Map<SectionModel>(section)));
         }
 
         public Task<bool> DeleteSection(Guid id)
         {
-            if (id.Equals(Guid.Empty))
-            {
-                throw new ArgumentException("Section id can not be null.");
-            }
+            Gaurd.ThrowIfNull(id);
 
             var model = _repository.Get(section => section.Id.Equals(id));
             if (model != null)
@@ -112,6 +95,15 @@ namespace FlowerFest.Services
             }
 
             return Task.FromResult(false);
+        }
+
+        public Task<Section> GetSection(Guid id)
+        {
+            Gaurd.ThrowIfNull(id);
+
+            return Task.FromResult(
+                _mapper.Map<Section>(
+                    _repository.Get(s => s.Id.Equals(id))));
         }
     }
 }

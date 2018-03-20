@@ -15,8 +15,9 @@ namespace FlowerFest.Services.Interfaces
     public interface ISectionService
     {
         Task<IEnumerable<Section>> GetSections();
-        Task<Section> CreateSection(Section section);
-        Task<Section> UpdateSection(Section section);
+        Task<bool> CreateSection(Section section);
+        Task<bool> UpdateSection(Section section);
         Task<bool> DeleteSection(Guid id);
+        Task<Section> GetSection(Guid id);
     }
 }
