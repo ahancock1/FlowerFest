@@ -38,7 +38,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         {
             try
             {
-                return View("Index", _mapper.Map<IEnumerable<Testimonial>>(
+                return View("Index", _mapper.Map<IEnumerable<TestimonialViewModel>>(
                     await _service.GetTestimonals()));
             }
             catch (Exception e)
@@ -62,7 +62,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                if (await _service.Create(_mapper.Map<Testimonial>(model)))
+                if (await _service.CreateTestimonial(_mapper.Map<Testimonial>(model)))
                 {
                     return Redirect("Index");
                 }
@@ -85,7 +85,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                if (await _service.Delete(Guid.Parse(id)))
+                if (await _service.DeleteTestimonial(Guid.Parse(id)))
                 {
                     return Redirect("Index");
                 }
@@ -107,7 +107,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var partner = _service.Get(Guid.Parse(id));
+                var partner = _service.GetTestimonals();
                 if (partner == null)
                 {
                     return NotFound();
@@ -131,7 +131,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                if (await _service.Update(
+                if (await _service.UpdateTestimonial(
                     _mapper.Map<Testimonial>(model)))
                 {
                     return Redirect("Index");

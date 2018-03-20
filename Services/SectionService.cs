@@ -87,7 +87,7 @@ namespace FlowerFest.Services
         {
             Gaurd.ThrowIfNull(id);
 
-            var model = _repository.Get(section => section.Id.Equals(id));
+            var model = _repository.Get(s => s.Id.Equals(id));
             if (model != null)
             {
                 return Task.FromResult(

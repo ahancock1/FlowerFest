@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<TestimonalModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Id>d3d36df5-417c-4798-b5f8-96d6eed67cef</Id>
+<TestimonialModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>b2d5a0d5-78ee-49a1-9130-7098b429ef9c</Id>
   <Content>We look forward to supporting FF18. Growing up in Christchurch it will be a fantastic to see it in bloom.</Content>
   <Author>Tom Le Mesurier</Author>
   <Place>Flora Direct</Place>
-</TestimonalModel>
+</TestimonialModel>

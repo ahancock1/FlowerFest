@@ -9,6 +9,9 @@ namespace FlowerFest.Areas.Dashboard.ViewModels.Testimonials
 {
     public class TestimonialViewModel
     {
-
+        public string Id { get; set; }
+        public string Content { get; set; }
+        public string Author { get; set; }
+        public string Place { get; set; }
     }
 }

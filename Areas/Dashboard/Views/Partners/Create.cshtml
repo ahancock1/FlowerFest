@@ -1,9 +1,54 @@
-﻿@model PartnerViewModel
+﻿@model CreatePartnerViewModel
 
 @{
     Layout = "_Layout";
 }
 
-<div>
-    <p>Dashboard</p>
+<div class="container">
+
+    <h2>Create Partner</h2>
+
+    <form asp-controller="Partners" asp-action="Create" asp-area="Dashboard"
+          emethod="post" enctype="multipart/form-data">
+        <!-- Title -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Name">Name</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Name" placeholder="The name of the partner" />
+                    <span class="text-danger" asp-validation-for="@Model.Name"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Image">Logo</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Image" placeholder="The logo to be displayed" />
+                    <span class="text-danger" asp-validation-for="@Model.Image"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Link">Link</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Link" placeholder="The link to their website" />
+                    <span class="text-danger" asp-validation-for="@Model.Link"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="standard-control col-md-4">
+                <input class="actions submit" type="submit" value="Save" />
+            </div>
+        </div>
+
+    </form>
+
 </div>

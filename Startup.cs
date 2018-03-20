@@ -87,12 +87,10 @@ namespace FlowerFest
 
             services.AddSingleton<IMailService, MailService>();
             
-
             var webroot = _environment.WebRootPath;
 
             ConfigureMappings(services);
             ConfigureRepositories(services, webroot);
-
             
             // Uploads
             services
@@ -104,6 +102,7 @@ namespace FlowerFest
             services
                 .AddSingleton<IBlogService, BlogService>()
                 .AddSingleton<ITestimonalService, TestimonalService>()
+                .AddSingleton<IPartnerService, PartnerService>()
                 .AddSingleton<ISectionService, SectionService>();
             
 

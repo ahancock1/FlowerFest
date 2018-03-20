@@ -16,8 +16,8 @@ namespace FlowerFest.Mappings
     {
         public void Configure(IMapperConfigurationExpression config)
         {
-            config.CreateMap<TestimonalModel, Testimonial>();
-            config.CreateMap<Testimonial, TestimonalModel>();
+            config.CreateMap<TestimonialModel, Testimonial>();
+            config.CreateMap<Testimonial, TestimonialModel>();
 
             config.CreateMap<Testimonial, TestimonialViewModel>();
             config.CreateMap<TestimonialViewModel, Testimonial>();

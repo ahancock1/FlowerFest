@@ -10,7 +10,7 @@ namespace FlowerFest.Models
     using System;
     using Repository;
 
-    public class TestimonalModel : IEntity
+    public class TestimonialModel : IEntity
     {
         public Guid Id { get; set; }
         public string Content { get; set; }

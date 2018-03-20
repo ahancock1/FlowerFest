@@ -51,11 +51,11 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Create()
         {
-            return View(new PartnerViewModel());
+            return View(new CreatePartnerViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PartnerViewModel model)
+        public async Task<IActionResult> Create(CreatePartnerViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -64,9 +64,9 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                if (await _service.Create(_mapper.Map<Partner>(model)))
+                if (await _service.CreatePartner(_mapper.Map<Partner>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return BadRequest();
@@ -76,8 +76,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
                 return ServerError(e);
             }
         }
-
-        [HttpPost]
+        
         public async Task<IActionResult> Delete(string id = "")
         {
             if (string.IsNullOrEmpty(id))
@@ -87,9 +86,9 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                if (await _service.Delete(Guid.Parse(id)))
+                if (await _service.DeletePartner(Guid.Parse(id)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();
@@ -109,7 +108,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var partner = _service.Get(Guid.Parse(id));
+                var partner = await _service.GetPartner(Guid.Parse(id));
                 if (partner == null)
                 {
                     return NotFound();
@@ -133,10 +132,10 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                if(await _service.Update(
+                if(await _service.UpdatePartner(
                     _mapper.Map<Partner>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
                 
                 return NotFound();

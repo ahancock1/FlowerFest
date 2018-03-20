@@ -11,5 +11,12 @@ namespace FlowerFest.Areas.Dashboard.ViewModels.Partners
 
     public class CreatePartnerViewModel
     {
+        public string Id { get; set; }
+        [Required]
+        public string Image { get; set; }
+        [Required]
+        public string Link { get; set; }
+        [Required]
+        public string Name { get; set; }
     }
 }

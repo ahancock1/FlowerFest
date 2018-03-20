@@ -224,6 +224,7 @@
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\" />
     <Folder Include="wwwroot\Posts\" />
+    <Folder Include="wwwroot\Sections\" />
     <Folder Include="wwwroot\Testimonals\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>

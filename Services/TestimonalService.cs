@@ -12,6 +12,7 @@ namespace FlowerFest.Services
     using System.Threading.Tasks;
     using AutoMapper;
     using DTO;
+    using Helpers;
     using Interfaces;
     using Models;
     using Repository.Interfaces;
@@ -21,7 +22,8 @@ namespace FlowerFest.Services
         private readonly IMapper _mapper;
         private readonly ITestimonalRepository _repository;
 
-        public TestimonalService(ITestimonalRepository repository, IMapper mapper)
+        public TestimonalService(ITestimonalRepository repository, 
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -35,17 +37,48 @@ namespace FlowerFest.Services
                         .All()));
         }
 
-        public Task<bool> Create(Testimonial testimonal)
+        public Task<bool> CreateTestimonial(Testimonial testimonial)
         {
-            if (testimonal == null)
-            {
-                throw new ArgumentException("Testimonal can not be null.");
-            }
+            Gaurd.ThrowIfNull(testimonial);
 
             return Task.FromResult(
                 _repository
                     .Create(
-                        _mapper.Map<TestimonalModel>(testimonal)));
+                        _mapper.Map<TestimonialModel>(testimonial)));
+        }
+
+
+        public Task<bool> UpdateTestimonial(Testimonial section)
+        {
+            Gaurd.ThrowIfNull(section);
+
+            return Task.FromResult(
+                _repository
+                    .Update(
+                        _mapper.Map<TestimonialModel>(section)));
+        }
+
+        public Task<bool> DeleteTestimonial(Guid id)
+        {
+            Gaurd.ThrowIfNull(id);
+
+            var model = _repository.Get(t => t.Id.Equals(id));
+            if (model != null)
+            {
+                return Task.FromResult(
+                    _repository.Delete(model));
+            }
+
+            return Task.FromResult(false);
+        }
+
+        public Task<Testimonial> GetTestimonial(Guid id)
+        {
+            Gaurd.ThrowIfNull(id);
+
+            return Task.FromResult(
+                _mapper.Map<Testimonial>(
+                    _repository.Get(s => s.Id.Equals(id))));
         }
     }
 }

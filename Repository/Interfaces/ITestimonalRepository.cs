@@ -9,7 +9,7 @@ namespace FlowerFest.Repository.Interfaces
 {
     using Models;
 
-    public interface ITestimonalRepository : IRepository<TestimonalModel>
+    public interface ITestimonalRepository : IRepository<TestimonialModel>
     {
     }
 }
