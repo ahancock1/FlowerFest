@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PartnerModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>d6421fb9-4add-4102-ad88-dac419dcf4a9</Id>
+  <Image>~/img/support/urban.png</Image>
+  <Link />
+  <Name>Urban</Name>
+</PartnerModel>

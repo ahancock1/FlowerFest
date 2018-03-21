@@ -5,16 +5,19 @@
 
 <div class="container">
     <div class="owl-carousel testimonial-carousel nf-carousel-theme white">
-        
+
         @foreach (var testimonal in Model)
         {
             <div class="item">
                 <div class="testimonial text-center max-width-700">
-                    <div class="page-icon-sm"><i class="icon-quote"></i>
+                    <div class="page-icon-sm">
+                        <i class="icon-quote"></i>
                     </div>
                     <h2>What People Say?</h2>
                     <p class="lead-lg">@testimonal.Content</p>
-                    <h6 class="quote-author alt-title">@testimonal.Author <span class="text-regular">( @testimonal.Place )</span></h6>
+                    <h6 class="quote-author alt-title">
+                        @testimonal.Author <span class="text-regular">( @testimonal.Place )</span>
+                    </h6>
                 </div>
             </div>
         }

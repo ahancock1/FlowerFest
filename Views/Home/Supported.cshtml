@@ -1,4 +1,5 @@
-﻿<!-- page triangle shape -->
+﻿
+<!-- page triangle shape -->
 <div class="page-triangle white-bg"></div>
 <!-- End page triangle shape -->
 
@@ -6,97 +7,18 @@
     <h2 class="mb-60">Supported By</h2>
     
     <div class="owl-carousel support-carousel">
-        <div class="item">
-            <div class="support-logo">
-                <a >
-                    <img src="~/img/support/minddorset.png" alt="minddorset" />
-                </a>
+        
+        @foreach (var partner in Model.Partners)
+        {
+            <div class="item">
+                <div class="support-logo">
+                    <a href="@partner.Link">
+                        <img src="@Url.Content(partner.Image)" alt="@partner.Name"/>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/captainsclub.png" alt="captainsclub" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a >
-                    <img src="~/img/support/cultraltrust.png" alt="cultraltrust" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a >
-                    <img src="~/img/support/englishheritage.png" alt="englishheritage" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/filerknapper.png" alt="filerknapper" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/floradirect.png" alt="floradirect" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/musicartsfestival.png" alt="musicartsfestival" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/opiflor.png" alt="opiflor" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/saxonsquare.png" alt="saxonsquare" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/signsofdistinction.png" alt="signsofdistinction" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/soho.png" alt="soho" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/thomastripp.png" alt="thomastripp" />
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="support-logo">
-                <a>
-                    <img src="~/img/support/urban.png" alt="urban" />
-                </a>
-            </div>
-        </div>
+        }
+
     </div>
 
 </div>

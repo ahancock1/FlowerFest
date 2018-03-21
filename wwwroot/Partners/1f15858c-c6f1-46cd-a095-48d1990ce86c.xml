@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PartnerModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>1f15858c-c6f1-46cd-a095-48d1990ce86c</Id>
+  <Image>~/img/support/filerknapper.png</Image>
+  <Link />
+  <Name>Filer Knapper</Name>
+</PartnerModel>

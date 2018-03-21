@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PartnerModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>d7c92dbc-f888-468c-a68d-9c0fd139fa9d</Id>
+  <Image>~/img/support/opiflor.png</Image>
+  <Link />
+  <Name>Opi FLoor</Name>
+</PartnerModel>

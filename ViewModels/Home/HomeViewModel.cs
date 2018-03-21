@@ -14,5 +14,6 @@ namespace FlowerFest.ViewModels.Home
         public IEnumerable<TestimonialViewModel> Testimonials { get; set; }
         public IEnumerable<PostViewModel> RecentPosts { get; set; }
         public IEnumerable<SectionViewModel> Sections { get; set; }
+        public IEnumerable<PartnerViewModel> Partners { get; set; }
     }
 }

@@ -9,14 +9,14 @@ namespace FlowerFest.Mappings
 {
     using AutoMapper;
     using DTO;
-    using Models;
+    using ViewModels.Home;
 
     public class PartnerMappings : IMapperConfiguration
     {
         public void Configure(IMapperConfigurationExpression config)
         {
-            config.CreateMap<PartnerModel, Partner>();
-            config.CreateMap<Partner, PartnerModel>();
+            config.CreateMap<PartnerViewModel, Partner>();
+            config.CreateMap<Partner, PartnerViewModel>();
         }
     }
 }

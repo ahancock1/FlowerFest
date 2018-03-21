@@ -223,6 +223,7 @@
     <Folder Include="wwwroot\img\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\Partners\" />
     <Folder Include="wwwroot\Posts\" />
     <Folder Include="wwwroot\Sections\" />
     <Folder Include="wwwroot\Testimonals\" />

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<PartnerModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>c8f609a5-aeee-4df8-a84a-6d620b240838</Id>
+  <Image>~/img/support/soho.png</Image>
+  <Link />
+  <Name>Soho</Name>
+</PartnerModel>
