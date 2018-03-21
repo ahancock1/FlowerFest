@@ -55,7 +55,7 @@ namespace FlowerFest.Controllers
                 return View("Index", new HomeViewModel
                 {
                     Testimonials = _mapper.Map<IEnumerable<TestimonialViewModel>>(
-                        await _testimonalService.GetTestimonals()),
+                        await _testimonalService.GetTestimonials()),
                     RecentPosts = _mapper.Map<IEnumerable<PostViewModel>>(
                         await _blogService.GetPosts(postsPerPage)),
                     Sections = _mapper.Map<IEnumerable<SectionViewModel>>(

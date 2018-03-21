@@ -13,12 +13,14 @@ namespace FlowerFest.Areas.Dashboard.Controllers
     using AutoMapper;
     using DTO;
     using FlowerFest.Controllers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Services.Interfaces;
     using ViewModels.Testimonials;
 
     [Area("Dashboard")]
+    [Authorize]
     public class TestimonialsController : BaseController<TestimonialsController>
     {
         private readonly IMapper _mapper;
@@ -39,7 +41,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             try
             {
                 return View("Index", _mapper.Map<IEnumerable<TestimonialViewModel>>(
-                    await _service.GetTestimonals()));
+                    await _service.GetTestimonials()));
             }
             catch (Exception e)
             {
@@ -49,11 +51,11 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Create()
         {
-            return View(new TestimonialViewModel());
+            return View(new CreateTestimonialViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TestimonialViewModel model)
+        public async Task<IActionResult> Create(CreateTestimonialViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +66,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             {
                 if (await _service.CreateTestimonial(_mapper.Map<Testimonial>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return BadRequest();
@@ -74,8 +76,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
                 return ServerError(e);
             }
         }
-
-        [HttpPost]
+        
         public async Task<IActionResult> Delete(string id = "")
         {
             if (string.IsNullOrEmpty(id))
@@ -87,7 +88,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             {
                 if (await _service.DeleteTestimonial(Guid.Parse(id)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();
@@ -107,7 +108,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var partner = _service.GetTestimonals();
+                var partner = await _service.GetTestimonial(Guid.Parse(id));
                 if (partner == null)
                 {
                     return NotFound();
@@ -134,7 +135,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
                 if (await _service.UpdateTestimonial(
                     _mapper.Map<Testimonial>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();

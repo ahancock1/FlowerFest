@@ -14,7 +14,7 @@ namespace FlowerFest.Services.Interfaces
 
     public interface ITestimonalService
     {
-        Task<IEnumerable<Testimonial>> GetTestimonals();
+        Task<IEnumerable<Testimonial>> GetTestimonials();
         Task<bool> CreateTestimonial(Testimonial testimonal);
         Task<bool> UpdateTestimonial(Testimonial testomonial);
         Task<bool> DeleteTestimonial(Guid id);

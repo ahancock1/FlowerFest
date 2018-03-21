@@ -11,5 +11,12 @@ namespace FlowerFest.Areas.Dashboard.ViewModels.Testimonials
 
     public class EditTestimonialViewModel
     {
+        public string Id { get; set; }
+        [Required]
+        public string Content { get; set; }
+        [Required]
+        public string Author { get; set; }
+        [Required]
+        public string Place { get; set; }
     }
 }

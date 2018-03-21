@@ -32,10 +32,7 @@ namespace FlowerFest.Areas.Dashboard.Mappings
 
             config.CreateMap<Partner, EditPartnerViewModel>();
             config.CreateMap<EditPartnerViewModel, Partner>();
-
-            config.CreateMap<Partner, PartnerDetailViewModel>();
-            config.CreateMap<PartnerDetailViewModel, Partner>();
-
+            
             config.CreateMap<Partner, PartnerViewModel>();
             config.CreateMap<PartnerViewModel, Partner>();
         }
@@ -47,10 +44,7 @@ namespace FlowerFest.Areas.Dashboard.Mappings
 
             config.CreateMap<BlogPost, EditPostViewModel>();
             config.CreateMap<EditPostViewModel, BlogPost>();
-
-            config.CreateMap<BlogPost, PostDetailViewModel>();
-            config.CreateMap<PostDetailViewModel, BlogPost>();
-
+            
             config.CreateMap<BlogPost, PostViewModel>();
             config.CreateMap<PostViewModel, BlogPost>();
         }
@@ -62,10 +56,7 @@ namespace FlowerFest.Areas.Dashboard.Mappings
 
             config.CreateMap<Section, EditSectionViewModel>();
             config.CreateMap<EditSectionViewModel, Section>();
-
-            config.CreateMap<Section, SectionDetailViewModel>();
-            config.CreateMap<SectionDetailViewModel, Section>();
-
+            
             config.CreateMap<Section, SectionViewModel>();
             config.CreateMap<SectionViewModel, Section>();
         }
@@ -77,10 +68,7 @@ namespace FlowerFest.Areas.Dashboard.Mappings
 
             config.CreateMap<Testimonial, EditTestimonialViewModel>();
             config.CreateMap<EditTestimonialViewModel, Testimonial>();
-
-            config.CreateMap<Testimonial, TestimonialDetailViewModel>();
-            config.CreateMap<TestimonialDetailViewModel, Testimonial>();
-
+            
             config.CreateMap<Testimonial, TestimonialViewModel>();
             config.CreateMap<TestimonialViewModel, Testimonial>();
         }

@@ -29,7 +29,7 @@ namespace FlowerFest.Services
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<Testimonial>> GetTestimonals()
+        public Task<IEnumerable<Testimonial>> GetTestimonials()
         {
             return Task.FromResult(
                 _mapper.Map<IEnumerable<Testimonial>>(
