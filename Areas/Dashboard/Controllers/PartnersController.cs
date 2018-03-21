@@ -108,7 +108,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var partner = await _service.GetPartner(Guid.Parse(id));
+                var partner = await _service.GetPartnerById(Guid.Parse(id));
                 if (partner == null)
                 {
                     return NotFound();

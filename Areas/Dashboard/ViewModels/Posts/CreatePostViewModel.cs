@@ -14,7 +14,6 @@ namespace FlowerFest.Areas.Dashboard.ViewModels.Posts
         [Required]
         public string Spotlight { get; set; }
 
-        [Required]
         public string Id { get; set; }
 
         [Required]

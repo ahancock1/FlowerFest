@@ -72,7 +72,7 @@ namespace FlowerFest.Services
             return Task.FromResult(false);
         }
 
-        public Task<Testimonial> GetTestimonial(Guid id)
+        public Task<Testimonial> GetTestimonialById(Guid id)
         {
             Gaurd.ThrowIfNull(id);
 

@@ -18,6 +18,6 @@ namespace FlowerFest.Services.Interfaces
         Task<bool> CreateTestimonial(Testimonial testimonal);
         Task<bool> UpdateTestimonial(Testimonial testomonial);
         Task<bool> DeleteTestimonial(Guid id);
-        Task<Testimonial> GetTestimonial(Guid id);
+        Task<Testimonial> GetTestimonialById(Guid id);
     }
 }

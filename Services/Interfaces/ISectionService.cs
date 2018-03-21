@@ -18,6 +18,6 @@ namespace FlowerFest.Services.Interfaces
         Task<bool> CreateSection(Section section);
         Task<bool> UpdateSection(Section section);
         Task<bool> DeleteSection(Guid id);
-        Task<Section> GetSection(Guid id);
+        Task<Section> GetSectionById(Guid id);
     }
 }

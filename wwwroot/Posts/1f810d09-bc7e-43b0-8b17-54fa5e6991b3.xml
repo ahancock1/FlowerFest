@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<BlogPostModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Slug>sdfg</Slug>
+  <Spotlight>afds</Spotlight>
+  <Title>dsfg</Title>
+  <Description>sdfg</Description>
+  <Content>sdfg</Content>
+  <PublishedDate>2018-03-21T23:06:31.4749855Z</PublishedDate>
+  <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+  <Comments />
+  <Categories>
+    <string>dsfg</string>
+  </Categories>
+  <Id>1f810d09-bc7e-43b0-8b17-54fa5e6991b3</Id>
+  <IsPublished>false</IsPublished>
+</BlogPostModel>

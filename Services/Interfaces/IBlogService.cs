@@ -11,7 +11,6 @@ namespace FlowerFest.Services.Interfaces
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using DTO;
-    using Microsoft.AspNetCore.Http;
 
     public interface IBlogService
     {
@@ -23,8 +22,8 @@ namespace FlowerFest.Services.Interfaces
         Task<IEnumerable<BlogPost>> Search(string term);
         Task<BlogPost> AddComment(Guid postId, Comment comment);
         Task<BlogPost> DeleteComment(Guid postId, Guid commentId);
-        Task<BlogPost> UpdatePost(BlogPost post);
-        Task<BlogPost> CreatePost(BlogPost post);//, IFormFile spotlight);
+        Task<bool> UpdatePost(BlogPost post);
+        Task<bool> CreatePost(BlogPost post);
         Task<bool> DeletePost(Guid id);
     }
 }

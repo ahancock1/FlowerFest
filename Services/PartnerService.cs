@@ -22,7 +22,7 @@ namespace FlowerFest.Services
         private readonly IMapper _mapper;
         private readonly IPartnerRepository _repository;
 
-        public PartnerService(IPartnerRepository repository, 
+        public PartnerService(IPartnerRepository repository,
             IMapper mapper)
         {
             _repository = repository;
@@ -36,7 +36,7 @@ namespace FlowerFest.Services
                     _repository.All()));
         }
 
-        public Task<Partner> GetPartner(Guid id)
+        public Task<Partner> GetPartnerById(Guid id)
         {
             Gaurd.ThrowIfNull(id);
 
@@ -79,6 +79,5 @@ namespace FlowerFest.Services
 
             return Task.FromResult(false);
         }
-
     }
 }

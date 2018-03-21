@@ -83,10 +83,9 @@ namespace FlowerFest.Repository
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Error occurred creating entity: {e.Message}");
+                Debug.WriteLine($"Error occurred creating entity: {e}");
+                throw;
             }
-
-            return false;
         }
 
         public bool Delete(T item)
@@ -112,9 +111,8 @@ namespace FlowerFest.Repository
             catch (Exception e)
             {
                 Debug.WriteLine($"Error occurred deleting entity: {e.Message}");
+                throw;
             }
-
-            return false;
         }
 
         public T Get(Func<T, bool> predicate)
@@ -144,9 +142,8 @@ namespace FlowerFest.Repository
             catch (Exception e)
             {
                 Debug.WriteLine($"Error occurred updating entity: {e.Message}");
+                throw;
             }
-
-            return false;
         }
 
         private void Serialize(T item)
@@ -180,6 +177,7 @@ namespace FlowerFest.Repository
                 catch (Exception e)
                 {
                     Debug.WriteLine($"Error occured deserialising file: {filepath}, {e.Message}");
+                    throw;
                 }
             }
         }

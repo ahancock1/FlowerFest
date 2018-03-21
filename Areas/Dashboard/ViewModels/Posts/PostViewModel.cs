@@ -12,13 +12,13 @@ namespace FlowerFest.Areas.Dashboard.ViewModels.Posts
 
     public class PostViewModel
     {
-        [DisplayName("ID")]
         public Guid Id { get; set; }
+
+        public string Slug { get; set; }
 
         public string Title { get; set; }
 
-        [DisplayName("Published")]
-        public bool IsPublished { get; set; }
+        public string Description { get; set; }
 
         [DisplayName("Date Published")]
         public DateTime PublishedDate { get; set; }

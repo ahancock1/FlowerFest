@@ -133,7 +133,7 @@ namespace FlowerFest.Areas.Blog.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View("Post", _mapper.Map<PostViewModel>(post));
+                return View("Post", _mapper.Map<BlogPostViewModel>(post));
             }
 
             if (post == null)

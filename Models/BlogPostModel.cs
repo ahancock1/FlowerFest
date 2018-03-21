@@ -20,9 +20,9 @@ namespace FlowerFest.Models
         public string Content { get; set; }
         public DateTime PublishedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public IList<CommentModel> Comments { get; set; }
-        public IList<string> Categories { get; set; }
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public List<CommentModel> Comments { get; set; }
+        public List<string> Categories { get; set; }
+        public Guid Id { get; set; }
         public bool IsPublished { get; set; }
         public string Author { get; set; }
     }

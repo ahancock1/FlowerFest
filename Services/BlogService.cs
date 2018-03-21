@@ -16,14 +16,13 @@ namespace FlowerFest.Services
     using AutoMapper;
     using DTO;
     using Extensions;
+    using Helpers;
     using Interfaces;
-    using Microsoft.AspNetCore.Http;
     using Models;
     using Repository.Interfaces;
 
     public class BlogService : IBlogService
     {
-        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
         private readonly IBlogRepository _repository;
 
@@ -63,10 +62,10 @@ namespace FlowerFest.Services
             "+"
         };
 
-        public BlogService(IBlogRepository repository, IFileService fileService, IMapper mapper)
+        public BlogService(IBlogRepository repository,
+            IMapper mapper)
         {
             _repository = repository;
-            _fileService = fileService;
             _mapper = mapper;
         }
 
@@ -81,8 +80,9 @@ namespace FlowerFest.Services
                 _mapper.Map<IEnumerable<BlogPost>>(
                     _repository
                         .All(
-                            post =>
-                                post.IsPublished,
+                            //post =>
+                            //    post.IsPublished,
+                            null,
                             post =>
                                 post.PublishedDate,
                             skip, count)));
@@ -90,29 +90,19 @@ namespace FlowerFest.Services
 
         public Task<IEnumerable<BlogPost>> GetPostsByCategory(string category)
         {
-            if (string.IsNullOrEmpty(category))
-            {
-                throw new ArgumentException("Category can not be null or empty.");
-            }
-            ;
+            Gaurd.ThrowIfNull(category);
 
             return Task.FromResult(
                 _mapper.Map<IEnumerable<BlogPost>>(
-                    _repository
-                        .All(
-                            post =>
-                                post.Categories
-                                    .Any(
-                                        c =>
-                                            c.Equals(category, StringComparison.OrdinalIgnoreCase)))));
+                    _repository.All(post =>
+                        post.Categories
+                            .Any(c =>
+                                c.Equals(category, StringComparison.OrdinalIgnoreCase)))));
         }
 
         public Task<BlogPost> GetPostBySlug(string slug)
         {
-            if (string.IsNullOrEmpty(slug))
-            {
-                throw new ArgumentException("Slug can not be null or empty.");
-            }
+            Gaurd.ThrowIfNull(slug);
 
             return Task.FromResult(
                 _mapper.Map<BlogPost>(
@@ -125,11 +115,7 @@ namespace FlowerFest.Services
 
         public Task<BlogPost> GetPostById(Guid id)
         {
-            if (id.Equals(Guid.Empty))
-            {
-                throw new ArgumentException("Post id can not be null.");
-            }
-            ;
+            Gaurd.ThrowIfNull(id);
 
             return Task.FromResult(
                 _mapper.Map<BlogPost>(
@@ -142,8 +128,9 @@ namespace FlowerFest.Services
             return Task.FromResult(
                 _repository
                     .All(
-                        post =>
-                            post.IsPublished)
+                        //post =>
+                        //    post.IsPublished,
+                        null)
                     .SelectMany(
                         post =>
                             post.Categories));
@@ -151,10 +138,7 @@ namespace FlowerFest.Services
 
         public Task<IEnumerable<BlogPost>> Search(string term)
         {
-            if (string.IsNullOrEmpty(term))
-            {
-                throw new ArgumentException("Search term can not be null or empty.");
-            }
+            Gaurd.ThrowIfNull(term);
 
             var comparison = StringComparison.OrdinalIgnoreCase;
 
@@ -171,23 +155,22 @@ namespace FlowerFest.Services
                                 post.PublishedDate)));
         }
 
-        public async Task<BlogPost> AddComment(Guid id, Comment comment)
+        public Task<BlogPost> AddComment(Guid id, Comment comment)
         {
-            if (id == Guid.Empty || comment == null)
+            Gaurd.ThrowIfNull(id);
+            Gaurd.ThrowIfNull(comment);
+
+            var post = _repository.Get(p => p.Id.Equals(id));
+            if (post == null)
             {
-                throw new ArgumentException($"Invalid argument, can not be null or empty.");
+                return null;
             }
 
-            var post = await GetPostById(id);
+            post.Comments.Add(_mapper.Map<CommentModel>(comment));
 
-            if (post == null) return null;
-
-            post.Comments.Add(comment);
-
-            if (_repository.Update(
-                _mapper.Map<BlogPostModel>(post)))
+            if (_repository.Update(post))
             {
-                return post;
+                return Task.FromResult(_mapper.Map<BlogPost>(post));
             }
 
             return null;
@@ -195,38 +178,34 @@ namespace FlowerFest.Services
 
         public Task<BlogPost> DeleteComment(Guid postId, Guid commentId)
         {
-            if (postId == Guid.Empty || commentId == Guid.Empty)
-            {
-                throw new ArgumentException("Invalid argument, id can not be empty.");
-            }
+            Gaurd.ThrowIfNull(postId);
+            Gaurd.ThrowIfNull(commentId);
 
-            var model = _repository.Get(post => post.Id.Equals(postId));
+            var post = _repository.Get(p => p.Id.Equals(postId));
 
-            var comment = model?.Comments.FirstOrDefault(c =>
+            var comment = post?.Comments.FirstOrDefault(c =>
                 c.Id.Equals(commentId));
 
             if (comment != null)
             {
-                model.Comments.Remove(comment);
+                post.Comments.Remove(comment);
 
-                _repository.Update(model);
-
-                return Task.FromResult(
-                    _mapper.Map<BlogPost>(model));
+                if (_repository.Update(post))
+                {
+                    return Task.FromResult(_mapper.Map<BlogPost>(post));
+                }
+                
             }
 
             return null;
         }
 
-        public async Task<BlogPost> CreatePost(BlogPost post)//, IFormFile spotlight)
+        public Task<bool> CreatePost(BlogPost post)
         {
-            if (post == null)// || spotlight == null)
-            {
-                throw new ArgumentException($"Invalid argument, can not be null: {post}");//, { spotlight}");
-            }
+            Gaurd.ThrowIfNull(post);
 
             var model = _mapper.Map<BlogPostModel>(post);
-            model.Id = Guid.NewGuid();
+
             model.PublishedDate = DateTime.UtcNow;
 
             if (string.IsNullOrEmpty(model.Slug))
@@ -234,14 +213,12 @@ namespace FlowerFest.Services
                 model.Slug = GenerateSlug(model.Title);
             }
 
-            //model.Spotlight = await SaveSpotlight(spotlight);
-
             if (_repository.Create(model))
             {
-                return _mapper.Map<BlogPost>(model);
+                return Task.FromResult(true);
             }
 
-            return null;
+            return Task.FromResult(false);
         }
 
         public Task<bool> DeletePost(Guid id)
@@ -263,28 +240,19 @@ namespace FlowerFest.Services
             return Task.FromResult(false);
         }
 
-        public Task<BlogPost> UpdatePost(BlogPost post)
+        public Task<bool> UpdatePost(BlogPost post)
         {
-            if (post == null)
-            {
-                throw new ArgumentException("Post can not be null");
-            }
+            Gaurd.ThrowIfNull(post);
 
             var model = _mapper.Map<BlogPostModel>(post);
             model.ModifiedDate = DateTime.UtcNow;
 
             if (_repository.Update(model))
             {
-                return Task.FromResult(
-                    _mapper.Map<BlogPost>(model));
+                return Task.FromResult(true);
             }
 
-            return null;
-        }
-
-        public async Task<string> SaveSpotlight(IFormFile file)
-        {
-            return await _fileService.Save(file);
+            return Task.FromResult(false);
         }
 
         /// <summary>

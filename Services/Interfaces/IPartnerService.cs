@@ -18,6 +18,6 @@ namespace FlowerFest.Services.Interfaces
         Task<bool> CreatePartner(Partner partner);
         Task<bool> UpdatePartner(Partner partner);
         Task<bool> DeletePartner(Guid id);
-        Task<Partner> GetPartner(Guid id);
+        Task<Partner> GetPartnerById(Guid id);
     }
 }

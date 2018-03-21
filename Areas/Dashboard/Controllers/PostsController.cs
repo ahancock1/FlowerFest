@@ -24,7 +24,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
     public class PostsController : BaseController<PostsController>
     {
         private readonly IMapper _mapper;
-        private readonly IBlogService _blogService;
+        private readonly IBlogService _service;
 
         public PostsController(
             IBlogService blogService,
@@ -32,7 +32,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             ILogger<PostsController> logger)
             : base(logger)
         {
-            _blogService = blogService;
+            _service = blogService;
             _mapper = mapper;
         }
 
@@ -40,32 +40,8 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         {
             try
             {
-                return View("Index", _mapper.Map<IEnumerable<PostViewModel>>(
-                    await _blogService.GetPosts(int.MaxValue)));
-            }
-            catch (Exception e)
-            {
-                return ServerError(e);
-            }
-        }
-
-        public async Task<IActionResult> Details(string id = "")
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return NotFound();
-            }
-
-            try
-            {
-                var post = _blogService.GetPostById(Guid.Parse(id));
-
-                if (post == null)
-                {
-                    return NotFound();
-                }
-
-                return View(_mapper.Map<PostViewModel>(post));
+                return View(_mapper.Map<IEnumerable<PostViewModel>>(
+                    await _service.GetPosts(int.MaxValue)));
             }
             catch (Exception e)
             {
@@ -88,16 +64,12 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var post = await _blogService.CreatePost(
-                        _mapper.Map<BlogPost>(model));
-
-                if (post != null)
+                if (await _service.CreatePost(_mapper.Map<BlogPost>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return BadRequest();
-
             }
             catch (Exception e)
             {
@@ -105,19 +77,18 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             }
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(string id = "")
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
             try
             {
-                if (string.IsNullOrEmpty(id))
+                if (await _service.DeletePost(Guid.Parse(id)))
                 {
-                    return NotFound();
-                }
-
-                if (await _blogService.DeletePost(Guid.Parse(id)))
-                {
-                    return Redirect("Blog");
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();
@@ -130,14 +101,14 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Edit(string id = "")
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
             try
             {
-                if (string.IsNullOrEmpty(id))
-                {
-                    return NotFound();
-                }
-
-                var post = await _blogService.GetPostById(Guid.Parse(id));
+                var post = await _service.GetPostById(Guid.Parse(id));
                 if (post == null)
                 {
                     return NotFound();
@@ -152,7 +123,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        private async Task<IActionResult> Edit(EditPostViewModel model)
+        public async Task<IActionResult> Edit(EditPostViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -161,16 +132,13 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var post = await _blogService.UpdatePost(
-                    _mapper.Map<BlogPost>(model));
-
-                if (post != null)
+                if (await _service.UpdatePost(
+                    _mapper.Map<BlogPost>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
-
+                
                 return NotFound();
-
             }
             catch (Exception e)
             {

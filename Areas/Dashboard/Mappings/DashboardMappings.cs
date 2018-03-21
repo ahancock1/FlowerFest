@@ -7,6 +7,9 @@
 
 namespace FlowerFest.Areas.Dashboard.Mappings
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using AutoMapper;
     using DTO;
     using FlowerFest.Mappings;
@@ -39,14 +42,60 @@ namespace FlowerFest.Areas.Dashboard.Mappings
 
         private void MapPosts(IMapperConfigurationExpression config)
         {
-            config.CreateMap<BlogPost, CreatePostViewModel>();
-            config.CreateMap<CreatePostViewModel, BlogPost>();
+            config.CreateMap<BlogPost, CreatePostViewModel>()
+                .ForMember(
+                    dest => dest.Categories,
+                    opt => opt.MapFrom(
+                        src => string.Join(", ", src.Categories)));
+            config.CreateMap<CreatePostViewModel, BlogPost>()
+                .ForMember(
+                    dest => dest.Categories,
+                    opt => opt.MapFrom(
+                        src => SplitCategories(src.Categories)))
+                .ForMember(
+                    dest => dest.Title,
+                    opt => opt.MapFrom(
+                        src => src.Title.Trim()))
+                .ForMember(
+                    dest => dest.Content,
+                    opt => opt.MapFrom(
+                        src => src.Content.Trim()))
+                .ForMember(
+                    dest => dest.Description,
+                    opt => opt.MapFrom(
+                        src => src.Description.Trim()));
 
-            config.CreateMap<BlogPost, EditPostViewModel>();
-            config.CreateMap<EditPostViewModel, BlogPost>();
-            
+            config.CreateMap<BlogPost, EditPostViewModel>()
+                .ForMember(
+                    dest => dest.Categories,
+                    opt => opt.MapFrom(
+                        src => string.Join(", ", src.Categories)));
+            config.CreateMap<EditPostViewModel, BlogPost>()
+                .ForMember(
+                    dest => dest.Categories,
+                    opt => opt.MapFrom(
+                        src => SplitCategories(src.Categories)))
+                .ForMember(
+                    dest => dest.Title,
+                    opt => opt.MapFrom(
+                        src => src.Title.Trim()))
+                .ForMember(
+                    dest => dest.Content,
+                    opt => opt.MapFrom(
+                        src => src.Content.Trim()))
+                .ForMember(
+                    dest => dest.Description,
+                    opt => opt.MapFrom(
+                        src => src.Description.Trim()));
+
             config.CreateMap<BlogPost, PostViewModel>();
             config.CreateMap<PostViewModel, BlogPost>();
+        }
+
+        private IEnumerable<string> SplitCategories(string text)
+        {
+            return text.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(c => c.Trim().ToLowerInvariant()).ToList();
         }
 
         private void MapSections(IMapperConfigurationExpression config)

@@ -101,7 +101,7 @@ namespace FlowerFest.Services
             return Task.FromResult(false);
         }
 
-        public Task<Section> GetSection(Guid id)
+        public Task<Section> GetSectionById(Guid id)
         {
             Gaurd.ThrowIfNull(id);
 

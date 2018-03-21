@@ -40,7 +40,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         {
             try
             {
-                return View("Index", _mapper.Map<IEnumerable<TestimonialViewModel>>(
+                return View(_mapper.Map<IEnumerable<TestimonialViewModel>>(
                     await _service.GetTestimonials()));
             }
             catch (Exception e)
@@ -108,7 +108,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var partner = await _service.GetTestimonial(Guid.Parse(id));
+                var partner = await _service.GetTestimonialById(Guid.Parse(id));
                 if (partner == null)
                 {
                     return NotFound();

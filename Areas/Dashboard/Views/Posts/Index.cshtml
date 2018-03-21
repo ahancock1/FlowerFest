@@ -15,13 +15,13 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Id)
+                    @Html.DisplayNameFor(model => model.Slug)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.IsPublished)
+                    @Html.DisplayNameFor(model => model.Description)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.PublishedDate)
@@ -34,13 +34,13 @@
             {
                 <tr>
                     <td>
-                        <label>@item.Id</label>
+                        <label>@item.Slug</label>
                     </td>
                     <td>
                         <label>@item.Title</label>
                     </td>
                     <td>
-                        <label>@item.IsPublished</label>
+                        <label>@item.Description</label>
                     </td>
                     <td>
                         <label>@item.PublishedDate</label>
