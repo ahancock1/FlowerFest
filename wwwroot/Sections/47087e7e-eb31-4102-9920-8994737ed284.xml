@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<SectionModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Index>0</Index>
+  <Content>test</Content>
+  <Title>test</Title>
+  <Description>test</Description>
+  <IsPublished>false</IsPublished>
+  <Id>47087e7e-eb31-4102-9920-8994737ed284</Id>
+  <Background>test</Background>
+  <Tag>test</Tag>
+</SectionModel>

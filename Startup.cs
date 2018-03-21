@@ -74,7 +74,7 @@ namespace FlowerFest
                         Path.Combine(webroot, "Testimonals")))
                 .AddSingleton<IPartnerRepository>(s =>
                     new PartnerRepository(
-                        Path.Combine(webroot, "Support")))
+                        Path.Combine(webroot, "Partners")))
                 .AddSingleton<ISectionRepository>(s =>
                     new SectionRepository(
                         Path.Combine(webroot, "Sections")));

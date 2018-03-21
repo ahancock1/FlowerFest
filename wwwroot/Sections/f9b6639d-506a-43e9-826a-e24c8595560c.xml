@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <SectionModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Index>0</Index>
+  <Index>1</Index>
+  <Content>this is some content</Content>
   <Title>About FlowerFest</Title>
   <Description>The about section for the home page</Description>
-  <IsPublished>true</IsPublished>
+  <IsPublished>false</IsPublished>
   <Id>f9b6639d-506a-43e9-826a-e24c8595560c</Id>
   <Tag>About</Tag>
 </SectionModel>

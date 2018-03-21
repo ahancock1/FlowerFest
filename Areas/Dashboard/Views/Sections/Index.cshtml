@@ -4,50 +4,53 @@
     ViewData["Title"] = "Sections";
 }
 
-<h2>Sections</h2>
+<div class="container">
+    
+    <h2>Sections</h2>
 
-<p>
-    <a asp-controller="Sections" asp-action="Create" asp-area="Dashboard">Create New</a>
-</p>
+    <p>
+        <a asp-controller="Sections" asp-action="Create" asp-area="Dashboard">Create New</a>
+    </p>
 
-<table class="table">
-    <thead>
-    <tr>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsPublished)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PublishedDate)
-        </th>*@
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
+    <table class="table">
+        <thead>
         <tr>
-            @*<td>
-                <label>@item.Id</label>
-            </td>
-            <td>
-                <label>@item.Title</label>
-            </td>
-            <td>
-                <label>@item.IsPublished</label>
-            </td>
-            <td>
-                <label>@item.PublishedDate</label>
-            </td>*@
-            <td>
-                @*<a asp-area="Sections" asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-area="Sections" asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Index)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <label>@item.Index</label>
+                </td>
+                <td>
+                    <label>@item.Tag</label>
+                </td>
+                <td>
+                    <label>@item.Title</label>
+                </td>
+                <td>
+                    <label>@item.Description</label>
+                </td>
+                <td>
+                    <a asp-area="Dashboard" asp-controller="Sections" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-area="Dashboard" asp-controller="Sections" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

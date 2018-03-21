@@ -35,8 +35,9 @@ namespace FlowerFest.Services
             return Task.FromResult(
                 _mapper.Map<IEnumerable<Section>>(
                     _repository.All(
-                        section =>
-                            section.IsPublished,
+                        //section =>
+                        //    section.IsPublished,
+                        null,
                         section =>
                             section.Index)));
         }
@@ -45,29 +46,32 @@ namespace FlowerFest.Services
         {
             Gaurd.ThrowIfNull(section);
 
-            ValidateIndex(section.Index);
+            ValidateIndex(section.Id, section.Index);
 
             return Task.FromResult(
                 _repository.Create(
                     _mapper.Map<SectionModel>(section)));
         }
 
-        private void ValidateIndex(int index)
+        private void ValidateIndex(Guid id, int index)
         {
             var sections = _repository.All(
-                section =>
-                    section.IsPublished,
+                //section =>
+                //    section.IsPublished,
+                null,
                 section =>
                     section.Index).ToList();
 
-            if (sections.All(section => section.Index != index)) return;
-
-            for (var i = index; i < sections.Count; i++)
+            if (sections.Any(s => s.Index == index && !s.Id.Equals(id)))
             {
-                var section = sections[i];
-                section.Index++;
+                foreach (var section in sections
+                    .Where(s => 
+                        s.Index >= index && !s.Id.Equals(id)))
+                {
+                    section.Index++;
 
-                _repository.Update(section);
+                    _repository.Update(section);
+                }
             }
         }
 
@@ -75,7 +79,7 @@ namespace FlowerFest.Services
         {
             Gaurd.ThrowIfNull(section);
 
-            ValidateIndex(section.Index);
+            ValidateIndex(section.Id, section.Index);
 
             return Task.FromResult(
                 _repository

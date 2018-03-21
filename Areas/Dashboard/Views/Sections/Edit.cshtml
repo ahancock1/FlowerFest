@@ -1,9 +1,89 @@
-﻿@model DashboardViewModel
+﻿@model EditSectionViewModel
 
 @{
     Layout = "_Layout";
 }
 
-<div>
-    <p>Dashboard</p>
+<div class="container">
+
+    <h2>Edit Section</h2>
+
+    <form asp-controller="Sections" asp-action="Edit" asp-area="Dashboard"
+          emethod="post" enctype="multipart/form-data">
+
+        <!-- Index -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Index">Index</label>
+                <div class="control">
+                    <input class="form-control" type="number" asp-for="@Model.Index" placeholder="The order in which the section appears" />
+                    <span class="text-danger" asp-validation-for="@Model.Index"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tag -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Tag">Tag</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Tag" placeholder="The tag used for navigation" />
+                    <span class="text-danger" asp-validation-for="@Model.Tag"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Title">Title</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Title" placeholder="The title of the section" />
+                    <span class="text-danger" asp-validation-for="@Model.Title"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Description">Description</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Description" placeholder="The description of the section" />
+                    <span class="text-danger" asp-validation-for="@Model.Description"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background -->
+        <div class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Background">Background</label>
+                <div class="control">
+                    <input class="form-control" asp-for="@Model.Background" placeholder="The background image for the section" />
+                    <span class="text-danger" asp-validation-for="@Model.Background"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div id="content" class="row">
+            <div class="standard-control col-md-12">
+                <label asp-for="@Model.Content">Content</label>
+                <div class="control">
+                    <textarea class="form-control" asp-for="@Model.Content" rows="20" autofocus placeholder="The content of the section"></textarea>
+                    <span class="text-danger" asp-validation-for="@Model.Content"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center">
+            <div class="standard-control col-md-4">
+                <input class="actions submit" type="submit" value="Save" />
+            </div>
+        </div>
+
+    </form>
+
 </div>

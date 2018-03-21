@@ -1,7 +1,7 @@
 ﻿// -----------------------------------------------------------------------
 //   Copyright (C) 2018 Adam Hancock
 //    
-//   HomeController.cs can not be copied and/or distributed without the express
+//   SectionsController.cs can not be copied and/or distributed without the express
 //   permission of Adam Hancock
 // -----------------------------------------------------------------------
 
@@ -13,17 +13,18 @@ namespace FlowerFest.Areas.Dashboard.Controllers
     using AutoMapper;
     using DTO;
     using FlowerFest.Controllers;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Services.Interfaces;
     using ViewModels.Sections;
-    using ViewModels.Testimonials;
 
     [Area("Dashboard")]
+    [Authorize]
     public class SectionsController : BaseController<SectionsController>
     {
-        private readonly ISectionService _service;
         private readonly IMapper _mapper;
+        private readonly ISectionService _service;
 
         public SectionsController(
             ISectionService service,
@@ -39,7 +40,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
         {
             try
             {
-                return View("Index", _mapper.Map<IEnumerable<Testimonial>>(
+                return View("Index", _mapper.Map<IEnumerable<SectionViewModel>>(
                     await _service.GetSections()));
             }
             catch (Exception e)
@@ -50,11 +51,11 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
         public async Task<IActionResult> Create()
         {
-            return View(new SectionViewModel());
+            return View(new CreateSectionViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(SectionViewModel model)
+        public async Task<IActionResult> Create(CreateSectionViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -65,7 +66,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             {
                 if (await _service.CreateSection(_mapper.Map<Section>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return BadRequest();
@@ -76,7 +77,6 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             }
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(string id = "")
         {
             if (string.IsNullOrEmpty(id))
@@ -88,7 +88,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
             {
                 if (await _service.DeleteSection(Guid.Parse(id)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();
@@ -108,7 +108,7 @@ namespace FlowerFest.Areas.Dashboard.Controllers
 
             try
             {
-                var partner = _service.GetSection(Guid.Parse(id));
+                var partner = await _service.GetSection(Guid.Parse(id));
                 if (partner == null)
                 {
                     return NotFound();
@@ -135,11 +135,10 @@ namespace FlowerFest.Areas.Dashboard.Controllers
                 if (await _service.UpdateSection(
                     _mapper.Map<Section>(model)))
                 {
-                    return Redirect("Index");
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();
-
             }
             catch (Exception e)
             {
