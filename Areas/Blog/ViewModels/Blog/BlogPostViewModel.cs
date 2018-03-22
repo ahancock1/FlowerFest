@@ -8,11 +8,11 @@
 namespace FlowerFest.Areas.Blog.ViewModels.Blog
 {
     using System.Collections.Generic;
-    using FlowerFest.ViewModels.Home;
+    using FlowerFest.ViewModels.Shared;
 
     public class BlogPostViewModel
     {
         public PostViewModel Post { get; set; }
-        public IEnumerable<SectionViewModel> Sections { get; set; }
+        public IEnumerable<HeaderSectionViewModel> HeaderSections { get; set; }
     }
 }

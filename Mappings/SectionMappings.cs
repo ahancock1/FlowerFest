@@ -11,6 +11,7 @@ namespace FlowerFest.Mappings
     using DTO;
     using Models;
     using ViewModels.Home;
+    using ViewModels.Shared;
 
     public class SectionMappings : ContentMapping
     {
@@ -21,6 +22,9 @@ namespace FlowerFest.Mappings
 
             config.CreateMap<Section, SectionViewModel>();
             config.CreateMap<SectionViewModel, Section>();
+
+            config.CreateMap<Section, HeaderSectionViewModel>();
+            config.CreateMap<HeaderSectionViewModel, Section>();
         }
     }
 }

@@ -12,7 +12,7 @@
                 <!-- Post -->
                 <div class="blog-post">
                     <div class="post-media">
-                        <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
+                        <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" asp-area="Blog" itemprop="url">
                             <img src="@Url.Content($"~/uploads/{post.Spotlight}")" alt="blog" />
                         </a>
                     </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="post-header">
                         <h4 class="alt-title">
-                            <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" itemprop="url">
+                            <a asp-controller="Blog" asp-action="Post" asp-route-slug="@post.Slug" asp-area="Blog" itemprop="url">
                                 @post.Title
                             </a>
                         </h4>

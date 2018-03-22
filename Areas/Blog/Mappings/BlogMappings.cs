@@ -7,12 +7,11 @@
 
 namespace FlowerFest.Areas.Blog.Mappings
 {
-    using System;
     using AutoMapper;
     using DTO;
     using FlowerFest.Mappings;
+    using ViewModels;
     using ViewModels.Blog;
-    using PostViewModel = Dashboard.ViewModels.Posts.PostViewModel;
 
     public class BlogMappings : IMapperConfiguration
     {
@@ -23,6 +22,10 @@ namespace FlowerFest.Areas.Blog.Mappings
 
             config.CreateMap<Comment, CommentViewModel>();
             config.CreateMap<CommentViewModel, Comment>();
+
+            config.CreateMap<BlogPost, BlogPostViewModel>();
+            config.CreateMap<BlogPostViewModel, BlogPost>();
+
         }
     }
 }

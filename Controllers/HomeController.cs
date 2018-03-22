@@ -16,6 +16,7 @@ namespace FlowerFest.Controllers
     using Microsoft.Extensions.Options;
     using Services.Interfaces;
     using ViewModels.Home;
+    using ViewModels.Shared;
 
     public class HomeController : BaseController<HomeController>
     {
@@ -65,7 +66,9 @@ namespace FlowerFest.Controllers
                     Sections = _mapper.Map<IEnumerable<SectionViewModel>>(
                         await _sectionService.GetSections()),
                     Partners = _mapper.Map<IEnumerable<PartnerViewModel>>(
-                        await _partnerService.GetPartners())
+                        await _partnerService.GetPartners()),
+                    HeaderSections = _mapper.Map<IEnumerable<HeaderSectionViewModel>>(
+                        await _sectionService.GetSections())
                 });
             }
             catch (Exception e)

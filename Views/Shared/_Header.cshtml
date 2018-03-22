@@ -1,5 +1,4 @@
-﻿@model IEnumerable<SectionViewModel>
-
+﻿
 <div class="header-inner">
 
     <!-- Logo -->
@@ -20,15 +19,15 @@
     <div class="nav-menu singlepage-nav">
         <ul class="nav-menu-inner">
             <li>
-                <a class="current" href="@Url.Action("Index", "Home")#intro">Home</a>
+                <a class="current" href="@Url.Action("Index", "Home", new {area = ""})#intro">Home</a>
             </li>
             
-            @foreach (var section in Model.Where(s => !string.IsNullOrEmpty(s.Tag)))
+            @foreach (var section in Model.HeaderSections)
             {
                 <li>
                     @{
                         var tag = section.Tag;
-                        var url = $"{Url.Action("Index", "Home")}#{tag}";
+                        var url = $"{Url.Action("Index", "Home", new { area = "" })}#{tag}";
                     }
 
                     <a href="@url">@tag</a>
@@ -36,22 +35,22 @@
             }
             
             <li>
-                <a href="@Url.Action("Index", "Home")#news">News</a>
+                <a href="@Url.Action("Index", "Home", new {area = ""})#news">News</a>
             </li>
 
             <li>
-                <a asp-controller="blog" asp-action="Index">Blog</a>
+                <a asp-controller="Blog" asp-action="Index" asp-area="Blog">Blog</a>
             </li>
             <li>
-                <a href="@Url.Action("Index", "Home")#contact">Contact</a>
+                <a href="@Url.Action("Index", "Home", new {area = ""})#contact">Contact</a>
             </li>
 
-            @if (User.Identity.IsAuthenticated)
+            @*@if (User.Identity.IsAuthenticated)
             {
                 <li>
                     <a asp-controller="Account" asp-action="LogOutAsync">Logout</a>
                 </li>
-            }
+            }*@
         </ul>
     </div>
     <!-- End Navbar Navigation -->
