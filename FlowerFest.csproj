@@ -27,6 +27,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="ViewModels\Shared\HeaderSectionViewModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Scripts\admin.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
